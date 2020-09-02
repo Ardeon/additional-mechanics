@@ -1,67 +1,67 @@
-name: tost
-main: ru.ardeon.tost.Tost
+name: additionalmechanics
+main: ru.ardeon.additionalmechanics.AdditionalMechanics
 version: 1.0
 api-version: 1.13
 commands:
     tost:
         description: добавление поля
         usage: /tost <имя>
-        permission: tost.admin
+        permission: additionalmechanics.admin
     horsetest:
         description: test
         usage: /horsetest
-        permission: tost.admin
+        permission: additionalmechanics.admin
     pblock:
         description: добавление блока
         usage: /pblock <имя>
-        permission: tost.admin
+        permission: additionalmechanics.admin
     altar:
         description: добавление altar
         usage: /altar <имя>
-        permission: tost.admin
+        permission: additionalmechanics.admin
     enderbook:
         description: открыть Книггу
         usage: /enderbook
-        permission: tost.enderbook
+        permission: additionalmechanics.enderbook
     stoptimer:
         description: Запустить таймер рестарта
         usage: /stoptimer <mins>
-        permission: tost.admin
+        permission: additionalmechanics.admin
 permissions: #права
-    tost.admin:
+    additionalmechanics.admin:
         description: admin access
-    tost.miner.small:
+    additionalmechanics.miner.small:
         description: 1x2
-    tost.miner.normal:
+    additionalmechanics.miner.normal:
         description: 3x2
-    tost.miner.big:
+    additionalmechanics.miner.big:
         description: 3x3
-    tost.miner.extradrop.1:
+    additionalmechanics.miner.extradrop.1:
         description: 11%
-    tost.miner.extradrop.2:
+    additionalmechanics.miner.extradrop.2:
         description: 22%
-    tost.miner.extradrop.3:
+    additionalmechanics.miner.extradrop.3:
         description: 33%
-    tost.miner.extradrop.4:
+    additionalmechanics.miner.extradrop.4:
         description: 44%
-    tost.radar.power.1:
+    additionalmechanics.radar.power.1:
         description: 3x1
-    tost.radar.power.2:
+    additionalmechanics.radar.power.2:
         description: 4x2
-    tost.radar.power.3:
+    additionalmechanics.radar.power.3:
         description: 5x3
-    tost.radar.coal:
+    additionalmechanics.radar.coal:
         description: coal
-    tost.radar.iron:
+    additionalmechanics.radar.iron:
         description: iron
-    tost.radar.gold:
+    additionalmechanics.radar.gold:
         description: gold
-    tost.radar.lazurit:
+    additionalmechanics.radar.lazurit:
         description: lazurit
-    tost.radar.emerald:
+    additionalmechanics.radar.emerald:
         description: emerald
-    tost.radar.diamond:
+    additionalmechanics.radar.diamond:
         description: diamond
-    tost.radar.other:
+    additionalmechanics.radar.other:
         description: other
 depend: [Multiverse-Core]
