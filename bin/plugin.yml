@@ -1,0 +1,67 @@
+name: tost
+main: ru.ardeon.tost.Tost
+version: 1.0
+api-version: 1.13
+commands:
+    tost:
+        description: добавление поля
+        usage: /tost <имя>
+        permission: tost.admin
+    horsetest:
+        description: test
+        usage: /horsetest
+        permission: tost.admin
+    pblock:
+        description: добавление блока
+        usage: /pblock <имя>
+        permission: tost.admin
+    altar:
+        description: добавление altar
+        usage: /altar <имя>
+        permission: tost.admin
+    enderbook:
+        description: открыть Книггу
+        usage: /enderbook
+        permission: tost.enderbook
+    stoptimer:
+        description: Запустить таймер рестарта
+        usage: /stoptimer <mins>
+        permission: tost.admin
+permissions: #права
+    tost.admin:
+        description: admin access
+    tost.miner.small:
+        description: 1x2
+    tost.miner.normal:
+        description: 3x2
+    tost.miner.big:
+        description: 3x3
+    tost.miner.extradrop.1:
+        description: 11%
+    tost.miner.extradrop.2:
+        description: 22%
+    tost.miner.extradrop.3:
+        description: 33%
+    tost.miner.extradrop.4:
+        description: 44%
+    tost.radar.power.1:
+        description: 3x1
+    tost.radar.power.2:
+        description: 4x2
+    tost.radar.power.3:
+        description: 5x3
+    tost.radar.coal:
+        description: coal
+    tost.radar.iron:
+        description: iron
+    tost.radar.gold:
+        description: gold
+    tost.radar.lazurit:
+        description: lazurit
+    tost.radar.emerald:
+        description: emerald
+    tost.radar.diamond:
+        description: diamond
+    tost.radar.other:
+        description: other
+depend: [Multiverse-Core]
