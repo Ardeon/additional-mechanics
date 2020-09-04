@@ -38,7 +38,7 @@ public class AdditionalMechanics extends JavaPlugin{
     	getServer().getPluginManager().registerEvents(new EventsListener(), this);
         CommandManager.CommandRegister();
         loadBlocks();
-        altar = new Altar();
+        //altar = new Altar();
     }
     
 
