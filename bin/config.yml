@@ -35,7 +35,16 @@ guilds:
         8: 0.75
         9: 0.8
         10: 0.85
-    scaner: true
+    radar:
+      small:
+        radius: 3
+        height: 1
+      medium:
+        radius: 4
+        height: 2
+      big:
+        radius: 5
+        height: 2
   miners:
     radar:
       small:

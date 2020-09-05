@@ -44,24 +44,42 @@ permissions: #права
         description: 33%
     additionalmechanics.miner.extradrop.4:
         description: 44%
-    additionalmechanics.radar.power.1:
+    additionalmechanics.miner.radar.power.1:
         description: 3x1
-    additionalmechanics.radar.power.2:
+    additionalmechanics.miner.radar.power.2:
         description: 4x2
-    additionalmechanics.radar.power.3:
+    additionalmechanics.miner.radar.power.3:
         description: 5x3
-    additionalmechanics.radar.coal:
+    additionalmechanics.miner.radar.coal:
         description: coal
-    additionalmechanics.radar.iron:
+    additionalmechanics.miner.radar.iron:
         description: iron
-    additionalmechanics.radar.gold:
+    additionalmechanics.miner.radar.gold:
         description: gold
-    additionalmechanics.radar.lazurit:
+    additionalmechanics.miner.radar.lazurit:
         description: lazurit
-    additionalmechanics.radar.emerald:
+    additionalmechanics.miner.radar.emerald:
         description: emerald
-    additionalmechanics.radar.diamond:
+    additionalmechanics.miner.radar.diamond:
         description: diamond
-    additionalmechanics.radar.other:
+    additionalmechanics.miner.radar.other:
         description: other
+    additionalmechanics.adventurer.radar.power.1:
+        description: 4x2
+    additionalmechanics.adventurer.radar.power.2:
+        description: 5x3
+    additionalmechanics.adventurer.radar.power.3:
+        description: 6x3
+    additionalmechanics.adventurer.horse.hp.1:
+        description: none
+    additionalmechanics.adventurer.horse.hp.2:
+        description: none
+    additionalmechanics.adventurer.horse.hp.3:
+        description: none
+    additionalmechanics.adventurer.horse.hp.4:
+        description: none
+    additionalmechanics.adventurer.horse.hp.5:
+        description: none
+    additionalmechanics.adventurer.horse.hp.6:
+        description: none
 depend: [Multiverse-Core]
