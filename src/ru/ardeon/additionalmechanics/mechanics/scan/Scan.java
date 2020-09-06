@@ -44,9 +44,9 @@ public abstract class Scan {
 			for (int j=-2; j<=2; j++) {
 				for (int k =-2; k<=2; k++) {
 					Block c = spots.get(curr).getRelative(i, j, k);//;
-					if (testBlock(c))
+					if (!testBlock(c))
 						continue;
-					if (target!=null&&filter.getMat()!=null&&filter.test(c.getType())) {
+					if (target!=null&&filter.test(c.getType())) {
 						if (partloc.distance(target.getLocation())>partloc.distance(c.getLocation())) {
 							target=c;
 						}

@@ -43,6 +43,15 @@ public class AdventurersListener implements Listener {
 									meta.setLore(lore);
 									item.setItemMeta(meta);
 								}
+								else {
+									String str = lore.get(0);
+									lore.clear();
+									lore.add(str);
+									lore.add("Ищет");
+									lore.add(converter.getNext(""));
+									meta.setLore(lore);
+									item.setItemMeta(meta);
+								}
 							}
 							else {
 								BountyFilter filter = new BountyFilter();

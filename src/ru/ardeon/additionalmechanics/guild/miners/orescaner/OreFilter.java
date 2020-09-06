@@ -19,9 +19,9 @@ public class OreFilter extends Filter implements PermissionTester {
 	@Override
 	public boolean test(Material tested) {
 		if (mat!=null) 
-			return tested.equals(mat);
+			return mat.equals(tested);
 		else
-			return new OreConverter().testForMaterial(mat);
+			return new OreConverter().testForMaterial(tested);
 	}
 	
 	@Override

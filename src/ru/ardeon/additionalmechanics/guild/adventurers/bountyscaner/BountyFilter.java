@@ -19,9 +19,9 @@ public class BountyFilter extends Filter implements PermissionTester {
 	@Override
 	public boolean test(Material tested) {
 		if (mat!=null) 
-			return tested.equals(mat);
+			return mat.equals(tested);
 		else 
-			return new BountyConverter().testForMaterial(mat);
+			return new BountyConverter().testForMaterial(tested);
 	}
 
 	@Override
