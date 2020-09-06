@@ -26,7 +26,7 @@ public class OreConverter extends ConverterMaterial {
 			break;
 		}
 		case EMERALD_ORE: {
-			s="§a�?зумруд";
+			s="§a�?зумруд";
 			break;
 		}
 		case DIAMOND_ORE: {
@@ -41,8 +41,9 @@ public class OreConverter extends ConverterMaterial {
 	}
 	@Override
 	public boolean testForMaterial(Material m) {
-		if (m.equals(Material.COAL_ORE)||m.equals(Material.IRON_ORE)||m.equals(Material.GOLD_ORE)||m.equals(Material.LAPIS_ORE)
-				||m.equals(Material.EMERALD_ORE)||m.equals(Material.DIAMOND_ORE)||m.equals(Material.NETHER_QUARTZ_ORE)||m.equals(Material.NETHER_GOLD_ORE))
+		if (m!=null&&(m.equals(Material.COAL_ORE)||m.equals(Material.IRON_ORE)||m.equals(Material.GOLD_ORE)||m.equals(Material.LAPIS_ORE)
+				||m.equals(Material.EMERALD_ORE)||m.equals(Material.DIAMOND_ORE)
+				||m.equals(Material.NETHER_QUARTZ_ORE)||m.equals(Material.NETHER_GOLD_ORE)))
 			return true;
 		return false;
 	}
@@ -66,7 +67,7 @@ public class OreConverter extends ConverterMaterial {
 			m=Material.LAPIS_ORE;
 			break;
 		}
-		case "§a�?зумруд": {
+		case "§a�?зумруд": {
 			m=Material.EMERALD_ORE;
 			break;
 		}
@@ -96,10 +97,10 @@ public class OreConverter extends ConverterMaterial {
 			break;
 		}
 		case "§9Лазурит": {
-			next="§a�?зумруд";
+			next="§a�?зумруд";
 			break;
 		}
-		case "§a�?зумруд": {
+		case "§a�?зумруд": {
 			next="§bАлмаз";
 			break;
 		}

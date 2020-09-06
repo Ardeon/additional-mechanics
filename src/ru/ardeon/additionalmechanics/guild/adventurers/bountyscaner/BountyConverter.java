@@ -35,7 +35,7 @@ public class BountyConverter extends ConverterMaterial {
 	
 	@Override
 	public boolean testForMaterial(Material m) {
-		if (m.equals(Material.END_PORTAL_FRAME)||m.equals(Material.CHEST)||m.equals(Material.SPAWNER)||m.equals(Material.DISPENSER))
+		if (m!=null&&(m.equals(Material.END_PORTAL_FRAME)||m.equals(Material.CHEST)||m.equals(Material.SPAWNER)||m.equals(Material.DISPENSER)))
 			return true;
 		return false;
 	}
