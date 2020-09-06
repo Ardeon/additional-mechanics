@@ -21,13 +21,13 @@ public class BountyFilter extends Filter implements PermissionTester {
 		if (mat!=null) 
 			return tested.equals(mat);
 		else 
-			return true;
+			return new BountyConverter().testForMaterial(mat);
 	}
 
 	@Override
 	public boolean testPermission(Player p) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

@@ -46,7 +46,7 @@ public class OreScaner extends Scan {
 				return false;
 			}
 		
-		return false;
+		return true;
 	}
 	
 }

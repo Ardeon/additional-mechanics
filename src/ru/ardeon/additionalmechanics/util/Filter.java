@@ -13,6 +13,9 @@ public abstract class Filter {
 		this.mat = null;
 	}
 	
+	public Material getMat() {
+		return mat;
+	}
 	public abstract boolean test(Material tested);
 
 }

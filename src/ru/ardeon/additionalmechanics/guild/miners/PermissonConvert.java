@@ -17,14 +17,26 @@ public class PermissonConvert {
 	*/
 	public static int getextradrop(Player p) {
 		int s=0;
-		if (p.hasPermission("tost.miner.extradrop.1")) 
+		if (p.hasPermission("additionalmechanics.miner.extradrop.1")) 
 			s=1;
-		if (p.hasPermission("tost.miner.extradrop.2")) 
+		if (p.hasPermission("additionalmechanics.miner.extradrop.2")) 
 			s=2;
-		if (p.hasPermission("tost.miner.extradrop.3")) 
+		if (p.hasPermission("additionalmechanics.miner.extradrop.3")) 
 			s=3;
-		if (p.hasPermission("tost.miner.extradrop.4")) 
+		if (p.hasPermission("additionalmechanics.miner.extradrop.4")) 
 			s=4;
 		return s;
 	}
+	
+	public static int getMineSize(Player p) {
+		int s=0;
+		if (p.hasPermission("additionalmechanics.miner.size.small")) 
+			s=1;
+		if (p.hasPermission("additionalmechanics.miner.size.medium")) 
+			s=2;
+		if (p.hasPermission("additionalmechanics.miner.size.big")) 
+			s=3;
+		return s;
+	}
+	
 }

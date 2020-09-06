@@ -30,11 +30,11 @@ commands:
 permissions: #права
     additionalmechanics.admin:
         description: admin access
-    additionalmechanics.miner.small:
+    additionalmechanics.miner.size.small:
         description: 1x2
-    additionalmechanics.miner.normal:
+    additionalmechanics.miner.size.normal:
         description: 3x2
-    additionalmechanics.miner.big:
+    additionalmechanics.miner.size.big:
         description: 3x3
     additionalmechanics.miner.extradrop.1:
         description: 11%

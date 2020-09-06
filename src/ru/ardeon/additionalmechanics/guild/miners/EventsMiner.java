@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.guild.miners.orescaner.OreConverter;
 import ru.ardeon.additionalmechanics.guild.miners.orescaner.OreFilter;
 import ru.ardeon.additionalmechanics.guild.miners.orescaner.OreScaner;
@@ -128,21 +129,60 @@ public class EventsMiner implements Listener {
 		Material m = b.getType();
 		if (item != null && item.hasItemMeta()) {
 			if (item.getItemMeta().hasLore()) {
-				//tost.log.info("lore");
-				//tost.log.info(item.getItemMeta().getLore().get(1));
 				ItemMeta met = item.getItemMeta();
 				List<String> lore = met.getLore();
 				boolean pass = (m.equals(Material.STONE)||m.equals(Material.ANDESITE)||m.equals(Material.GRANITE)||m.equals(Material.DIORITE)||m.equals(Material.NETHERRACK));
 				if (lore.contains("§aУлучшение - Широкие тонели")&&pass)
 				{
+					float yaw = p.getLocation().getYaw();//0 = positive z; 90 = negative x; 
+					AdditionalMechanics.getPlugin().getLogger().info(""+yaw);
+					int z0=0,x0=0,z1=0,x1=0,y=0,x=0;
+					int power = PermissonConvert.getMineSize(p);
+					if (power==3)
+						y=1;
+					if (power>1)
+						x=1;
+					if (yaw>315||yaw<=45) {
+						z0 = -1;
+						if (power>1) {
+							x0=-1;x1=1;
+						}
+						if (power==3)
+							z1=1;
+					}
+					else if (yaw<=135) {
+						x1 = 1;
+						if (power>1) {
+							z0=-1;z1=1;
+						}
+						if (power==3)
+							x0=-1;
+					}
+					else if (yaw<=225) {
+						z1 = 1;
+						if (power>1) {
+							x0=-1;x1=1;
+						}
+						if (power==3)
+							z0=-1;
+					}
+					else {
+						x0 = -1;
+						if (power>1) {
+							z0=-1;z1=1;
+						}
+						if (power==3)
+							x1=1;
+					}
+					
 					BlockFace face = e.getPlayer().rayTraceBlocks(5).getHitBlockFace();
-					//tost.log.info("tonel");
+					
 					switch (face) {
 					case DOWN :
 					{
-						for (int i = -1; i<2;i++)
+						for (int i = x0; i<=x1; i++)
 						{
-							for (int j = -1; j<2;j++)
+							for (int j = z0; j<=z1; j++)
 							{
 								if ((j==0) && (i==0))
 									continue;
@@ -156,9 +196,9 @@ public class EventsMiner implements Listener {
 					}
 					case UP :
 					{
-						for (int i = -1; i<2;i++)
+						for (int i = x0; i<=x1;i++)
 						{
-							for (int j = -1; j<2;j++)
+							for (int j = z0; j<=z1;j++)
 							{
 								if ((j==0) && (i==0))
 									continue;
@@ -172,9 +212,9 @@ public class EventsMiner implements Listener {
 					}
 					case EAST :
 					{
-						for (int i = -1; i<2;i++)
+						for (int i = -1; i<=y;i++)
 						{
-							for (int j = -1; j<2;j++)
+							for (int j = -x; j<=x;j++)
 							{
 								if ((j==0) && (i==0))
 									continue;
@@ -188,9 +228,9 @@ public class EventsMiner implements Listener {
 					}
 					case WEST :
 					{
-						for (int i = -1; i<2;i++)
+						for (int i = -1; i<=y;i++)
 						{
-							for (int j = -1; j<2;j++)
+							for (int j = -x; j<=x;j++)
 							{
 								if ((j==0) && (i==0))
 									continue;
@@ -204,13 +244,13 @@ public class EventsMiner implements Listener {
 					}
 					case NORTH :
 					{
-						for (int i = -1; i<2;i++)
+						for (int i = -1; i<=y;i++)
 						{
-							for (int j = -1; j<2;j++)
+							for (int j = -x; j<=x;j++)
 							{
 								if ((j==0) && (i==0))
 									continue;
-								Block rb = b.getRelative(i, j, 0);
+								Block rb = b.getRelative(j, i, 0);
 								Material rm = rb.getType();
 								if (rm.equals(Material.STONE)||rm.equals(Material.ANDESITE)||rm.equals(Material.GRANITE)||rm.equals(Material.DIORITE)||rm.equals(Material.NETHERRACK))
 									rb.breakNaturally(item);
@@ -220,13 +260,13 @@ public class EventsMiner implements Listener {
 					}
 					case SOUTH :
 					{
-						for (int i = -1; i<2;i++)
+						for (int i = -1; i<=y;i++)
 						{
-							for (int j = -1; j<2;j++)
+							for (int j = -x; j<=x;j++)
 							{
 								if ((j==0) && (i==0))
 									continue;
-								Block rb = b.getRelative(i, j, 0);
+								Block rb = b.getRelative(j, i, 0);
 								Material rm = rb.getType();
 								if (rm.equals(Material.STONE)||rm.equals(Material.ANDESITE)||rm.equals(Material.GRANITE)||rm.equals(Material.DIORITE)||rm.equals(Material.NETHERRACK))
 									rb.breakNaturally(item);
