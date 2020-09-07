@@ -56,4 +56,16 @@ guilds:
       big:
         radius: 4
         height: 2
-    
+    filter:
+      coal: true
+      iron: true
+      gold: true
+      lazurit: true
+      emerald: true
+      diamond: true
+    extradrop:
+      1: true
+      2: true
+      3: true
+      4: true
+    size

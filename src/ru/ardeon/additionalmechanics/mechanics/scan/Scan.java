@@ -122,7 +122,7 @@ public abstract class Scan {
 				public void run()
 				{
 					p.spawnParticle(Particle.FLAME, partloc, 5, 0.01, 0.01, 0.01, 0.01);
-					if (partloc.distance(target.getLocation().clone().add(0.5,0.5,0.5))>0.2&&count<100) {
+					if (partloc.distance(target.getLocation().clone().add(0.5,0.5,0.5))>0.2&&count<400) {
 						partloc.add(target.getLocation().clone().add(0.5,0.5,0.5).subtract(partloc.clone()).toVector().normalize().multiply(0.15));
 					}
 					else {

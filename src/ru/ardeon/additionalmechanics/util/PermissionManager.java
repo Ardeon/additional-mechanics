@@ -13,12 +13,16 @@ public class PermissionManager {
 	static String advHorseSpeed = "guilds.adventurers.horse.speed";
 	static String advHorseJump = "guilds.adventurers.horse.jump";
 	static String advRadar = "guilds.adventurers.radar";
+	static String minerRadar = "additionalmechanics.miner.radar";
+	static String minerFilter = "additionalmechanics.miner.filter";
+	static String minerExtradrop = "additionalmechanics.miner.extradrop";
 
 	static public void regAll() {
 		PermissionCreate(advHorseHp);
 		PermissionCreate(advHorseSpeed);
 		PermissionCreate(advHorseJump);
 		PermissionCreate(advRadar);
+		PermissionCreate(minerRadar);
 	}
 	
 	static void PermissionCreate(String part){

@@ -16,6 +16,8 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class HorseController {
 	public HashSet<Entity> horses = new HashSet<Entity>();
+	public String itemLore = "§6Призыв коня";
+	
 	
 	public HorseController() {
 		AdditionalMechanics.getPlugin().getServer().getPluginManager().registerEvents(new Horselistener(this), AdditionalMechanics.getPlugin());

@@ -1,12 +1,21 @@
 package ru.ardeon.additionalmechanics.guild.adventurers.horse;
 
+import java.util.List;
+
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 
@@ -46,6 +55,30 @@ public class Horselistener implements Listener {
 		InventoryHolder holder = e.getInventory().getHolder();
 		if (holder!=null&&holder instanceof Entity&&controller.horses.contains((Entity)holder))
 			e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent e) {
+		if (e.getHand()!=null) {
+			if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+				ItemStack item = e.getItem();
+				Player p = e.getPlayer();
+				if (item != null) {
+					ItemMeta meta = item.getItemMeta();
+					if (meta.hasLore()) {
+						List<String> lore = meta.getLore();
+						if (!p.hasCooldown(Material.GLOWSTONE_DUST)&&(lore.get(0).equals(controller.itemLore))) {
+							int hp, speed, jump;
+							hp = HorsePermission.getHp(p);
+							speed = HorsePermission.getSpeed(p);
+							jump = HorsePermission.getJump(p);
+							controller.CreateHorse(p, EntityType.SKELETON_HORSE, hp, speed, jump);
+							p.setCooldown(Material.GLOWSTONE_DUST, 40);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	/*

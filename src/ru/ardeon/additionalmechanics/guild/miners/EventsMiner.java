@@ -64,7 +64,7 @@ public class EventsMiner implements Listener {
 								if (filter.testPermission(p)) {
 									switch (lore.get(0)) {
 									case "§6Малый сканер":{
-										if (p.hasPermission("tost.radar.power.1")) {
+										if (p.hasPermission("additionalmechanics.miner.radar.small")) {
 											new OreScaner(p, e.getClickedBlock(), filter, 1);
 											p.setCooldown(Material.COMPASS, 20*30);
 										}
@@ -73,7 +73,7 @@ public class EventsMiner implements Listener {
 										break;
 									}
 									case "§6Сканер":{
-										if (p.hasPermission("tost.radar.power.2")) {
+										if (p.hasPermission("additionalmechanics.miner.radar.medium")) {
 											new OreScaner(p, e.getClickedBlock(), filter, 2);
 											p.setCooldown(Material.COMPASS, 20*45);
 										}
@@ -82,7 +82,7 @@ public class EventsMiner implements Listener {
 										break;
 									}
 									case "§6Большой сканер":{
-										if (p.hasPermission("tost.radar.power.3")) {
+										if (p.hasPermission("additionalmechanics.miner.radar.big")) {
 											new OreScaner(p, e.getClickedBlock(), filter, 3);
 											p.setCooldown(Material.COMPASS, 20*70);
 										}
@@ -147,6 +147,8 @@ public class EventsMiner implements Listener {
 					AdditionalMechanics.getPlugin().getLogger().info(""+yaw);
 					int z0=0,x0=0,z1=0,x1=0,y=0,x=0;
 					int power = PermissonConvert.getMineSize(p);
+					if (power==0)
+						return;
 					if (power==3)
 						y=1;
 					if (power>1)

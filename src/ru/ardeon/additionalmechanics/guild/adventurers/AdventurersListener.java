@@ -61,7 +61,7 @@ public class AdventurersListener implements Listener {
 								if (filter.testPermission(p)) {
 									switch (lore.get(0)) {
 									case "§6Малый радар":{
-										if (p.hasPermission("additionalmechanics.radar.power.1")) {
+										if (p.hasPermission("additionalmechanics.adventurers.radar.small")) {
 											new BountyScaner(p, e.getClickedBlock(), filter, 1);
 											p.setCooldown(Material.COMPASS, 20*30);
 										}
@@ -70,7 +70,7 @@ public class AdventurersListener implements Listener {
 										break;
 									}
 									case "§6Радар":{
-										if (p.hasPermission("additionalmechanics.radar.power.2")) {
+										if (p.hasPermission("additionalmechanics.adventurers.radar.medium")) {
 											new BountyScaner(p, e.getClickedBlock(), filter, 2);
 											p.setCooldown(Material.COMPASS, 20*45);
 										}
@@ -79,7 +79,7 @@ public class AdventurersListener implements Listener {
 										break;
 									}
 									case "§6Большой радар":{
-										if (p.hasPermission("additionalmechanics.radar.power.3")) {
+										if (p.hasPermission("additionalmechanics.adventurers.radar.big")) {
 											new BountyScaner(p, e.getClickedBlock(), filter, 3);
 											p.setCooldown(Material.COMPASS, 20*70);
 										}
