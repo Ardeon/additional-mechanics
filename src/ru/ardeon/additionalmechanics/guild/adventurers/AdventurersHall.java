@@ -15,6 +15,7 @@ public class AdventurersHall {
 		AdditionalMechanics.getPlugin().getServer().getPluginManager().registerEvents(new AdventurersListener(this), AdditionalMechanics.getPlugin());
 		AdditionalMechanics.getPlugin().getServer().getPluginManager().registerEvents(new PortalBooklistener(), AdditionalMechanics.getPlugin());
 		AdditionalMechanics.getPlugin().getServer().getPluginCommand("horsetest").setExecutor(new HorseCommand(this));
+		AdditionalMechanics.getPlugin().getServer().getPluginCommand("rideon").setExecutor(new RideCommand(this));
 	}
 	
 	public HorseController getGuildHorseController() {

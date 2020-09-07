@@ -26,7 +26,7 @@ public class OreConverter extends ConverterMaterial {
 			break;
 		}
 		case EMERALD_ORE: {
-			s="§a�?зумруд";
+			s="§aИзумруд";
 			break;
 		}
 		case DIAMOND_ORE: {
@@ -67,7 +67,7 @@ public class OreConverter extends ConverterMaterial {
 			m=Material.LAPIS_ORE;
 			break;
 		}
-		case "§a�?зумруд": {
+		case "§aИзумруд": {
 			m=Material.EMERALD_ORE;
 			break;
 		}
@@ -97,10 +97,10 @@ public class OreConverter extends ConverterMaterial {
 			break;
 		}
 		case "§9Лазурит": {
-			next="§a�?зумруд";
+			next="§aИзумруд";
 			break;
 		}
-		case "§a�?зумруд": {
+		case "§aИзумруд": {
 			next="§bАлмаз";
 			break;
 		}

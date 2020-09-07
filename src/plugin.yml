@@ -27,6 +27,10 @@ commands:
         description: Запустить таймер рестарта
         usage: /stoptimer <mins>
         permission: additionalmechanics.admin
+    rideon:
+        description: test
+        usage: /rideon
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access

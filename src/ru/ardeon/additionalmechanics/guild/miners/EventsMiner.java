@@ -19,7 +19,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.guild.miners.orescaner.OreConverter;
 import ru.ardeon.additionalmechanics.guild.miners.orescaner.OreFilter;
 import ru.ardeon.additionalmechanics.guild.miners.orescaner.OreScaner;
@@ -144,7 +143,6 @@ public class EventsMiner implements Listener {
 				if (lore.contains("§aУлучшение - Широкие тонели")&&pass)
 				{
 					float yaw = p.getLocation().getYaw();//0 = positive z; 90 = negative x; 
-					AdditionalMechanics.getPlugin().getLogger().info(""+yaw);
 					int z0=0,x0=0,z1=0,x1=0,y=0,x=0;
 					int power = PermissonConvert.getMineSize(p);
 					if (power==0)

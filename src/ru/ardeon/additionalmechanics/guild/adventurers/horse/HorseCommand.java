@@ -16,9 +16,7 @@ public class HorseCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) 
-	{
-		// TODO Auto-generated method stub
+	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
 		if ((sender instanceof Player)) 
 		{
 			Player p = (Player) sender;
