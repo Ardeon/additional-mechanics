@@ -2,8 +2,10 @@ package ru.ardeon.additionalmechanics.guild.adventurers.horse;
 
 import org.bukkit.entity.Player;
 
+import ru.ardeon.additionalmechanics.AdditionalMechanics;
+
 public class HorsePermission {
-	public static int getHp(Player p) {
+	public static double getHp(Player p) {
 		int i = 0;
 		if (p.hasPermission("guilds.adventurers.horse.hp.1"))
 			i=1;
@@ -17,10 +19,11 @@ public class HorsePermission {
 			i=5;
 		if (p.hasPermission("guilds.adventurers.horse.hp.6"))
 			i=6;
-		return i;
+		double hp = AdditionalMechanics.getPlugin().configLoader.getConfig().getDouble("guilds.adventurers.horse.hp."+i, 9);
+		return hp;
 	}
 	
-	public static int getSpeed(Player p) {
+	public static double getSpeed(Player p) {
 		int i = 0;
 		if (p.hasPermission("guilds.adventurers.horse.speed.1"))
 			i=1;
@@ -42,10 +45,11 @@ public class HorsePermission {
 			i=9;
 		if (p.hasPermission("guilds.adventurers.horse.speed.10"))
 			i=10;
-		return i;
+		double speed = AdditionalMechanics.getPlugin().configLoader.getConfig().getDouble("guilds.adventurers.horse.speed."+i, 0.2);
+		return speed;
 	}
 	
-	public static int getJump(Player p) {
+	public static double getJump(Player p) {
 		int i = 0;
 		if (p.hasPermission("guilds.adventurers.horse.jump.1"))
 			i=1;
@@ -67,7 +71,8 @@ public class HorsePermission {
 			i=9;
 		if (p.hasPermission("guilds.adventurers.horse.jump.10"))
 			i=10;
-		return i;
+		double jump = AdditionalMechanics.getPlugin().configLoader.getConfig().getDouble("guilds.adventurers.horse.jump."+i, 0.6);
+		return jump;
 	}
 	
 	public static boolean getCanUse(Player p) {

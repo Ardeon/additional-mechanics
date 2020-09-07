@@ -68,7 +68,7 @@ public class Horselistener implements Listener {
 					if (meta.hasLore()) {
 						List<String> lore = meta.getLore();
 						if (!p.hasCooldown(Material.GLOWSTONE_DUST)&&(lore.get(0).equals(controller.itemLore))) {
-							int hp, speed, jump;
+							double hp, speed, jump;
 							hp = HorsePermission.getHp(p);
 							speed = HorsePermission.getSpeed(p);
 							jump = HorsePermission.getJump(p);
