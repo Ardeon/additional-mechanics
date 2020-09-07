@@ -31,6 +31,10 @@ commands:
         description: test
         usage: /rideon
         permission: additionalmechanics.admin
+    launchhook:
+        description: test
+        usage: /launchhook
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
