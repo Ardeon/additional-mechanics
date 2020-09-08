@@ -27,6 +27,23 @@ public class TextUtilRGB {
 		return cb.create();
 	}
 	
+	public static BaseComponent[] toSet(String string, Color color1, Color color2) {
+		int r = color2.getRed() - color1.getRed();
+		int g = color2.getGreen() - color1.getGreen();
+		int b = color2.getBlue() - color1.getBlue();
+		int r1 = color1.getRed();
+		int g1 = color1.getGreen();
+		int b1 = color1.getBlue();
+		String[] chunks = string.split("");
+		int l = chunks.length;
+		ComponentBuilder cb = new ComponentBuilder();
+		for (int i = 0; i < l; i++) {
+			Color color = new Color(r1+r*i/l, g1+g*i/l, b1+b*i/l);
+			cb.append(chunks[i]).color(ChatColor.of(color));
+		}
+		return cb.create();
+	}
+	
 	public static Color colorFromStr(String str) {
 		if (str.length()==6) {
 			try {

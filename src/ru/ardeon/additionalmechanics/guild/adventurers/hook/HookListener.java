@@ -44,9 +44,9 @@ public class HookListener implements Listener {
 				
 				Vector hookVec = hookLoc.toVector().clone();
 				Vector pVec = pLoc.toVector().clone();
-				if (w.equals(pLoc.getWorld())&&hookVec.distance(pVec)>5) {
+				if (w.equals(pLoc.getWorld())&&hookVec.distance(pVec)>3.3) {
 					Vector direction = pVec.clone().subtract(hookVec).normalize();
-					Entity lastent = projectile;
+					Entity lastent = null;
 					PotionEffect ef = new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 2);
 					int i = 0;
 					while (hookVec.clone().add(direction.clone().multiply(2*i)).distance(pVec)>5) {
@@ -55,21 +55,18 @@ public class HookListener implements Listener {
 								.spawnEntity(projectile.getLocation()
 								.add(direction.clone().multiply(2*i)), 
 								EntityType.SILVERFISH);
+						ef.apply(ent);
 						ent.setAI(false);
 						ent.setSilent(true);
-						ef.apply(ent);
-						ent.setLeashHolder(lastent);
+						if (lastent!=null)
+							ent.setLeashHolder(lastent);
 						lastent = ent;
 						i++;
-						if (i>40)
+						if (i>20)
 							break;
 					}
 				}
-				//hookLoc.distance(pLoc);
-				//LivingEntity ent = (LivingEntity)projectile.getWorld().spawnEntity(projectile.getLocation(), EntityType.ARMOR_STAND);
-				//ent.setLeashHolder(projectile);
 			}
-			
 		}
 	}
 	
@@ -78,7 +75,8 @@ public class HookListener implements Listener {
 	public void onPlayerClickSilverfish(PlayerInteractEntityEvent e) 
 	{
 		Entity ent = e.getRightClicked();
-		if (ent.getType().equals(EntityType.SILVERFISH)) {
+		if (ent.getType().equals(EntityType.SILVERFISH)
+				&& ent.isSilent()) {
 			Player p = e.getPlayer();
 			ent.addPassenger(p);
 		}
@@ -89,7 +87,9 @@ public class HookListener implements Listener {
 	{
 		Item item = e.getItemDrop();
 		Entity ent = e.getEntity();
-		if (item.getItemStack().getType().equals(Material.LEAD)&&ent.getType().equals(EntityType.SILVERFISH)) {
+		if (item.getItemStack().getType().equals(Material.LEAD)
+				&& ent.getType().equals(EntityType.SILVERFISH)
+				&& ent.isSilent()) {
 			e.setCancelled(true);
 		}
 	}
