@@ -12,22 +12,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDropItemEvent;
-import org.bukkit.event.entity.EntityUnleashEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
-import ru.ardeon.additionalmechanics.AdditionalMechanics;
-
 public class HookListener implements Listener {
-	@EventHandler
-	public void onUnleash(EntityUnleashEvent e) {
-		AdditionalMechanics.getPlugin().getLogger().info(e.getEntity().getType().toString());
-	}
 	
 	@EventHandler
 	public void onHit(ProjectileHitEvent e) {
@@ -71,6 +67,7 @@ public class HookListener implements Listener {
 	}
 	
 	
+	
 	@EventHandler
 	public void onPlayerClickSilverfish(PlayerInteractEntityEvent e) 
 	{
@@ -91,6 +88,27 @@ public class HookListener implements Listener {
 				&& ent.getType().equals(EntityType.SILVERFISH)
 				&& ent.isSilent()) {
 			e.setCancelled(true);
+		}
+	}
+	
+	
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent e) 
+	{
+		if (e.getHand()!=null) {
+			if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+			{
+				ItemStack item = e.getItem();
+				if (item != null) {
+					if (item.getType().equals(Material.IRON_HOE)&&item.getItemMeta().hasLore()) {
+						Player p = e.getPlayer();
+						String str =  item.getItemMeta().getLore().get(0);
+						if (str.equals("§aКрюк кошка")) {
+							BatmanHook.useHook(p);
+						}
+					}
+				}
+			}
 		}
 	}
 	
