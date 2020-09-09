@@ -56,31 +56,31 @@ permissions: #права
         description: 33%
     additionalmechanics.miner.extradrop.4:
         description: 44%
-    additionalmechanics.miner.radar.power.1:
+    additionalmechanics.miner.radar.small:
         description: 3x1
-    additionalmechanics.miner.radar.power.2:
+    additionalmechanics.miner.radar.medium:
         description: 4x2
-    additionalmechanics.miner.radar.power.3:
+    additionalmechanics.miner.radar.big:
         description: 5x3
-    additionalmechanics.miner.radar.coal:
+    additionalmechanics.miner.filter.coal:
         description: coal
-    additionalmechanics.miner.radar.iron:
+    additionalmechanics.miner.filter.iron:
         description: iron
-    additionalmechanics.miner.radar.gold:
+    additionalmechanics.miner.filter.gold:
         description: gold
-    additionalmechanics.miner.radar.lazurit:
+    additionalmechanics.miner.filter.lazurit:
         description: lazurit
-    additionalmechanics.miner.radar.emerald:
+    additionalmechanics.miner.filter.emerald:
         description: emerald
-    additionalmechanics.miner.radar.diamond:
+    additionalmechanics.miner.filter.diamond:
         description: diamond
-    additionalmechanics.miner.radar.other:
+    additionalmechanics.miner.filter.other:
         description: other
-    additionalmechanics.adventurer.radar.power.1:
+    additionalmechanics.adventurer.radar.small:
         description: 4x2
-    additionalmechanics.adventurer.radar.power.2:
+    additionalmechanics.adventurer.radar.medium:
         description: 5x3
-    additionalmechanics.adventurer.radar.power.3:
+    additionalmechanics.adventurer.radar.big:
         description: 6x3
     additionalmechanics.adventurer.horse.hp.1:
         description: none
@@ -93,5 +93,45 @@ permissions: #права
     additionalmechanics.adventurer.horse.hp.5:
         description: none
     additionalmechanics.adventurer.horse.hp.6:
+        description: none
+    additionalmechanics.adventurer.horse.speed.1:
+        description: none
+    additionalmechanics.adventurer.horse.speed.2:
+        description: none
+    additionalmechanics.adventurer.horse.speed.3:
+        description: none
+    additionalmechanics.adventurer.horse.speed.4:
+        description: none
+    additionalmechanics.adventurer.horse.speed.5:
+        description: none
+    additionalmechanics.adventurer.horse.speed.6:
+        description: none
+    additionalmechanics.adventurer.horse.speed.7:
+        description: none
+    additionalmechanics.adventurer.horse.speed.8:
+        description: none
+    additionalmechanics.adventurer.horse.speed.9:
+        description: none
+    additionalmechanics.adventurer.horse.speed.10:
+        description: none
+    additionalmechanics.adventurer.horse.jump.1:
+        description: none
+    additionalmechanics.adventurer.horse.jump.2:
+        description: none
+    additionalmechanics.adventurer.horse.jump.3:
+        description: none
+    additionalmechanics.adventurer.horse.jump.4:
+        description: none
+    additionalmechanics.adventurer.horse.jump.5:
+        description: none
+    additionalmechanics.adventurer.horse.jump.6:
+        description: none
+    additionalmechanics.adventurer.horse.jump.7:
+        description: none
+    additionalmechanics.adventurer.horse.jump.8:
+        description: none
+    additionalmechanics.adventurer.horse.jump.9:
+        description: none
+    additionalmechanics.adventurer.horse.jump.10:
         description: none
 depend: [Multiverse-Core]
