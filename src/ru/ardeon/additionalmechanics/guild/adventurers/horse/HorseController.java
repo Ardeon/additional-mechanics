@@ -40,6 +40,7 @@ public class HorseController {
 		h.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
 		h.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(speed);
 		h.getAttribute(Attribute.HORSE_JUMP_STRENGTH).setBaseValue(jump);
+		h.setHealth(hp);
 		horses.add(horse);
 	}
 }

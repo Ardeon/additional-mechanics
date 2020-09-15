@@ -19,6 +19,14 @@ public class HorsePermission {
 			i=5;
 		if (p.hasPermission("additionalmechanics.adventurer.horse.hp.6"))
 			i=6;
+		if (p.hasPermission("additionalmechanics.adventurer.horse.hp.7"))
+			i=7;
+		if (p.hasPermission("additionalmechanics.adventurer.horse.hp.8"))
+			i=8;
+		if (p.hasPermission("additionalmechanics.adventurer.horse.hp.9"))
+			i=9;
+		if (p.hasPermission("additionalmechanics.adventurer.horse.hp.10"))
+			i=10;
 		double hp = AdditionalMechanics.getPlugin().configLoader.getConfig().getDouble("guilds.adventurers.horse.hp."+i, 9);
 		return hp;
 	}
