@@ -82,6 +82,8 @@ permissions: #права
         description: 5x3
     additionalmechanics.adventurer.radar.big:
         description: 6x3
+    additionalmechanics.adventurer.horse.use:
+        description: none
     additionalmechanics.adventurer.horse.hp.1:
         description: none
     additionalmechanics.adventurer.horse.hp.2:
