@@ -47,15 +47,15 @@ public class BatmanHook {
 	
 	public static int testPermission(Player p) {
 		int perm = 0;
-		if (p.hasPermission("guilds.adventurers.hook.length.1"))
+		if (p.hasPermission("additionalmechanics.adventurers.hook.length.1"))
 			perm=1;
-		if (p.hasPermission("guilds.adventurers.hook.length.2"))
+		if (p.hasPermission("additionalmechanics.adventurers.hook.length.2"))
 			perm=2;
-		if (p.hasPermission("guilds.adventurers.hook.length.3"))
+		if (p.hasPermission("additionalmechanics.adventurers.hook.length.3"))
 			perm=3;
 		if (perm==0)
 			return 0;
-		int length = AdditionalMechanics.getPlugin().configLoader.getConfig().getInt("guilds.adventurers.hook.length."+perm, 9);
+		int length = AdditionalMechanics.getPlugin().configLoader.getConfig().getInt("additionalmechanics.adventurers.hook.length."+perm, 9);
 		return length;
 	}
 }

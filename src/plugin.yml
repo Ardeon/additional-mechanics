@@ -136,4 +136,10 @@ permissions: #права
         description: none
     additionalmechanics.adventurer.horse.jump.10:
         description: none
+    additionalmechanics.adventurer.hook.length.1:
+        description: none
+    additionalmechanics.adventurer.hook.length.2:
+        description: none
+    additionalmechanics.adventurer.hook.length.3:
+        description: none
 depend: [Multiverse-Core]

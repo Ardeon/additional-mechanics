@@ -103,8 +103,9 @@ public class HookListener implements Listener {
 					if (item.getType().equals(Material.IRON_HOE)&&item.getItemMeta().hasLore()) {
 						Player p = e.getPlayer();
 						String str =  item.getItemMeta().getLore().get(0);
-						if (str.equals("§aКрюк кошка")) {
+						if (str.equals("§aКрюк кошка")&&!p.hasCooldown(Material.IRON_HOE)) {
 							BatmanHook.useHook(p);
+							p.setCooldown(Material.IRON_HOE, 100);
 						}
 					}
 				}
