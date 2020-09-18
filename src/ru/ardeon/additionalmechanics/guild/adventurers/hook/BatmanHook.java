@@ -1,6 +1,7 @@
 package ru.ardeon.additionalmechanics.guild.adventurers.hook;
 
 import org.bukkit.FluidCollisionMode;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -28,10 +29,13 @@ public class BatmanHook {
 				World w = p.getWorld();
 				p.setVelocity(direction.multiply(1.7));
 				rayDraw(w, vector, playerVec);
+				p.setCooldown(Material.IRON_HOE, 100);
 				return true;
 			}
-			else
+			else {
+				p.setCooldown(Material.IRON_HOE, 2);
 				return false;
+			}
 		}
 		return false;
 	}

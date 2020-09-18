@@ -105,7 +105,6 @@ public class HookListener implements Listener {
 						String str =  item.getItemMeta().getLore().get(0);
 						if (str.equals("§aКрюк кошка")&&!p.hasCooldown(Material.IRON_HOE)) {
 							BatmanHook.useHook(p);
-							p.setCooldown(Material.IRON_HOE, 100);
 						}
 					}
 				}
