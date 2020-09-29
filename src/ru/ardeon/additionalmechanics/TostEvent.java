@@ -73,7 +73,7 @@ public class TostEvent
 			break;
 		}
 		
-		case ("§a�?сцеление§a"):		
+		case ("§aИсцеление§a"):		
 		{			
 			Heals.Honey(e);
 			break;
@@ -96,7 +96,7 @@ public class TostEvent
 				item.setAmount(item.getAmount()-1);
 			break;
 		}
-		case ("§a�?ссушение§a"):
+		case ("§aИссушение§a"):
 		{
 			Combat.quartz(e);
 			break;
