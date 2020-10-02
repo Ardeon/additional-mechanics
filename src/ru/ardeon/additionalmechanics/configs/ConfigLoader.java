@@ -16,6 +16,9 @@ public class ConfigLoader {
     FileConfiguration config;
     File configFileBlocks;
     FileConfiguration configBlocks;
+    File configFilePermkit;
+    FileConfiguration configPermkit;
+    
 
     public ConfigLoader() {
     	init();
@@ -27,12 +30,17 @@ public class ConfigLoader {
     public FileConfiguration getConfig() {
     	return config;
     }
+    public FileConfiguration getConfigPermkit() {
+    	return configPermkit;
+    }
     
 	public void init() {
 		configFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "config.yml");
 		configFileBlocks = new File(AdditionalMechanics.getPlugin().getDataFolder(), "configBlocks.yml");
+		configFilePermkit = new File(AdditionalMechanics.getPlugin().getDataFolder(), "configPermkit.yml");
 	    config = new YamlConfiguration();
 	    configBlocks = new YamlConfiguration();
+	    configPermkit = new YamlConfiguration();
 	    try {
             firstRun();
         } catch (Exception e) {
@@ -49,6 +57,10 @@ public class ConfigLoader {
         if(!configFileBlocks.exists()) {
         	configFileBlocks.getParentFile().mkdirs();
         	copy(AdditionalMechanics.getPlugin().getResource("configBlocks.yml"), configFileBlocks);
+        }
+        if(!configFilePermkit.exists()) {
+        	configFilePermkit.getParentFile().mkdirs();
+        	copy(AdditionalMechanics.getPlugin().getResource("configPermkit.yml"), configFilePermkit);
         }
     }
 	
@@ -70,6 +82,7 @@ public class ConfigLoader {
         try {
             config.load(configFile); //loads the contents of the File to its FileConfiguration
             configBlocks.load(configFileBlocks);
+            configPermkit.load(configFilePermkit);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,6 +91,7 @@ public class ConfigLoader {
         try {
             config.save(configFile); //saves the FileConfiguration to its File
             configBlocks.save(configFileBlocks);
+            configPermkit.save(configFilePermkit);
         } catch (IOException e) {
             e.printStackTrace();
         }

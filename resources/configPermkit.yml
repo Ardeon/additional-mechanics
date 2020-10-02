@@ -1,0 +1,6 @@
+ArenaNovice:
+  Group1:
+    Items1:
+      weight: 1
+      permission: arenakit.novice.1
+      kit: arenakit

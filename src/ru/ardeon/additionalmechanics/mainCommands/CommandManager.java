@@ -11,5 +11,6 @@ public class CommandManager {
         t.getServer().getPluginCommand("altar").setExecutor(new AltarCommand());
         t.getServer().getPluginCommand("stoptimer").setExecutor(new StopTimerCommand());
         t.getServer().getPluginCommand("gr").setExecutor(new GradientCommand());
+        t.getServer().getPluginCommand("permkit").setExecutor(new PermkitCommand());
 	}
 }

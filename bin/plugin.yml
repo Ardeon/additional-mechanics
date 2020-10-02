@@ -39,6 +39,10 @@ commands:
         description: test
         usage: /launchhook
         permission: additionalmechanics.admin
+    permkit:
+        description: test
+        usage: /permkit
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
