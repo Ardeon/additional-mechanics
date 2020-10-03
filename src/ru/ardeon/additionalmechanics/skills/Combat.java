@@ -22,6 +22,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import ru.ardeon.additionalmechanics.myEntity.Bait;
+import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 
 public class Combat {
 
@@ -30,13 +31,13 @@ public class Combat {
 		Player player = e.getPlayer();
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.STICK))) 
-			
 		{
+			int cd = LevelOfPermission.getLevel(player, "adm.slowstickcd", 7);
 			Class<Snowball> ball = Snowball.class;
 			Snowball r = e.getPlayer().launchProjectile(ball);
 			r.setShooter(e.getPlayer());
 			r.addScoreboardTag("snowball");
-			player.setCooldown(Material.STICK, 40);
+			player.setCooldown(Material.STICK, 40 - cd * 3);
 			world.playSound(player.getLocation(), Sound.ENTITY_SNOWBALL_THROW, 2, 2);
 			world.playSound(player.getLocation(), Sound.ENTITY_RABBIT_AMBIENT, 2, 0.5f);
 		}
@@ -48,11 +49,12 @@ public class Combat {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.QUARTZ))) 
 		{
+			int cd = LevelOfPermission.getLevel(player, "adm.quartzcd", 7);
 			Class<SmallFireball> ball = SmallFireball.class;
 			SmallFireball r = e.getPlayer().launchProjectile(ball);
 			r.setShooter(e.getPlayer());
 			r.addScoreboardTag("fireball");
-			player.setCooldown(Material.QUARTZ, 40);
+			player.setCooldown(Material.QUARTZ, 40 - cd * 3);
 			world.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 2, 2);
 		}
 	}
@@ -63,8 +65,10 @@ public class Combat {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.FIREWORK_STAR))) 
 		{
-			player.setCooldown(Material.FIREWORK_STAR, 800);
-			world.createExplosion(player.getLocation(), 4, false, false, player);
+			int power = LevelOfPermission.getLevel(player, "adm.explosion", 3);
+			int cd = LevelOfPermission.getLevel(player, "adm.explosioncd", 7);
+			player.setCooldown(Material.FIREWORK_STAR, 800 - cd * 40);
+			world.createExplosion(player.getLocation(), 2 + power, false, false, player);
 		}
 	}
 	
@@ -74,12 +78,14 @@ public class Combat {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.RED_DYE))) 		
 		{
-			player.setCooldown(Material.RED_DYE, 1200);
+			int power = LevelOfPermission.getLevel(player, "adm.agro", 5);
+			int cd = LevelOfPermission.getLevel(player, "adm.agrocd", 7);
+			player.setCooldown(Material.RED_DYE, 1200 - cd * 60);
 			AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(player.getLocation(), EntityType.AREA_EFFECT_CLOUD);
 			cloud.setDuration(1);
-			cloud.setRadius(5);
+			cloud.setRadius(2+power);
 			cloud.setColor(Color.RED);
-			List<Entity> mobs = player.getNearbyEntities(10, 4, 10);
+			List<Entity> mobs = player.getNearbyEntities(10, 2 + power, 10);
 			int counter=0;
 			for (Entity m: mobs)
 			{
@@ -94,7 +100,7 @@ public class Combat {
 			counter/=4;
 			if (counter>4)
 				counter = 4;
-			PotionEffect ef = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 800, counter);
+			PotionEffect ef = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300 + power * 50, counter);
 			ef.apply(player);
 			world.playSound(player.getLocation(), Sound.ENTITY_SLIME_JUMP, 2, 0.7f);
 			world.playSound(player.getLocation(), Sound.BLOCK_NETHER_WART_BREAK, 2, 1);
@@ -107,6 +113,7 @@ public class Combat {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.BROWN_DYE))) 		
 		{
+			//for delete
 			player.setCooldown(Material.BROWN_DYE, 400);
 			AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(player.getLocation(), EntityType.AREA_EFFECT_CLOUD);
 			cloud.setDuration(1);
@@ -137,14 +144,16 @@ public class Combat {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.BLACK_DYE))) 
 		{
-			player.setCooldown(Material.BLACK_DYE, 500);
+			int power = LevelOfPermission.getLevel(player, "adm.rage", 3);
+			int cd = LevelOfPermission.getLevel(player, "adm.ragecd", 7);
+			player.setCooldown(Material.BLACK_DYE, 600 - cd * 50);
 			double newhealth = player.getHealth()-3;
 			if (newhealth<1)
 				newhealth=1;
 			player.setHealth(newhealth);
-			PotionEffect ef = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 150, 3);
+			PotionEffect ef = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 150, 1 + power);
 			ef.apply(player);
-			ef = new PotionEffect(PotionEffectType.REGENERATION, 150, 2);
+			ef = new PotionEffect(PotionEffectType.REGENERATION, 150 + power * 20, 2 + power/3);
 			ef.apply(player);
 			ef = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 1);
 			ef.apply(player);
@@ -161,7 +170,8 @@ public class Combat {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.PLAYER_HEAD))) 
 		{
-			player.setCooldown(Material.PLAYER_HEAD, 1600);
+			int cd = LevelOfPermission.getLevel(player, "adm.baitcd", 7);
+			player.setCooldown(Material.PLAYER_HEAD, 1600 - cd * 120);
 			world.playSound(player.getLocation(), Sound.ENTITY_EVOKER_AMBIENT, 2, 1);
 			world.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 2, 1.2f);
 			world.playSound(player.getLocation(), Sound.BLOCK_STONE_PLACE, 2, 1.2f);

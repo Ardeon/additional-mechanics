@@ -17,8 +17,6 @@ public class TostCommand implements CommandExecutor {
 		{
 			AdditionalMechanics.getPlugin().configLoader.loadYamls();
 			AdditionalMechanics.getPlugin().loadBlocks();
-			//AdditionalMechanics.altar.loadYamls();
-			//AdditionalMechanics.altar.loadBlocks();
 			return true;
 		}
 		return false;

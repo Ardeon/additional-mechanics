@@ -31,7 +31,7 @@ public class PermkitCommand implements CommandExecutor {
 						ConfigurationSection kit = kits.getConfigurationSection(key);
 						if (kit.getInt("weight", 0) >= weight) {
 							String perm = kit.getString("permission");
-							AdditionalMechanics.getPlugin().getLogger().info(perm);
+							//AdditionalMechanics.getPlugin().getLogger().info(perm);
 							if (p.hasPermission(perm)) {
 								kitForPlayer = kit.getString("kit", key);
 							}
