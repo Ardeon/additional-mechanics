@@ -2,8 +2,6 @@ package ru.ardeon.additionalmechanics.util;
 
 import org.bukkit.entity.Player;
 
-import ru.ardeon.additionalmechanics.AdditionalMechanics;
-
 public class LevelOfPermission {
 	public static int getLevel(Player p, String perm, int max) {
 		int l=0;

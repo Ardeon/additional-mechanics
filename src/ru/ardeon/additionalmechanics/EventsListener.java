@@ -35,6 +35,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
 import ru.ardeon.additionalmechanics.skills.Heals;
+import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 
 
 public class EventsListener implements Listener 
@@ -147,9 +148,16 @@ public class EventsListener implements Listener
 		}
 		if (proj.getScoreboardTags().contains("fireball"))
 		{
+			ProjectileSource shooter = proj.getShooter();
+			int power = 0;
+			if (shooter instanceof Player) {
+				Player player = (Player) shooter;
+				power = LevelOfPermission.getLevel(player, "adm.quartz", 3);
+			}
+			
 			World w = proj.getWorld();
-			PotionEffect ef = new PotionEffect(PotionEffectType.WITHER, 60, 2);
-			for (Entity t: proj.getNearbyEntities(3, 3, 3))
+			PotionEffect ef = new PotionEffect(PotionEffectType.WITHER, 60 + power * 8, 2 + power/2);
+			for (Entity t: proj.getNearbyEntities(3 + power, 3 + power, 3 + power))
 			{
 				if (t instanceof Mob)
 				{

@@ -19,6 +19,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import ru.ardeon.additionalmechanics.util.LevelOfPermission;
+
 public class Heals {
 	
 	
@@ -29,6 +31,7 @@ public class Heals {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.BOOK)))
 		{
+			int cd = LevelOfPermission.getLevel(player, "adm.holycd", 7);
 			List<Entity> h;
 			World w = player.getWorld();
 			h = player.getNearbyEntities(4, 4, 4);
@@ -50,7 +53,7 @@ public class Heals {
 			}
 			ef = new PotionEffect(PotionEffectType.REGENERATION, 10, 4);
 			ef.apply(player);
-			player.setCooldown(Material.BOOK, 80);
+			player.setCooldown(Material.BOOK, 80 - cd * 7);
 			AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(player.getLocation(), EntityType.AREA_EFFECT_CLOUD);
 			cloud.setDuration(1);
 			cloud.setRadius(5);
@@ -66,7 +69,8 @@ public class Heals {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.HONEYCOMB))) 
 		{
-			player.setCooldown(Material.HONEYCOMB, 2000);
+			int cd = LevelOfPermission.getLevel(player, "adm.honeycd", 7);
+			player.setCooldown(Material.HONEYCOMB, 2000 - cd * 100);
 			world.playSound(player.getLocation(), Sound.ENTITY_PLAYER_HURT_SWEET_BERRY_BUSH, 1, 1.2f);
 			world.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1.2f);
 			world.playSound(player.getLocation(), Sound.ENTITY_GENERIC_DRINK, 1, 1.2f);
@@ -93,7 +97,7 @@ public class Heals {
 		return false;
 	}
 	
-	public static boolean SoulUse(PlayerInteractEntityEvent e)
+	public static boolean SoulUse(PlayerInteractEntityEvent e)//for delete
 	{
 		Player player = e.getPlayer();
 		Entity target = e.getRightClicked();

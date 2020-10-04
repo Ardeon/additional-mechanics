@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
+import ru.ardeon.additionalmechanics.util.LevelOfPermission;
+
 public class Pushes {
 	
 	public static void ForceJump(PlayerInteractEvent e)
@@ -16,7 +18,6 @@ public class Pushes {
 		Player player = e.getPlayer();
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.FEATHER))) 
-			
 		{
 			world.spawnParticle(Particle.CLOUD, player.getLocation(), 7);
 			player.setCooldown(Material.FEATHER, 40);
@@ -36,7 +37,8 @@ public class Pushes {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.TRIPWIRE_HOOK))) 
 		{
-			player.setCooldown(Material.TRIPWIRE_HOOK, 100);
+			int cd = LevelOfPermission.getLevel(player, "adm.hookcd", 7);
+			player.setCooldown(Material.TRIPWIRE_HOOK, 100 - cd * 5);
 			world.spawnParticle(Particle.END_ROD, player.getEyeLocation(), 10);
 			Arrow ar = player.launchProjectile(Arrow.class);
 			ar.addScoreboardTag("hook");
