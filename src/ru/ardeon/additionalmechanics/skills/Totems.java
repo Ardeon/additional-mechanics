@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import ru.ardeon.additionalmechanics.myEntity.HealTotem;
 import ru.ardeon.additionalmechanics.myEntity.ProtectorTotem;
 import ru.ardeon.additionalmechanics.myEntity.WindTotem;
+import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 
 public class Totems {
 	public static void HealTotem(PlayerInteractEvent e)
@@ -17,7 +18,8 @@ public class Totems {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.LIME_CONCRETE))) 
 		{
-			player.setCooldown(Material.LIME_CONCRETE, 300);
+			int cd = LevelOfPermission.getLevel(player, "adm.htcd", 7);
+			player.setCooldown(Material.LIME_CONCRETE, 300 - cd * 10);
 			world.playSound(player.getLocation(), Sound.BLOCK_WOOD_PLACE, 2, 1);
 			world.playSound(player.getLocation(), Sound.BLOCK_HONEY_BLOCK_SLIDE, 2, 1.2f);
 			world.playSound(player.getLocation(), Sound.BLOCK_STONE_PLACE, 2, 1.2f);
@@ -32,7 +34,8 @@ public class Totems {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.GRAY_CONCRETE))) 
 		{
-			player.setCooldown(Material.GRAY_CONCRETE, 1000);
+			int cd = LevelOfPermission.getLevel(player, "adm.wtcd", 7);
+			player.setCooldown(Material.GRAY_CONCRETE, 1000 - cd * 50);
 			world.playSound(player.getLocation(), Sound.BLOCK_WOOD_PLACE, 2, 1);
 			world.playSound(player.getLocation(), Sound.BLOCK_HONEY_BLOCK_SLIDE, 2, 1.2f);
 			world.playSound(player.getLocation(), Sound.BLOCK_STONE_PLACE, 2, 1.2f);
@@ -47,7 +50,8 @@ public class Totems {
 		World world = player.getWorld();
 		if (!(player.hasCooldown(Material.BLACK_CONCRETE))) 
 		{
-			player.setCooldown(Material.BLACK_CONCRETE, 1000);
+			int cd = LevelOfPermission.getLevel(player, "adm.ptcd", 7);
+			player.setCooldown(Material.BLACK_CONCRETE, 1000 - cd * 50);
 			world.playSound(player.getLocation(), Sound.BLOCK_WOOD_PLACE, 2, 1);
 			world.playSound(player.getLocation(), Sound.BLOCK_HONEY_BLOCK_SLIDE, 2, 1.2f);
 			world.playSound(player.getLocation(), Sound.BLOCK_STONE_PLACE, 2, 1.2f);

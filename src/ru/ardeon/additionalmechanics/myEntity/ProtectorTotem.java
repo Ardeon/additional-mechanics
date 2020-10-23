@@ -5,7 +5,6 @@ import java.util.List;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.AreaEffectCloud;
@@ -44,13 +43,13 @@ public class ProtectorTotem extends Totem{
 				{
 					Player play = (Player) m;
 					ef.apply(play);
-					w.spawnParticle(Particle.FLASH, play.getEyeLocation(), 2);
+					//w.spawnParticle(Particle.FLASH, play.getEyeLocation(), 2);
 				}
 				if (m instanceof Mob)
 				{
 					Mob mob = (Mob) m;
 					Location ml = mob.getLocation();
-					w.spawnParticle(Particle.BARRIER, mob.getEyeLocation(), 2);
+					//w.spawnParticle(Particle.BARRIER, mob.getEyeLocation(), 2);
 					mob.setVelocity(ml.toVector().subtract(l.toVector()).normalize().multiply(0.5).setY(0.5));
 				}
 			}
