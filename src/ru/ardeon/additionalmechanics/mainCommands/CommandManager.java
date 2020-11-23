@@ -2,6 +2,7 @@ package ru.ardeon.additionalmechanics.mainCommands;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.StopTimerCommand;
+import ru.ardeon.additionalmechanics.mechanics.builds.RegisterBuildCommand;
 
 public class CommandManager {
 	public static void CommandRegister() {
@@ -12,5 +13,6 @@ public class CommandManager {
         t.getServer().getPluginCommand("stoptimer").setExecutor(new StopTimerCommand());
         t.getServer().getPluginCommand("gr").setExecutor(new GradientCommand());
         t.getServer().getPluginCommand("permkit").setExecutor(new PermkitCommand());
+        t.getServer().getPluginCommand("registerbuild").setExecutor(new RegisterBuildCommand());
 	}
 }

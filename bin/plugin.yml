@@ -43,6 +43,10 @@ commands:
         description: test
         usage: /permkit
         permission: additionalmechanics.admin
+    registerbuild:
+        description: register build
+        usage: /registerbuild <x1 y1 z1 x y z name>
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
