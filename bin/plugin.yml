@@ -47,6 +47,10 @@ commands:
         description: register build
         usage: /registerbuild <x1 y1 z1 x y z name>
         permission: additionalmechanics.admin
+    testbuild:
+        description: register build
+        usage: /testbuild <x1 y1 z1 name>
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access

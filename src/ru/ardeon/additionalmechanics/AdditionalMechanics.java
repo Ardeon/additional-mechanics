@@ -10,11 +10,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ru.ardeon.additionalmechanics.configs.ConfigLoader;
 import ru.ardeon.additionalmechanics.guild.GuildsController;
 import ru.ardeon.additionalmechanics.mainCommands.CommandManager;
+import ru.ardeon.additionalmechanics.mechanics.builds.BuildManager;
 
 public class AdditionalMechanics extends JavaPlugin{
     static AdditionalMechanics p; 
     static HashSet<Block> pushBlocks = new HashSet<Block>();
     public static Altar altar;
+    public static BuildManager bm;
     GuildsController gc;
     public ConfigLoader configLoader;
 	
@@ -39,6 +41,7 @@ public class AdditionalMechanics extends JavaPlugin{
         CommandManager.CommandRegister();
         loadBlocks();
         //altar = new Altar();
+        bm = new BuildManager();
     }
     
 

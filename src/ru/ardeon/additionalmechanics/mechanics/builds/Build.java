@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -33,6 +32,12 @@ public class Build {
 		    	}
 	    	}
 	    }
+		/*
+		int xx = bl.length;
+		int yx = bl[0].length;
+		int zx = bl[0][0].length;
+		AdditionalMechanics.getPlugin().getLogger().info(" "+ xx + " " + yx + " " + zx);
+		*/
 		Character key = 'a';
 		int n = key;
 		key = (char) n;
@@ -134,8 +139,35 @@ public class Build {
 	    
 	}
 	
-	public List<Build> loadAll(){
-		
-		return null;
+	public boolean test(Block block) {
+		int xx = blocks.length;
+		int yx = blocks[0].length;
+		int zx = blocks[0][0].length;
+		/*AdditionalMechanics.getPlugin().getLogger().info(" "+ xx + " " + yx + " " + zx);*/
+		Location loc = block.getLocation();
+		for (int i = 0; i < yx; i++) {
+	    	for (int j = 0; j < zx; j++) {
+	    		for (int k = 0; k < xx; k++) {
+	    			if (blocks[k][i][j] != loc.clone().add(k, i, j).getBlock().getType())
+	    				return false;
+		    	}
+	    	}
+	    }
+		return true;
+	}
+	
+	public static HashMap<String, Build> loadAll(){
+		HashMap<String, Build> map = new HashMap<String, Build>();
+		File folder = new File(AdditionalMechanics.getPlugin().getDataFolder().getAbsolutePath() + File.separator + "Builds");
+		if (folder.exists()) {
+			for (File f : folder.listFiles()) {
+				String name =  f.getName();
+				if (name.indexOf(".yml")!=-1) {
+					name = name.substring(0, name.length() - 4);
+				}
+				map.put(name,new Build(name));
+			}
+		}
+		return map;
 	}
 }
