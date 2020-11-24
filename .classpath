@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="lib" path="D:/server/spigot-1.16.2.jar"/>
+	<classpathentry kind="lib" path="D:/newBuild/plugins/worldguard-bukkit-7.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

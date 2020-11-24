@@ -50,13 +50,19 @@ public class ScrollListener implements Listener {
 							meta.setLore(li);
 							meta.setDisplayName("§rСвиток телепорта");
 							scroll.setItemMeta(meta);
-							if (p.getInventory().firstEmpty()==-1)
+							if (p.getInventory().firstEmpty()==-1) {
 								p.getWorld().dropItem(p.getLocation(), scroll);
-							else
+								p.setCooldown(Material.PAPER, 20);
+							}
+							else {
 								p.getInventory().addItem(scroll);
+								p.setCooldown(Material.PAPER, 20);
+							}
+								
 						}
 						else {
 							e.getPlayer().sendMessage("-");
+							p.setCooldown(Material.PAPER, 20);
 						}
 					}
 				}
@@ -79,7 +85,7 @@ public class ScrollListener implements Listener {
 						&& item.getItemMeta().getLore().size()>2) {
 					Player p = e.getPlayer();
 					//e.getPlayer().sendMessage("1");
-					if (AdditionalMechanics.bm.builds.containsKey("portal")) {
+					if (AdditionalMechanics.bm.builds.containsKey("portal") && !p.hasCooldown(Material.PAPER)) {
 						Build build = AdditionalMechanics.bm.builds.get("portal");
 						int c1, c2, c3;
 						List<String> lore = item.getItemMeta().getLore();
@@ -98,9 +104,11 @@ public class ScrollListener implements Listener {
 							item.setAmount(item.getAmount()-1);
 							e.getPlayer().sendMessage("ок");
 							p.teleport(target.getLocation().add(0.5, 1, 0.5));
+							p.setCooldown(Material.PAPER, 20 * 60 * 2);
 						}
 						else {
 							e.getPlayer().sendMessage("-");
+							p.setCooldown(Material.PAPER, 20 * 2);
 						}
 					}
 				}

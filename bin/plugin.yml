@@ -51,6 +51,10 @@ commands:
         description: register build
         usage: /testbuild <x1 y1 z1 name>
         permission: additionalmechanics.admin
+    trg:
+        description: trg
+        usage: /trg <region>
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
@@ -155,3 +159,4 @@ permissions: #права
     additionalmechanics.adventurer.hook.length.3:
         description: none
 depend: [Multiverse-Core]
+softdepend: [WorldGuard]
