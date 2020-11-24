@@ -11,6 +11,7 @@ import ru.ardeon.additionalmechanics.configs.ConfigLoader;
 import ru.ardeon.additionalmechanics.guild.GuildsController;
 import ru.ardeon.additionalmechanics.mainCommands.CommandManager;
 import ru.ardeon.additionalmechanics.mechanics.builds.BuildManager;
+import ru.ardeon.additionalmechanics.mechanics.portal.ScrollListener;
 
 public class AdditionalMechanics extends JavaPlugin{
     static AdditionalMechanics p; 
@@ -38,6 +39,7 @@ public class AdditionalMechanics extends JavaPlugin{
     	gc = new GuildsController();
     	getLogger().info("Мой первый плагин!");
     	getServer().getPluginManager().registerEvents(new EventsListener(), this);
+    	getServer().getPluginManager().registerEvents(new ScrollListener(), this);
         CommandManager.CommandRegister();
         loadBlocks();
         //altar = new Altar();
