@@ -55,6 +55,10 @@ commands:
         description: trg
         usage: /trg <region>
         permission: additionalmechanics.admin
+    donateadd:
+        description: donateadd
+        usage: /donateadd <rubs>
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access

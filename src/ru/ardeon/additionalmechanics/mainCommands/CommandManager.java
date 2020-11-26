@@ -5,6 +5,7 @@ import ru.ardeon.additionalmechanics.StopTimerCommand;
 import ru.ardeon.additionalmechanics.mechanics.builds.RegisterBuildCommand;
 import ru.ardeon.additionalmechanics.mechanics.builds.TestBuildCommand;
 import ru.ardeon.additionalmechanics.mechanics.tempterritory.TestRegionCommand;
+import ru.ardeon.additionalmechanics.vars.DonateAddCommand;
 
 public class CommandManager {
 	public static void CommandRegister() {
@@ -18,5 +19,6 @@ public class CommandManager {
         t.getServer().getPluginCommand("registerbuild").setExecutor(new RegisterBuildCommand());
         t.getServer().getPluginCommand("testbuild").setExecutor(new TestBuildCommand());
         t.getServer().getPluginCommand("trg").setExecutor(new TestRegionCommand());
+        t.getServer().getPluginCommand("donateadd").setExecutor(new DonateAddCommand(t.varManager));
 	}
 }

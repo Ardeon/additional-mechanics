@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.plugin.Plugin;
 
+import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
@@ -16,11 +17,12 @@ public class TerritoryManager {
 	WorldGuard wg;
 	AdditionalMechanics am;
 	RegionContainer container;
-	List<RegionManager> managers;
+	RegionManager regs;
+	public List<TerritoryMember> members;
 	
 	public TerritoryManager(AdditionalMechanics am) {
 		this.am = am;
-		wgp = getWG();
+		wgp = getWGP();
 		if (wgp!=null) {
 			wg = WorldGuard.getInstance();
 		}
@@ -28,11 +30,11 @@ public class TerritoryManager {
 	
 	void test() {
 		container = wg.getPlatform().getRegionContainer();
-		managers = container.getLoaded();
-		managers.get(0).getRegion("test").setMembers(null);
+		World world;
+		//regs = container.get(world);
 	}
 	
-	private WorldGuardPlugin getWG() {
+	private WorldGuardPlugin getWGP() {
 		Plugin plugin = am.getServer().getPluginManager().getPlugin("WorldGuard");
 		
 		if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {

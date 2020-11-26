@@ -14,6 +14,8 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 public class ConfigLoader {
     File configFile;
     FileConfiguration config;
+    File varsFile;
+    FileConfiguration vars;
     File configFileBlocks;
     FileConfiguration configBlocks;
     File configFilePermkit;
@@ -30,14 +32,19 @@ public class ConfigLoader {
     public FileConfiguration getConfig() {
     	return config;
     }
+    public FileConfiguration getVars() {
+    	return vars;
+    }
     public FileConfiguration getConfigPermkit() {
     	return configPermkit;
     }
     
 	public void init() {
 		configFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "config.yml");
+		varsFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "vars.yml");
 		configFileBlocks = new File(AdditionalMechanics.getPlugin().getDataFolder(), "configBlocks.yml");
 		configFilePermkit = new File(AdditionalMechanics.getPlugin().getDataFolder(), "configPermkit.yml");
+		vars = new YamlConfiguration();
 	    config = new YamlConfiguration();
 	    configBlocks = new YamlConfiguration();
 	    configPermkit = new YamlConfiguration();
@@ -53,6 +60,10 @@ public class ConfigLoader {
         if(!configFile.exists()){                        // checks if the yaml does not exists
         	configFile.getParentFile().mkdirs();         // creates the /plugins/<pluginName>/ directory if not found
             copy(AdditionalMechanics.getPlugin().getResource("config.yml"), configFile); // copies the yaml from your jar to the folder /plugin/<pluginName>
+        }
+        if(!varsFile.exists()){
+        	varsFile.getParentFile().mkdirs();
+            copy(AdditionalMechanics.getPlugin().getResource("vars.yml"), varsFile);
         }
         if(!configFileBlocks.exists()) {
         	configFileBlocks.getParentFile().mkdirs();
@@ -81,6 +92,7 @@ public class ConfigLoader {
     public void loadYamls() {
         try {
             config.load(configFile); //loads the contents of the File to its FileConfiguration
+            vars.load(varsFile);
             configBlocks.load(configFileBlocks);
             configPermkit.load(configFilePermkit);
         } catch (Exception e) {
@@ -90,6 +102,7 @@ public class ConfigLoader {
     public void saveYamls() {
         try {
             config.save(configFile); //saves the FileConfiguration to its File
+            vars.save(varsFile);
             configBlocks.save(configFileBlocks);
             configPermkit.save(configFilePermkit);
         } catch (IOException e) {
