@@ -12,6 +12,7 @@ import ru.ardeon.additionalmechanics.guild.GuildsController;
 import ru.ardeon.additionalmechanics.mainCommands.CommandManager;
 import ru.ardeon.additionalmechanics.mechanics.builds.BuildManager;
 import ru.ardeon.additionalmechanics.mechanics.portal.ScrollListener;
+import ru.ardeon.additionalmechanics.randomchest.RandomManager;
 import ru.ardeon.additionalmechanics.vars.VarManager;
 
 public class AdditionalMechanics extends JavaPlugin{
@@ -22,6 +23,7 @@ public class AdditionalMechanics extends JavaPlugin{
     GuildsController gc;
     public ConfigLoader configLoader;
     public VarManager varManager;
+    public RandomManager rm;
 	
     public static AdditionalMechanics getPlugin() {
     	return p;
@@ -42,7 +44,7 @@ public class AdditionalMechanics extends JavaPlugin{
     	getLogger().info("Мой первый плагин!");
     	getServer().getPluginManager().registerEvents(new EventsListener(), this);
     	getServer().getPluginManager().registerEvents(new ScrollListener(), this);
-        
+        rm = new RandomManager(this);
         loadBlocks();
         varManager = new VarManager(this);
         CommandManager.CommandRegister();

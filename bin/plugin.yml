@@ -59,6 +59,10 @@ commands:
         description: donateadd
         usage: /donateadd <rubs>
         permission: additionalmechanics.admin
+    fakeinv:
+        description: fakeinv
+        usage: /fakeinv
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
@@ -163,4 +167,4 @@ permissions: #права
     additionalmechanics.adventurer.hook.length.3:
         description: none
 depend: [Multiverse-Core]
-softdepend: [WorldGuard]
+softdepend: [WorldGuard, PlaceholderAPI, ProtocolLib]

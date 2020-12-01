@@ -21,6 +21,7 @@ public class DonateAddCommand implements CommandExecutor {
 				manager.addDonate(x);
 			}
 			catch(Exception e){
+				e.printStackTrace();
 				return false;
 			}
 			return true;

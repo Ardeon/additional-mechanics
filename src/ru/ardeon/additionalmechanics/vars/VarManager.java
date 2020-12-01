@@ -23,13 +23,13 @@ public class VarManager {
 	public void addDonate(int rub) {
 		currentDonate += rub;
 		d.set("current", currentDonate);
-		plugin.configLoader.saveYamls();
+		//plugin.configLoader.saveYamls();
 	}
 	
 	public VarManager(AdditionalMechanics plugin){
 		this.plugin = plugin;
-		FileConfiguration cfg = plugin.configLoader.getVars();
-		ConfigurationSection d = cfg.getConfigurationSection("donate");
+		cfg = this.plugin.configLoader.getVars();
+		d = cfg.getConfigurationSection("donate");
 		currentDonate = d.getInt("current");
 		needDonate = d.getInt("need");
 	}
