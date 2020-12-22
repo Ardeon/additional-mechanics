@@ -28,6 +28,7 @@ public class ScrollListener implements Listener {
 			{
 				ItemStack item = e.getItem();
 				if (item != null 
+						&& item.hasItemMeta()
 						&& item.getItemMeta().hasLore()
 						&& item.getItemMeta().getLore()
 						.get(0).equals("§aПустой свиток§a")) {
@@ -79,6 +80,7 @@ public class ScrollListener implements Listener {
 			{
 				ItemStack item = e.getItem();
 				if (item != null 
+						&& item.hasItemMeta()
 						&& item.getItemMeta().hasLore()
 						&& item.getItemMeta().getLore()
 						.get(0).equals("§aportal scroll§a")

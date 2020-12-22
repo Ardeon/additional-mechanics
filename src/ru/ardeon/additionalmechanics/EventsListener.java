@@ -258,7 +258,7 @@ public class EventsListener implements Listener
 			{
 				ItemStack item = e.getItem();
 				if (item != null) {
-					if (item.getItemMeta().hasLore()) {
+					if (item.hasItemMeta() && item.getItemMeta().hasLore()) {
 						TostEvent.ItemChoose(e);
 						//tost.log.info("dd");
 					}
