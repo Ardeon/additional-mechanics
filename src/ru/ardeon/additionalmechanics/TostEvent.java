@@ -1,11 +1,14 @@
 package ru.ardeon.additionalmechanics;
 
+import java.util.List;
+
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import ru.ardeon.additionalmechanics.skills.Combat;
 import ru.ardeon.additionalmechanics.skills.Heals;
 import ru.ardeon.additionalmechanics.skills.ItemEdit;
+import ru.ardeon.additionalmechanics.skills.ItemToPermission;
 import ru.ardeon.additionalmechanics.skills.Pushes;
 import ru.ardeon.additionalmechanics.skills.Teleports;
 import ru.ardeon.additionalmechanics.skills.Totems;;
@@ -17,9 +20,10 @@ public class TostEvent
 	{
 		//Player player = e.getPlayer();
 		ItemStack item = e.getItem();
+		List<String> lore = item.getItemMeta().getLore();
 		//World world = player.getWorld();
 		//tost.log.info(item.getItemMeta().getLore().toArray()[0].toString());
-		switch (item.getItemMeta().getLore().toArray()[0].toString()){//проверка первой строчки		
+		switch (lore.toArray()[0].toString()){//проверка первой строчки		
 		case ("§aОковы§a"):		
 		{			
 			Combat.SlowStick(e);
@@ -119,6 +123,11 @@ public class TostEvent
 		case ("§ashort blink§a"):
 		{
 			Teleports.Blink(e);
+			break;
+		}
+		case ("§aПет§a"):
+		{
+			ItemToPermission.PetGet(e, lore);
 			break;
 		}
 		default:

@@ -3,10 +3,13 @@ package ru.ardeon.additionalmechanics;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.luckperms.api.LuckPerms;
 import ru.ardeon.additionalmechanics.configs.ConfigLoader;
 import ru.ardeon.additionalmechanics.guild.GuildsController;
 import ru.ardeon.additionalmechanics.mainCommands.CommandManager;
@@ -24,6 +27,7 @@ public class AdditionalMechanics extends JavaPlugin{
     public ConfigLoader configLoader;
     public VarManager varManager;
     public RandomManager rm;
+    private LuckPerms lpapi = null;
 	
     public static AdditionalMechanics getPlugin() {
     	return p;
@@ -34,12 +38,16 @@ public class AdditionalMechanics extends JavaPlugin{
     	configLoader.saveYamls();
         gc.getAdventurers().getPortalManager().saveAll();
     }
-
+    
     @Override
     public void onEnable() 
     {
     	p=this;
     	configLoader = new ConfigLoader();
+    	RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+    	if (provider != null) {
+    	    lpapi = provider.getProvider();
+    	}
     	gc = new GuildsController();
     	getLogger().info("Мой первый плагин!");
     	getServer().getPluginManager().registerEvents(new EventsListener(), this);
@@ -52,6 +60,9 @@ public class AdditionalMechanics extends JavaPlugin{
         bm = new BuildManager();
     }
     
+    public LuckPerms getLP() {
+    	return lpapi;
+    }
 
     public void loadBlocks() 
     {
