@@ -40,7 +40,7 @@ public class PermkitCommand implements CommandExecutor {
 						}
 					}
 					
-					if (kitForPlayer.equals("none")) {
+					if (!kitForPlayer.equals("none")) {
 						ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 						String command = "cmi kit "+kitForPlayer+" "+p.getName();
 						Bukkit.dispatchCommand(console, command);
