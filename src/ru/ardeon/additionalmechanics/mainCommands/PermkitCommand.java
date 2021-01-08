@@ -29,17 +29,22 @@ public class PermkitCommand implements CommandExecutor {
 					int weight = -1;
 					for(String key : kits.getKeys(false)) {
 						ConfigurationSection kit = kits.getConfigurationSection(key);
-						if (kit.getInt("weight", 0) >= weight) {
+						int kitWeight = kit.getInt("weight", 0);
+						if (kitWeight >= weight) {
 							String perm = kit.getString("permission");
 							//AdditionalMechanics.getPlugin().getLogger().info(perm);
 							if (p.hasPermission(perm)) {
 								kitForPlayer = kit.getString("kit", key);
+								weight = kitWeight;
 							}
 						}
 					}
-					ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-			    	String command = "cmi kit "+kitForPlayer+" "+p.getName();
-			    	Bukkit.dispatchCommand(console, command);
+					
+					if (kitForPlayer.equals("none")) {
+						ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+						String command = "cmi kit "+kitForPlayer+" "+p.getName();
+						Bukkit.dispatchCommand(console, command);
+					}
 			    }
 			}
 			
