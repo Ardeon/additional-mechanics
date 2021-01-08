@@ -40,6 +40,15 @@ import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 
 public class EventsListener implements Listener 
 {
+	private SkillSwitcher skillSwitcher;
+	
+	EventsListener(SkillSwitcher skillSwitcher){
+		this.skillSwitcher = skillSwitcher;
+	}
+	
+	public void reload() {
+		this.skillSwitcher = AdditionalMechanics.getPlugin().skillSwitcher;
+	}
 
 	@EventHandler
 	public void ShootBow(EntityShootBowEvent e) {
@@ -47,9 +56,7 @@ public class EventsListener implements Listener
 		if (bow != null) {
 			if (bow.getItemMeta().hasLore()) {
 				List<String> lore = bow.getItemMeta().getLore();
-				//tost.log.info(lore.toString());
 				if (lore.contains("§aВзрывная стрела§a")) {
-					//tost.log.info("fff");
 					LivingEntity owner = e.getEntity();
 					if (owner instanceof Player) {
 						Player p = (Player) owner;
@@ -197,7 +204,6 @@ public class EventsListener implements Listener
 					if (newhealth<maxhealth)
 					{
 						p.setHealth(newhealth);
-						//tost.log.info("field heal");
 					}
 					else 
 						p.setHealth(maxhealth);
@@ -259,7 +265,7 @@ public class EventsListener implements Listener
 				ItemStack item = e.getItem();
 				if (item != null) {
 					if (item.hasItemMeta() && item.getItemMeta().hasLore()) {
-						TostEvent.ItemChoose(e);
+						skillSwitcher.ItemChoose(e);
 						//tost.log.info("dd");
 					}
 				}
