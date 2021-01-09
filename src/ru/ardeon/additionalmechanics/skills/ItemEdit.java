@@ -10,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemEdit {
 
-	public static boolean BowBuff(PlayerInteractEvent e)
+	public static boolean BowBuff(PlayerInteractEvent e)//legacy
 	{
 		Player player = e.getPlayer();
 		int n = player.getInventory().first(Material.BOW);

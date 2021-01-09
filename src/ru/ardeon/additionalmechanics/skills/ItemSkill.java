@@ -2,6 +2,8 @@ package ru.ardeon.additionalmechanics.skills;
 
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public interface ItemSkill {
-	public void execute(PlayerInteractEvent e);
+public class ItemSkill {
+	public void execute(PlayerInteractEvent e) {
+		
+	}
 }
