@@ -22,7 +22,8 @@ public class GetVarCommand implements CommandExecutor {
 			int varID;
 			try {
 				varID = Integer.parseInt(args[1]);
-				playerPointsbd.getVar(uuid, varID);
+				Integer value = playerPointsbd.getVar(uuid, varID);
+				player.sendMessage("" + value);
 				return true;
 			}
 			catch (NumberFormatException e)

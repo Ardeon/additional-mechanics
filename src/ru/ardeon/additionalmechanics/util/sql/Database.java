@@ -143,9 +143,8 @@ public abstract class Database {
         PreparedStatement ps = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("UPDATE vars SET ?=? WHERE player = '"+uuid+"';");
-            ps.setString(1, "var"+varID);                                                                                                            
-            ps.setInt(2, value); 
+            ps = conn.prepareStatement("UPDATE vars SET var"+varID+"=? WHERE player = '"+uuid+"';");                                                                                                            
+            ps.setInt(1, value); 
             ps.executeUpdate();
             return;
         } catch (SQLException ex) {
