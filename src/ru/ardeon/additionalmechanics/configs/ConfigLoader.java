@@ -12,14 +12,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class ConfigLoader {
-    File configFile;
-    FileConfiguration config;
-    File varsFile;
-    FileConfiguration vars;
-    File configFileBlocks;
-    FileConfiguration configBlocks;
-    File configFilePermkit;
-    FileConfiguration configPermkit;
+	private File configFile;
+	private FileConfiguration config;
+	private File varsFile;
+	private FileConfiguration vars;
+	private File configFileBlocks;
+	private FileConfiguration configBlocks;
+	private File configFilePermkit;
+	private FileConfiguration configPermkit;
     
 
     public ConfigLoader() {

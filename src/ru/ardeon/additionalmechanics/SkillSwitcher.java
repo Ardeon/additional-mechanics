@@ -58,12 +58,9 @@ public class SkillSwitcher
 	
 	public void ItemChoose(PlayerInteractEvent e)
 	{
-		//Player player = e.getPlayer();
 		ItemStack item = e.getItem();
 		List<String> lore = item.getItemMeta().getLore();
 		String skillName = lore.get(0);
-		//World world = player.getWorld();
-		//tost.log.info(item.getItemMeta().getLore().toArray()[0].toString());
 		ItemSkill skill = skills.getOrDefault(skillName, null);
 		if (skill!=null) {
 			skill.execute(e);

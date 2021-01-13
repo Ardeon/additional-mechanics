@@ -54,7 +54,7 @@ public class EventsListener implements Listener
 	public void ShootBow(EntityShootBowEvent e) {
 		ItemStack bow = e.getBow();
 		if (bow != null) {
-			if (bow.getItemMeta().hasLore()) {
+			if (bow.hasItemMeta() && bow.getItemMeta().hasLore()) {
 				List<String> lore = bow.getItemMeta().getLore();
 				if (lore.contains("§aВзрывная стрела§a")) {
 					LivingEntity owner = e.getEntity();
