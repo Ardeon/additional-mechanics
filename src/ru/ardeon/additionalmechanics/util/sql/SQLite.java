@@ -12,14 +12,15 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 
 public class SQLite extends Database{
-	String dbname;
+	String dbname = "vars";
 	public SQLite(AdditionalMechanics instance){
 		super(instance);
 		table = "vars";
+		load();
 		dbname = plugin.configLoader.getVars().getString("SQLite.Filename", "vars");
 	}
 
-	public String SQLiteCreateTokensTable = "CREATE TABLE IF NOT EXISTS vars (" +
+	public String SQLiteCreateTable = "CREATE TABLE IF NOT EXISTS vars (" +
 			"`player` varchar(36) NOT NULL," +
 			"`var1` int NOT NULL," +
 			"`var2` int NOT NULL," +
@@ -34,11 +35,13 @@ public class SQLite extends Database{
 		if (!dataFolder.exists()){
 			try {
 				dataFolder.createNewFile();
+				AdditionalMechanics.getPlugin().getLogger().info("create");
 			} catch (IOException e) {
 				plugin.getLogger().log(Level.SEVERE, "File write error: "+dbname+".db");
 			}
 		}
 		try {
+			AdditionalMechanics.getPlugin().getLogger().info("connection");
 			if(connection!=null&&!connection.isClosed()){
 				return connection;
 			}
@@ -58,7 +61,7 @@ public class SQLite extends Database{
 		connection = getSQLConnection();
 		try {
 			Statement s = connection.createStatement();
-			s.executeUpdate(SQLiteCreateTokensTable);
+			s.executeUpdate(SQLiteCreateTable);
 			s.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

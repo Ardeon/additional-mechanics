@@ -12,7 +12,7 @@ public class VarManager {
 	private AdditionalMechanics plugin;
 	private FileConfiguration cfg;
 	private ConfigurationSection d;
-	private SQLite playerPointsbd;
+	public SQLite playerPointsbd;
 	
 	public SQLite getPointsBD() {
 		return playerPointsbd;
@@ -39,5 +39,9 @@ public class VarManager {
 		currentDonate = d.getInt("current");
 		needDonate = d.getInt("need");
 		playerPointsbd = new SQLite(plugin);
+		plugin.getServer().getPluginManager().registerEvents(new JoinListener(playerPointsbd), plugin);
+		//AdditionalMechanics.getPlugin().getLogger().info("vars");
+		plugin.getServer().getPluginCommand("getvar").setExecutor(new GetVarCommand(playerPointsbd));
+		plugin.getServer().getPluginCommand("setvar").setExecutor(new SetVarCommand(playerPointsbd));
 	}
 }

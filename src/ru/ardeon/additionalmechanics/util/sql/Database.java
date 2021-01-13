@@ -79,8 +79,14 @@ public abstract class Database {
         try {
             conn = getSQLConnection();
             ps = conn.prepareStatement("SELECT player FROM " + table + " WHERE player = '"+uuid+"';");
-            int count = ps.executeUpdate();
-            if (count == 0) {
+            boolean playerExist = false;
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString(1).equalsIgnoreCase(uuid.toLowerCase())){
+                	playerExist = true;
+                }
+            }
+            if (!playerExist) {
             	setDefaultVars(player);
             }
             return;
@@ -105,12 +111,13 @@ public abstract class Database {
         PreparedStatement ps = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("REPLACE INTO " + table + " (player,var1,var2,var3,var4,var5,) VALUES(?,?,?,?,?)");
+            ps = conn.prepareStatement("REPLACE INTO " + table + " (player,var1,var2,var3,var4,var5) VALUES(?,?,?,?,?,?)");
             ps.setString(1, uuid);                                                                                                            
             ps.setInt(2, 0);
             ps.setInt(3, 0);
             ps.setInt(4, 0);
             ps.setInt(5, 0);
+            ps.setInt(6, 0);
             ps.executeUpdate();
             return;
         } catch (SQLException ex) {
@@ -128,8 +135,10 @@ public abstract class Database {
         return;      
     }
 
-	public void setVar(Player player, int varID, Integer value) {
-		String uuid = player.getUniqueId().toString().toLowerCase();
+	public void setVar(String uuid, int varID, Integer value) {
+		if (varID < 1 || varID >5) {
+			return;
+		}
         Connection conn = null;
         PreparedStatement ps = null;
         try {

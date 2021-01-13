@@ -63,6 +63,14 @@ commands:
         description: fakeinv
         usage: /fakeinv
         permission: additionalmechanics.admin
+    getvar:
+        description: получить переменную игрока
+        usage: /getvar <player> <1-5>
+        permission: additionalmechanics.admin
+    setvar:
+        description: задать переменную игрока
+        usage: /setvar <player> <1-5> <value>
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
