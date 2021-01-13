@@ -11,6 +11,7 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.util.PetConverter;
 
 public class ItemToPermission {
 	public static ItemSkill pet = new ItemSkill() {
@@ -21,25 +22,27 @@ public class ItemToPermission {
 			List<String> lore = item.getItemMeta().getLore();
 			//World world = player.getWorld();
 			e.setCancelled(true);
-			String string2 = "";
-			if (lore.size()>=2) {
-				string2 = lore.get(1);
-				try {
-					string2 = string2.substring(2);
+			String string10 = "";
+			if (lore.size()>=10) {
+				string10 = lore.get(9);
+				
+				/*try {
+					string10 = string10.substring(2);
 					//AdditionalMechanics.getPlugin().getLogger().info(string2);
 				} catch (Exception ex) {
 					
 				}
-				
+				*/
 			}
-			int petN;
+			int petN = PetConverter.PetNameToID(string10);
+			/*
 			try {
-			   petN = Integer.parseInt(string2);
+				petN = Integer.parseInt(string2);
 			}
 			catch (NumberFormatException ex)
 			{
 			   petN = 0;
-			}
+			}*/
 			if (petN!=0) {
 				String permission = "pet."+petN;
 				boolean hasPet =  player.hasPermission(permission);

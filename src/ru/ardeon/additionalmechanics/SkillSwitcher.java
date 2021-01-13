@@ -17,6 +17,7 @@ import ru.ardeon.additionalmechanics.skills.Totems;
 public class SkillSwitcher
 {
 	private HashMap<String,ItemSkill> skills = new HashMap<String,ItemSkill>();
+	private HashMap<String,ItemSkill> skills7str = new HashMap<String,ItemSkill>();
 	
 	public SkillSwitcher(){
 		addDefaultSkills();
@@ -26,8 +27,13 @@ public class SkillSwitcher
 		skills.put(name, skill);
 	}
 	
+	public void addSkill7str(String name, ItemSkill skill) {
+		skills7str.put(name, skill);
+	}
+	
 	public void eraseSkills() {
 		skills.clear();
+		skills7str.clear();
 	}
 	
 	public void addDefaultSkills() {
@@ -43,8 +49,6 @@ public class SkillSwitcher
 		addSkill("§aЛечение§a", Heals.holy);
 		addSkill("§aИсцеление§a", Heals.honey);
 		addSkill("§aПервая помощь§a", Heals.firstAid);
-		//ItemToPermission
-		addSkill("§aПет§a", ItemToPermission.pet);
 		//Pushes
 		addSkill("§aТолчок§a", Pushes.forceJump);
 		addSkill("§aПритягивание§a", Pushes.hook);
@@ -54,6 +58,9 @@ public class SkillSwitcher
 		addSkill("§aТотем лечения§a", Totems.healTotem);
 		addSkill("§aТотем ветра§a", Totems.windTotem);
 		addSkill("§aТотем защиты§a", Totems.protectorTotem);
+		
+		//ItemToPermission
+		addSkill7str("§eПКМ§f - открыть клетку.", ItemToPermission.pet);
 	}
 	
 	public void ItemChoose(PlayerInteractEvent e)
@@ -65,6 +72,14 @@ public class SkillSwitcher
 		if (skill!=null) {
 			skill.execute(e);
 		}
+		if (lore.size()>9) {
+			String skill7Name = lore.get(6);
+			ItemSkill skill7str = skills.getOrDefault(skill7Name, null);
+			if (skill7str!=null) {
+				skill7str.execute(e);
+			}
+		}
+		
 	}
 
 }

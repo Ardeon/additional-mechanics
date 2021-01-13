@@ -4,13 +4,19 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.util.sql.SQLite;
 
 public class VarManager {
 	private int currentDonate;
 	private int needDonate;
 	private AdditionalMechanics plugin;
-	FileConfiguration cfg;
-	ConfigurationSection d;
+	private FileConfiguration cfg;
+	private ConfigurationSection d;
+	private SQLite playerPointsbd;
+	
+	public SQLite getPointsBD() {
+		return playerPointsbd;
+	}
 	
 	public int getCurrentDonate() {
 		return currentDonate;
@@ -32,5 +38,6 @@ public class VarManager {
 		d = cfg.getConfigurationSection("donate");
 		currentDonate = d.getInt("current");
 		needDonate = d.getInt("need");
+		playerPointsbd = new SQLite(plugin);
 	}
 }
