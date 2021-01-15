@@ -38,6 +38,11 @@ public class UservarManager {
 		score.setVar(varID, value);
 	}
 	
+	public void addToVar(String uuid, int varID, int value){
+		Score score = users.get(uuid);
+		score.addToVar(varID, value);
+	}
+	
 	public void removeUser(String uuid) {
 		saveUser(uuid);
 		users.remove(uuid);
@@ -52,5 +57,6 @@ public class UservarManager {
 		plugin.getServer().getPluginManager().registerEvents(new JoinListener(this), plugin);
 		plugin.getServer().getPluginCommand("getvar").setExecutor(new GetVarCommand(this));
 		plugin.getServer().getPluginCommand("setvar").setExecutor(new SetVarCommand(this));
+		plugin.getServer().getPluginCommand("addtovar").setExecutor(new AddToVarCommand(this));
 	}
 }

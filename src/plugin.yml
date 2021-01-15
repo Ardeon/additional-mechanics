@@ -71,6 +71,10 @@ commands:
         description: задать переменную игрока
         usage: /setvar <player> <1-5> <value>
         permission: additionalmechanics.admin
+    addtovar:
+        description: задать переменную игрока
+        usage: /addtovar <player> <1-5> <value>
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
