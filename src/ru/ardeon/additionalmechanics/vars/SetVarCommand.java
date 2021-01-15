@@ -6,12 +6,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import ru.ardeon.additionalmechanics.util.sql.SQLite;
-
 public class SetVarCommand implements CommandExecutor {
-	SQLite playerPointsbd;
-	SetVarCommand(SQLite playerPointsbd){
-		this.playerPointsbd = playerPointsbd;
+	UservarManager uservars;
+	SetVarCommand(UservarManager uservars){
+		this.uservars = uservars;
 	}
 	
 	@Override
@@ -24,7 +22,7 @@ public class SetVarCommand implements CommandExecutor {
 			try {
 				varID = Integer.parseInt(args[1]);
 				value = Integer.parseInt(args[2]);
-				playerPointsbd.setVar(uuid, varID, value);
+				uservars.setVar(uuid, varID, value);
 				return true;
 			}
 			catch (NumberFormatException e)

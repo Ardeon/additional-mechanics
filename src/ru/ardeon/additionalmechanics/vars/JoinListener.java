@@ -1,20 +1,29 @@
 package ru.ardeon.additionalmechanics.vars;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import ru.ardeon.additionalmechanics.util.sql.SQLite;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class JoinListener implements Listener {
-	private SQLite playerPointsbd;
+	UservarManager playerVars;
 	
-	JoinListener(SQLite playerPointsbd){
-		this.playerPointsbd = playerPointsbd;
+	JoinListener(UservarManager playerVars){
+		this.playerVars = playerVars;
 	}
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		playerPointsbd.newPlayer(e.getPlayer());
+		Player player = e.getPlayer();
+		String uuid = player.getUniqueId().toString().toLowerCase();
+		Score score = playerVars.getOrCreateUser(player);
+		playerVars.adduser(uuid, score);
+	}
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent e) {
+		Player player = e.getPlayer();
+		String uuid = player.getUniqueId().toString().toLowerCase();
+		playerVars.removeUser(uuid);
 	}
 }

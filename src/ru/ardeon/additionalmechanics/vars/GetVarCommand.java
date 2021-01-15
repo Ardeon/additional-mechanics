@@ -6,12 +6,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import ru.ardeon.additionalmechanics.util.sql.SQLite;
-
 public class GetVarCommand implements CommandExecutor {
-	SQLite playerPointsbd;
-	GetVarCommand(SQLite playerPointsbd){
-		this.playerPointsbd = playerPointsbd;
+	UservarManager uservars;
+	GetVarCommand(UservarManager uservars){
+		this.uservars = uservars;
 	}
 
 	@Override
@@ -22,7 +20,7 @@ public class GetVarCommand implements CommandExecutor {
 			int varID;
 			try {
 				varID = Integer.parseInt(args[1]);
-				Integer value = playerPointsbd.getVar(uuid, varID);
+				Integer value = uservars.getVar(uuid, varID);
 				player.sendMessage("" + value);
 				return true;
 			}
