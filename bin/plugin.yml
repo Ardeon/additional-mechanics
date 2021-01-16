@@ -63,6 +63,10 @@ commands:
         description: fakeinv
         usage: /fakeinv
         permission: additionalmechanics.admin
+    prefix:
+        description: prefix
+        usage: /prefix
+        permission: additionalmechanics.prefix
     getvar:
         description: получить переменную игрока
         usage: /getvar <player> <1-5>
@@ -78,6 +82,8 @@ commands:
 permissions: #права
     additionalmechanics.admin:
         description: admin access
+    additionalmechanics.prefix:
+        description: prefix set
     additionalmechanics.miner.size.small:
         description: 1x2
     additionalmechanics.miner.size.normal:
