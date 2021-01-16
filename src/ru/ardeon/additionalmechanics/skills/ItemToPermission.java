@@ -21,11 +21,11 @@ public class ItemToPermission {
 			ItemStack item = e.getItem();
 			List<String> lore = item.getItemMeta().getLore();
 			//World world = player.getWorld();
-			e.setCancelled(true);
+			
 			String string10 = "";
 			if (lore.size()>=10) {
 				string10 = lore.get(9);
-				
+				//AdditionalMechanics.getPlugin().getLogger().info(string10);
 				/*try {
 					string10 = string10.substring(2);
 					//AdditionalMechanics.getPlugin().getLogger().info(string2);
@@ -62,6 +62,7 @@ public class ItemToPermission {
 					}
 				}
 			}
+			e.setCancelled(true);
 		}
 	};
 }

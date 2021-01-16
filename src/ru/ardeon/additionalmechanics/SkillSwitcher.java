@@ -67,6 +67,7 @@ public class SkillSwitcher
 	{
 		ItemStack item = e.getItem();
 		List<String> lore = item.getItemMeta().getLore();
+		//AdditionalMechanics.getPlugin().getLogger().info(lore.toString());
 		String skillName = lore.get(0);
 		ItemSkill skill = skills.getOrDefault(skillName, null);
 		if (skill!=null) {
@@ -74,7 +75,9 @@ public class SkillSwitcher
 		}
 		if (lore.size()>9) {
 			String skill7Name = lore.get(6);
-			ItemSkill skill7str = skills.getOrDefault(skill7Name, null);
+			//AdditionalMechanics.getPlugin().getLogger().info(skill7Name);
+			ItemSkill skill7str = skills7str.getOrDefault(skill7Name, null);
+			//AdditionalMechanics.getPlugin().getLogger().info(skill7str.toString());
 			if (skill7str!=null) {
 				skill7str.execute(e);
 			}
