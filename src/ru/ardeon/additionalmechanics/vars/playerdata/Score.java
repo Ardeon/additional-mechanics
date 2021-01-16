@@ -1,11 +1,9 @@
-package ru.ardeon.additionalmechanics.vars;
+package ru.ardeon.additionalmechanics.vars.playerdata;
 
 public class Score {
 	public int[] var = new int[5];
-	public String uuid;
 	
-	public Score(String uuid) {
-		this.uuid = uuid;
+	public Score() {
 	}
 	
 	public int getVar(int varID) {
@@ -23,8 +21,7 @@ public class Score {
 		var[varID-1] += value;
 	}
 	
-	public Score(String uuid, int var1, int var2, int var3, int var4, int var5) {
-		this.uuid = uuid;
+	public Score(int var1, int var2, int var3, int var4, int var5) {
 		this.var[0] = var1;
 		this.var[1] = var2;
 		this.var[2] = var3;

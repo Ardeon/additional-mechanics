@@ -35,6 +35,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
 import ru.ardeon.additionalmechanics.skills.Heals;
+import ru.ardeon.additionalmechanics.util.ItemUtil;
 import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 
 
@@ -53,27 +54,25 @@ public class EventsListener implements Listener
 	@EventHandler
 	public void ShootBow(EntityShootBowEvent e) {
 		ItemStack bow = e.getBow();
-		if (bow != null) {
-			if (bow.hasItemMeta() && bow.getItemMeta().hasLore()) {
-				List<String> lore = bow.getItemMeta().getLore();
-				if (lore.contains("§aВзрывная стрела§a")) {
-					LivingEntity owner = e.getEntity();
-					if (owner instanceof Player) {
-						Player p = (Player) owner;
-						Entity arrow = e.getProjectile();
-						if (p.isSneaking()&&!(p.hasCooldown(Material.FIREWORK_ROCKET))) {
-							p.setCooldown(Material.FIREWORK_ROCKET, 600);
+		if (ItemUtil.testForLore(bow)) {
+			List<String> lore = bow.getItemMeta().getLore();
+			if (lore.contains("§aВзрывная стрела§a")) {
+				LivingEntity owner = e.getEntity();
+				if (owner instanceof Player) {
+					Player p = (Player) owner;
+					Entity arrow = e.getProjectile();
+					if (p.isSneaking()&&!(p.hasCooldown(Material.FIREWORK_ROCKET))) {
+						p.setCooldown(Material.FIREWORK_ROCKET, 600);
+						arrow.addScoreboardTag("ExplosiveArrow");
+					}
+					else {
+						double x = Math.random() * 100;
+						if (x>96) {
 							arrow.addScoreboardTag("ExplosiveArrow");
 						}
-						else {
-							double x = Math.random() * 100;
-							if (x>96) {
-								arrow.addScoreboardTag("ExplosiveArrow");
-							}
-						}
 					}
-				}	
-			}
+				}
+			}	
 		}
 	}
 	
@@ -244,13 +243,10 @@ public class EventsListener implements Listener
 	public void onPlayerClickPlayer(PlayerInteractEntityEvent e) 
 	{
 		ItemStack item = e.getPlayer().getInventory().getItem(e.getHand());
-		if (item != null) {
-			
-			if (item.getItemMeta()!=null && item.getItemMeta().hasLore()) {
-				if (item.getItemMeta().getLore().contains("§aПередать жизненные силы§a")) {
-					if (Heals.SoulUse(e))
-						item.setAmount(item.getAmount()-1);
-				}
+		if (ItemUtil.testForLore(item)) {
+			if (item.getItemMeta().getLore().contains("§aПередать жизненные силы§a")) {
+				if (Heals.SoulUse(e))
+					item.setAmount(item.getAmount()-1);
 			}
 		}
 	}
@@ -263,11 +259,8 @@ public class EventsListener implements Listener
 			if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
 			{
 				ItemStack item = e.getItem();
-				if (item != null) {
-					if (item.hasItemMeta() && item.getItemMeta().hasLore()) {
-						skillSwitcher.ItemChoose(e);
-						//tost.log.info("dd");
-					}
+				if (ItemUtil.testForLore(item)) {
+					skillSwitcher.ItemChoose(e);
 				}
 			}
 		}

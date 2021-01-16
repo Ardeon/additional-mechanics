@@ -20,16 +20,6 @@ public class SQLite extends Database{
 		load();
 		dbname = plugin.configLoader.getVars().getString("SQLite.Filename", "vars");
 	}
-
-	public String SQLiteCreateTable = "CREATE TABLE IF NOT EXISTS vars (" +
-			"`player` varchar(36) NOT NULL," +
-			"`var1` int NOT NULL," +
-			"`var2` int NOT NULL," +
-			"`var3` int NOT NULL," +
-			"`var4` int NOT NULL," +
-			"`var5` int NOT NULL," +
-			"PRIMARY KEY (`player`)" +
-			");";
 	
 	private boolean createFileIfNotExist() {
 		if (!dataFolder.exists()){

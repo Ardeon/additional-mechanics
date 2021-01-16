@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import org.bukkit.entity.Player;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
-import ru.ardeon.additionalmechanics.vars.Score;
+import ru.ardeon.additionalmechanics.vars.playerdata.Score;
 
 
 public abstract class Database {
@@ -27,7 +27,6 @@ public abstract class Database {
 			"PRIMARY KEY (`player`)" +
 			");";
     
-    
     public Database(AdditionalMechanics instance){
         plugin = instance;
     }
@@ -42,6 +41,29 @@ public abstract class Database {
         try {
 			Statement s = connection.createStatement();
 			s.executeUpdate(CreateTable);
+			s.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        String CreateTableArenaStats = "CREATE TABLE IF NOT EXISTS arenastats (" +
+    			"`player` varchar(36) NOT NULL,";
+        for (int i = 1; i <= 12; i++) {
+        	CreateTableArenaStats = CreateTableArenaStats + 
+        			"`class" + i + "boot` tinyint NOT NULL DEFAULT 0," +
+        			"`class" + i + "leg` tinyint NOT NULL DEFAULT 0," +
+        			"`class" + i + "chest` tinyint NOT NULL DEFAULT 0," +
+        			"`class" + i + "power1` tinyint NOT NULL DEFAULT 0," +
+        			"`class" + i + "power2` tinyint NOT NULL DEFAULT 0," +
+        			"`class" + i + "power3` tinyint NOT NULL DEFAULT 0," +
+        			"`class" + i + "power4` tinyint NOT NULL DEFAULT 0," +
+        			"`class" + i + "power5` tinyint NOT NULL DEFAULT 0,";
+        }
+        CreateTableArenaStats = CreateTableArenaStats + 
+        		"PRIMARY KEY (`player`)" +
+    			");";
+        try {
+			Statement s = connection.createStatement();
+			s.executeUpdate(CreateTableArenaStats);
 			s.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,7 +115,7 @@ public abstract class Database {
         return null;
     }
     
-    public Score getOrCreatePlayer(Player player) {
+    public Score getOrCreatePlayerScore(Player player) {
 		String uuid = player.getUniqueId().toString().toLowerCase();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -115,9 +137,9 @@ public abstract class Database {
             }
             if (!playerExist) {
             	setDefaultVars(player);
-            	return new Score(uuid);
+            	return new Score();
             }
-            return new Score(uuid, var1, var2, var3, var4, var5);
+            return new Score(var1, var2, var3, var4, var5);
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, "Couldn't execute SQL statement:", ex);
         } finally {

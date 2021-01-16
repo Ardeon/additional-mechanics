@@ -8,8 +8,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.util.sql.SQLite;
+import ru.ardeon.additionalmechanics.vars.playerdata.Score;
 
-public class UservarManager {
+public class PlayerVarManager {
 	private HashMap<String,Score> users = new HashMap<String,Score>();
 	private SQLite playerPointsbd;
 	private BukkitRunnable autosave;
@@ -50,11 +51,11 @@ public class UservarManager {
 		users.remove(uuid);
 	}
 	
-	public Score getOrCreateUser(Player player){
-		return playerPointsbd.getOrCreatePlayer(player);
+	public Score getOrCreateUserScore(Player player){
+		return playerPointsbd.getOrCreatePlayerScore(player);
 	}
 	
-	UservarManager(SQLite playerPointsbd, AdditionalMechanics plugin){
+	PlayerVarManager(SQLite playerPointsbd, AdditionalMechanics plugin){
 		this.playerPointsbd = playerPointsbd;
 		plugin.getServer().getPluginManager().registerEvents(new JoinListener(this), plugin);
 		plugin.getServer().getPluginCommand("getvar").setExecutor(new GetVarCommand(this));

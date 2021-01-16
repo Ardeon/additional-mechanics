@@ -13,7 +13,7 @@ public class VarManager {
 	private FileConfiguration cfg;
 	private ConfigurationSection d;
 	public SQLite playerPointsbd;
-	public UservarManager uservars;
+	public PlayerVarManager uservars;
 	
 	public SQLite getPointsBD() {
 		return playerPointsbd;
@@ -40,6 +40,6 @@ public class VarManager {
 		currentDonate = d.getInt("current");
 		needDonate = d.getInt("need");
 		playerPointsbd = new SQLite(plugin);
-		uservars = new UservarManager(playerPointsbd, plugin);
+		uservars = new PlayerVarManager(playerPointsbd, plugin);
 	}
 }

@@ -7,8 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class GetVarCommand implements CommandExecutor {
-	UservarManager uservars;
-	GetVarCommand(UservarManager uservars){
+	PlayerVarManager uservars;
+	GetVarCommand(PlayerVarManager uservars){
 		this.uservars = uservars;
 	}
 
