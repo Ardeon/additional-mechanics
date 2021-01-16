@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 
 import org.bukkit.entity.Player;
@@ -16,9 +17,21 @@ public abstract class Database {
 	AdditionalMechanics plugin;
     Connection connection;
     public String table = "vars";
+    public String CreateTable = "CREATE TABLE IF NOT EXISTS vars (" +
+			"`player` varchar(36) NOT NULL," +
+			"`var1` int NOT NULL," +
+			"`var2` int NOT NULL," +
+			"`var3` int NOT NULL," +
+			"`var4` int NOT NULL," +
+			"`var5` int NOT NULL," +
+			"PRIMARY KEY (`player`)" +
+			");";
+    
+    
     public Database(AdditionalMechanics instance){
         plugin = instance;
     }
+    
 
     public abstract Connection getSQLConnection();
 
@@ -26,6 +39,13 @@ public abstract class Database {
 
     public void initialize(){
         connection = getSQLConnection();
+        try {
+			Statement s = connection.createStatement();
+			s.executeUpdate(CreateTable);
+			s.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         try{
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
             ResultSet rs = ps.executeQuery();
@@ -149,11 +169,11 @@ public abstract class Database {
         if (score==null) {
         	return;
         }
-        int var1 = score.var1;
-        int var2 = score.var2;
-        int var3 = score.var3;
-        int var4 = score.var4;
-        int var5 = score.var5;
+        int var1 = score.var[0];
+        int var2 = score.var[1];
+        int var3 = score.var[2];
+        int var4 = score.var[3];
+        int var5 = score.var[4];
         try {
             conn = getSQLConnection();
             ps = conn.prepareStatement("REPLACE INTO vars (player,var1,var2,var3,var4,var5) VALUES(?,?,?,?,?,?)");                                                                                                            

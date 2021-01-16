@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
@@ -13,8 +12,10 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class SQLite extends Database{
 	String dbname = "vars";
+	File dataFolder;
 	public SQLite(AdditionalMechanics instance){
 		super(instance);
+		dataFolder = new File(plugin.getDataFolder(), dbname+".db");
 		table = "vars";
 		load();
 		dbname = plugin.configLoader.getVars().getString("SQLite.Filename", "vars");
@@ -29,19 +30,24 @@ public class SQLite extends Database{
 			"`var5` int NOT NULL," +
 			"PRIMARY KEY (`player`)" +
 			");";
-
-	public Connection getSQLConnection() {
-		File dataFolder = new File(plugin.getDataFolder(), dbname+".db");
+	
+	private boolean createFileIfNotExist() {
 		if (!dataFolder.exists()){
 			try {
 				dataFolder.createNewFile();
 				AdditionalMechanics.getPlugin().getLogger().info("create");
+				return true;
 			} catch (IOException e) {
 				plugin.getLogger().log(Level.SEVERE, "File write error: "+dbname+".db");
 			}
 		}
+		return false;
+	}
+
+	public Connection getSQLConnection() {
+		createFileIfNotExist();
 		try {
-			AdditionalMechanics.getPlugin().getLogger().info("connection");
+			//AdditionalMechanics.getPlugin().getLogger().info("connection");
 			if(connection!=null&&!connection.isClosed()){
 				return connection;
 			}
@@ -58,14 +64,6 @@ public class SQLite extends Database{
 	
 
 	public void load() {
-		connection = getSQLConnection();
-		try {
-			Statement s = connection.createStatement();
-			s.executeUpdate(SQLiteCreateTable);
-			s.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		initialize();
     }
 }

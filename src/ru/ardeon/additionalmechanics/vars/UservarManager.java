@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.util.sql.SQLite;
@@ -11,6 +12,7 @@ import ru.ardeon.additionalmechanics.util.sql.SQLite;
 public class UservarManager {
 	private HashMap<String,Score> users = new HashMap<String,Score>();
 	private SQLite playerPointsbd;
+	private BukkitRunnable autosave;
 	
 	public void adduser(String uuid, Score score) {
 		users.put(uuid, score);
@@ -58,5 +60,12 @@ public class UservarManager {
 		plugin.getServer().getPluginCommand("getvar").setExecutor(new GetVarCommand(this));
 		plugin.getServer().getPluginCommand("setvar").setExecutor(new SetVarCommand(this));
 		plugin.getServer().getPluginCommand("addtovar").setExecutor(new AddToVarCommand(this));
+		autosave = new BukkitRunnable() {
+			@Override
+			public void run() {
+				saveUsers();
+			}
+		};
+		autosave.runTaskTimerAsynchronously(plugin, 500, 6000);
 	}
 }
