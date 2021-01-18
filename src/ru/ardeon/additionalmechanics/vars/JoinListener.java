@@ -6,6 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import ru.ardeon.additionalmechanics.vars.playerdata.ArenaProgress;
+import ru.ardeon.additionalmechanics.vars.playerdata.PlayerData;
 import ru.ardeon.additionalmechanics.vars.playerdata.Score;
 
 public class JoinListener implements Listener {
@@ -20,7 +22,9 @@ public class JoinListener implements Listener {
 		Player player = e.getPlayer();
 		String uuid = player.getUniqueId().toString().toLowerCase();
 		Score score = playerVars.getOrCreateUserScore(player);
-		playerVars.adduser(uuid, score);
+		ArenaProgress progress = playerVars.getOrCreateUserStats(player);
+		PlayerData data = new PlayerData(score, progress);
+		playerVars.adduser(uuid, data);
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {

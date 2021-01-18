@@ -19,7 +19,6 @@ public class PrefixCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
 		if (args.length==1 && lp!=null && sender instanceof Player) {
 			Player player = (Player) sender;
-			String prefix = "meta.pre.";
 			String test = args[0];
 			for (int i = 0; i < 10; i++) {
 				test = test.replaceAll("[&][" + i + "]", "");
@@ -37,9 +36,8 @@ public class PrefixCommand implements CommandExecutor {
 			test = test.replaceAll("[&][oO]", "");
 			test = test.replaceAll("[&][rR]", "");
 			if (args[0].length() < 24 && test.length() < 8) {
-				prefix = prefix + args[0];
 				ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-				String command = "lp u " + player.getName() + " meta set prefix " + prefix;
+				String command = "lp u " + player.getName() + " meta set prefix " + args[0];
 				Bukkit.dispatchCommand(console, command);
 				return true;
 			}

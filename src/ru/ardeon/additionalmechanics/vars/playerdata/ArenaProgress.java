@@ -7,75 +7,75 @@ public class ArenaProgress {
 	int[][] power = new int[12][5];
 	
 	public int getBoots(int classid) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return 0;
 		}
-		return boots[classid];
+		return boots[classid-1];
 	}
 	public int getLegs(int classid) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return 0;
 		}
-		return legs[classid];
+		return legs[classid-1];
 	}
 	public int getChest(int classid) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return 0;
 		}
-		return chest[classid];
+		return chest[classid-1];
 	}
 	public int getPower(int classid, int powerid) {
-		if(classid < 1 || classid > boots.length || powerid < 0 || powerid > 5) {
+		if(classid < 1 || classid > boots.length+1 || powerid < 1 || powerid > 6) {
 			return 0;
 		}
-		return power[classid][powerid];
+		return power[classid-1][powerid-1];
 	}
 	public void setBoots(int classid, int value) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return;
 		}
-		boots[classid] = value;
+		boots[classid-1] = value;
 	}
 	public void setLegs(int classid, int value) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return;
 		}
-		legs[classid] = value;
+		legs[classid-1] = value;
 	}
 	public void setChest(int classid, int value) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return;
 		}
-		chest[classid] = value;
+		chest[classid-1] = value;
 	}
 	public void setPower(int classid, int powerid, int value) {
-		if(classid < 1 || classid > boots.length || powerid < 0 || powerid > 5) {
+		if(classid < 1 || classid > boots.length+1 || powerid < 1 || powerid > 6) {
 			return;
 		}
-		power[classid][powerid] = value;
+		power[classid-1][powerid-1] = value;
 	}
 	public void upgradeBoots(int classid, int value) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return;
 		}
-		boots[classid] += value;
+		boots[classid-1] += value;
 	}
 	public void upgradeLegs(int classid, int value) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return;
 		}
-		legs[classid] += value;
+		legs[classid-1] += value;
 	}
 	public void upgradeChest(int classid, int value) {
-		if(classid < 0 || classid > boots.length) {
+		if(classid < 1 || classid > boots.length+1) {
 			return;
 		}
-		chest[classid] += value;
+		chest[classid-1] += value;
 	}
 	public void upgradePower(int classid, int powerid, int value) {
-		if(classid < 1 || classid > boots.length || powerid < 0 || powerid > 5) {
+		if(classid < 1 || classid > boots.length+1 || powerid < 1 || powerid > 6) {
 			return;
 		}
-		power[classid][powerid] += value;
+		power[classid-1][powerid-1] += value;
 	}
 }

@@ -79,6 +79,14 @@ commands:
         description: задать переменную игрока
         usage: /addtovar <player> <1-5> <value>
         permission: additionalmechanics.admin
+    addarenastat:
+        description: задать переменную игрока
+        usage: /addarenastats <player> <1-12> <1-8> <value>
+        permission: additionalmechanics.admin
+    getarenastat:
+        description: получить переменную игрока
+        usage: /getarenastats <player> <1-12> <1-8>
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access

@@ -10,6 +10,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.luckperms.api.LuckPerms;
+import ru.ardeon.additionalmechanics.common.antitarget.TargetListener;
 import ru.ardeon.additionalmechanics.configs.ConfigLoader;
 import ru.ardeon.additionalmechanics.guild.GuildsController;
 import ru.ardeon.additionalmechanics.mainCommands.CommandManager;
@@ -61,6 +62,7 @@ public class AdditionalMechanics extends JavaPlugin{
         //altar = new Altar();
         bm = new BuildManager();
         getLogger().info("AdditionalMechanics started!");
+        getServer().getPluginManager().registerEvents(new TargetListener(), this);
     }
     
     public LuckPerms getLP() {
