@@ -23,5 +23,7 @@ public class CommandManager {
         t.getServer().getPluginCommand("donateadd").setExecutor(new DonateAddCommand(t.varManager));
         t.getServer().getPluginCommand("fakeinv").setExecutor(new Fakeinv(t.rm));
         t.getServer().getPluginCommand("prefix").setExecutor(new PrefixCommand(t.getLP()));
+        t.getServer().getPluginCommand("setitemtag").setExecutor(new SetItemTagCommand());
+        t.getServer().getPluginCommand("getitemtag").setExecutor(new GetItemTagCommand());
 	}
 }

@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="D:/newBuild/plugins/ProtocolLib.jar"/>
 	<classpathentry kind="lib" path="D:/newBuild/plugins/PacketWrapper.jar"/>
 	<classpathentry kind="lib" path="D:/newBuild/plugins/LuckPerms-Bukkit-5.1.93.jar"/>
+	<classpathentry kind="lib" path="D:/newBuild/cache/patched_1.16.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

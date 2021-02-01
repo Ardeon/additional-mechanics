@@ -32,7 +32,10 @@ public class Combat {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.RED_DYE))) 		
 			{
+				//String uuid = player.getUniqueId().toString().toLowerCase();
+				
 				int power = LevelOfPermission.getLevel(player, "adm.agro", 5);
+				// PlayerVarManager.getInstance().getData(uuid).arenaprogress.getPower(4, 1);
 				int cd = LevelOfPermission.getLevel(player, "adm.agrocd", 7);
 				player.setCooldown(Material.RED_DYE, 1200 - cd * 60);
 				AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(player.getLocation(), EntityType.AREA_EFFECT_CLOUD);

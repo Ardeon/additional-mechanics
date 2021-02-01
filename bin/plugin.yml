@@ -63,6 +63,14 @@ commands:
         description: fakeinv
         usage: /fakeinv
         permission: additionalmechanics.admin
+    setitemtag:
+        description: setitemtag
+        usage: /setitemtag "тэг"
+        permission: additionalmechanics.admin
+    getitemtag:
+        description: getitemtag
+        usage: /getitemtag
+        permission: additionalmechanics.admin
     prefix:
         description: prefix
         usage: /prefix

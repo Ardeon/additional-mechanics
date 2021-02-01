@@ -16,6 +16,11 @@ public class PlayerVarManager {
 	private HashMap<String, PlayerData> users = new HashMap<String, PlayerData>();
 	private SQLite playerPointsbd;
 	private BukkitRunnable autosave;
+	public static PlayerVarManager instance;
+	
+	public static PlayerVarManager getInstance() {
+		return instance;
+	}
 	
 	public void adduser(String uuid, PlayerData data) {
 		users.put(uuid, data);
@@ -82,5 +87,6 @@ public class PlayerVarManager {
 			}
 		};
 		autosave.runTaskTimerAsynchronously(plugin, 500, 6000);
+		instance = this;
 	}
 }
