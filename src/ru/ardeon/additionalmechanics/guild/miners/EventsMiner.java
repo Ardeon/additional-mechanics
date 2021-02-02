@@ -26,7 +26,7 @@ import ru.ardeon.additionalmechanics.guild.miners.orescaner.OreScaner;
 
 public class EventsMiner implements Listener {
 	OreConverter converter = new OreConverter();
-	
+	@Deprecated
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.getHand()!=null) {

@@ -24,7 +24,7 @@ public class AdventurersListener implements Listener {
 	}
 	
 
-	
+	@Deprecated
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.getHand()!=null) {

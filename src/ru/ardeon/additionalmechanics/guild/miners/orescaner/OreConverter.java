@@ -3,7 +3,7 @@ package ru.ardeon.additionalmechanics.guild.miners.orescaner;
 import org.bukkit.Material;
 
 import ru.ardeon.additionalmechanics.util.ConverterMaterial;
-
+@Deprecated
 public class OreConverter extends ConverterMaterial {
 	@Override
 	public String NameOf(Material m) {

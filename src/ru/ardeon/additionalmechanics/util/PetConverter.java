@@ -1,5 +1,5 @@
 package ru.ardeon.additionalmechanics.util;
-
+@Deprecated
 public class PetConverter {
 	public static int PetNameToID(String name) {
 		int id=0;

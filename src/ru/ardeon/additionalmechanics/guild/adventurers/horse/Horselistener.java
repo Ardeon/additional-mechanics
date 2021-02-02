@@ -57,6 +57,7 @@ public class Horselistener implements Listener {
 			e.setCancelled(true);
 	}
 	
+	@Deprecated
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.getHand()!=null) {

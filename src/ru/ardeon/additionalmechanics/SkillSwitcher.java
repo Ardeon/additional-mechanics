@@ -13,7 +13,7 @@ import ru.ardeon.additionalmechanics.skills.ItemToPermission;
 import ru.ardeon.additionalmechanics.skills.Pushes;
 import ru.ardeon.additionalmechanics.skills.Teleports;
 import ru.ardeon.additionalmechanics.skills.Totems;
-
+@Deprecated
 public class SkillSwitcher
 {
 	private HashMap<String,ItemSkill> skills = new HashMap<String,ItemSkill>();
@@ -62,7 +62,7 @@ public class SkillSwitcher
 		//ItemToPermission
 		addSkill7str("§eПКМ§f - открыть клетку.", ItemToPermission.pet);
 	}
-	
+	@Deprecated
 	public void ItemChoose(PlayerInteractEvent e)
 	{
 		ItemStack item = e.getItem();

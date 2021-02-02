@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class PblockCommand implements CommandExecutor {
-
+	@Deprecated
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
 		if ((sender instanceof Player)) 

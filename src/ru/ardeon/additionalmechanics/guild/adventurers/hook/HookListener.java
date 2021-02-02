@@ -24,7 +24,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
 public class HookListener implements Listener {
-	
+	@Deprecated
 	@EventHandler
 	public void onHit(ProjectileHitEvent e) {
 		Block block = e.getHitBlock();
@@ -67,7 +67,7 @@ public class HookListener implements Listener {
 	}
 	
 	
-	
+	@Deprecated
 	@EventHandler
 	public void onPlayerClickSilverfish(PlayerInteractEntityEvent e) 
 	{
@@ -78,7 +78,7 @@ public class HookListener implements Listener {
 			ent.addPassenger(p);
 		}
 	}
-	
+	@Deprecated
 	@EventHandler
 	public void onDropLead(EntityDropItemEvent e) 
 	{
@@ -91,7 +91,7 @@ public class HookListener implements Listener {
 		}
 	}
 	
-	
+	@Deprecated
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) 
 	{

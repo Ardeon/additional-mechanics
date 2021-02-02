@@ -70,7 +70,7 @@ public class ScrollListener implements Listener {
 			}
 		}
 	}
-	
+	@Deprecated
 	@EventHandler
 	public void onPlayerUseScroll(PlayerInteractEvent e) 
 	{

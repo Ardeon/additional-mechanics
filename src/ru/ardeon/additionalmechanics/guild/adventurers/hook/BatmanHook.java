@@ -19,6 +19,7 @@ public class BatmanHook {
 		return null;
 	}
 	
+	@Deprecated
 	public static boolean useHook(Player p) {
 		int length = testPermission(p);
 		if (length!=0) {
@@ -49,6 +50,7 @@ public class BatmanHook {
 		
 	}
 	
+	@Deprecated
 	public static int testPermission(Player p) {
 		int perm = 0;
 		if (p.hasPermission("additionalmechanics.adventurers.hook.length.1"))

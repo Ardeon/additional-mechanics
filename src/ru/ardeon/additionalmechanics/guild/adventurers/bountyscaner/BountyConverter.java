@@ -3,7 +3,7 @@ package ru.ardeon.additionalmechanics.guild.adventurers.bountyscaner;
 import org.bukkit.Material;
 
 import ru.ardeon.additionalmechanics.util.ConverterMaterial;
-
+@Deprecated
 public class BountyConverter extends ConverterMaterial {
 
 	@Override

@@ -1,7 +1,7 @@
 package ru.ardeon.additionalmechanics.guild.miners;
 
 import org.bukkit.entity.Player;
-
+@Deprecated
 public class PermissonConvert {
 	/*
 	public static int getradius(Player p) {

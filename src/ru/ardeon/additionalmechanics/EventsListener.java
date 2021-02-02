@@ -50,7 +50,7 @@ public class EventsListener implements Listener
 	public void reload() {
 		this.skillSwitcher = AdditionalMechanics.getPlugin().skillSwitcher;
 	}
-
+	@Deprecated
 	@EventHandler
 	public void ShootBow(EntityShootBowEvent e) {
 		ItemStack bow = e.getBow();
@@ -182,7 +182,7 @@ public class EventsListener implements Listener
 		if (e.getRightClicked().getScoreboardTags().contains("untouchable"))
 			e.setCancelled(true);
 	}
-	
+	@Deprecated
 	@EventHandler
 	public void onPlayerHitEntity(EntityDamageByEntityEvent e) 
 	{

@@ -3,7 +3,7 @@ package ru.ardeon.additionalmechanics.guild.adventurers.horse;
 import org.bukkit.entity.Player;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
-
+@Deprecated
 public class HorsePermission {
 	public static double getHp(Player p) {
 		int i = 0;

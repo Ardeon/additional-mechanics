@@ -3,7 +3,6 @@ package ru.ardeon.additionalmechanics.util;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -13,7 +12,8 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class ItemUtil {
 
-	public static boolean testForLore(ItemStack item) {
+	@Deprecated
+	public static boolean testForLore(ItemStack item) {//legacy
 		if (item != null) {
 			if (item.hasItemMeta() && item.getItemMeta().hasLore()) {
 				return true;
