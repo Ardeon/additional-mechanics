@@ -19,10 +19,6 @@ commands:
         description: добавление altar
         usage: /altar <имя>
         permission: additionalmechanics.admin
-    enderbook:
-        description: открыть Книггу
-        usage: /enderbook
-        permission: additionalmechanics.enderbook
     stoptimer:
         description: Запустить таймер рестарта
         usage: /stoptimer <mins>

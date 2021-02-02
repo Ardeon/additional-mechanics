@@ -38,7 +38,6 @@ public class AdditionalMechanics extends JavaPlugin{
     @Override
     public void onDisable() {
     	configLoader.saveYamls();
-        gc.getAdventurers().getPortalManager().saveAll();
     }
     
     @Override
