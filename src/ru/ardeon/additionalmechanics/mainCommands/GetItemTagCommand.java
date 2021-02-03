@@ -12,10 +12,10 @@ public class GetItemTagCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
-		if (sender instanceof Player) {
+		if (sender instanceof Player && args.length >= 1) {
 			Player player = (Player) sender;
 			ItemStack item = player.getInventory().getItemInMainHand();
-			player.sendMessage(ItemUtil.getTag(item));
+			player.sendMessage(ItemUtil.getTag(item, args[0]));
 			return true;
 		}
 		return false;

@@ -259,7 +259,7 @@ public class EventsListener implements Listener
 			if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
 			{
 				ItemStack item = e.getItem();
-				if (ItemUtil.testForLore(item)) {
+				if (ItemUtil.testForSkillTag(item)) {
 					skillSwitcher.ItemChoose(e);
 				}
 			}

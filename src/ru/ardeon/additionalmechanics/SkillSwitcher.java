@@ -1,7 +1,6 @@
 package ru.ardeon.additionalmechanics;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -13,11 +12,11 @@ import ru.ardeon.additionalmechanics.skills.ItemToPermission;
 import ru.ardeon.additionalmechanics.skills.Pushes;
 import ru.ardeon.additionalmechanics.skills.Teleports;
 import ru.ardeon.additionalmechanics.skills.Totems;
-@Deprecated
+import ru.ardeon.additionalmechanics.util.ItemUtil;
+
 public class SkillSwitcher
 {
 	private HashMap<String,ItemSkill> skills = new HashMap<String,ItemSkill>();
-	private HashMap<String,ItemSkill> skills7str = new HashMap<String,ItemSkill>();
 	
 	public SkillSwitcher(){
 		addDefaultSkills();
@@ -27,16 +26,36 @@ public class SkillSwitcher
 		skills.put(name, skill);
 	}
 	
-	public void addSkill7str(String name, ItemSkill skill) {
-		skills7str.put(name, skill);
-	}
-	
 	public void eraseSkills() {
 		skills.clear();
-		skills7str.clear();
 	}
 	
 	public void addDefaultSkills() {
+		//Combat
+		addSkill("agro", Combat.agro);
+		addSkill("damagingSnowball", Combat.damagingSnowball);
+		addSkill("explosion", Combat.explosion);
+		addSkill("fireballWithEffect", Combat.fireballWithEffect);
+		addSkill("rage", Combat.rage);
+		addSkill("scarecrow", Combat.scarecrow);
+		addSkill("soulAgro", Combat.soulAgro);
+		//Heals
+		addSkill("holy", Heals.holy);
+		addSkill("honey", Heals.honey);
+		addSkill("firstAid", Heals.firstAid);
+		//Pushes
+		addSkill("forceJump", Pushes.forceJump);
+		addSkill("hook", Pushes.hook);
+		//teleports
+		addSkill("blink", Teleports.blink);
+		//totems
+		addSkill("healTotem", Totems.healTotem);
+		addSkill("windTotem", Totems.windTotem);
+		addSkill("protectorTotem", Totems.protectorTotem);
+		
+		//ItemToPermission
+		addSkill("pet", ItemToPermission.pet);
+		/*
 		//Combat
 		addSkill("§aПровокация§a", Combat.agro);
 		addSkill("§aОковы§a", Combat.damagingSnowball);
@@ -60,29 +79,19 @@ public class SkillSwitcher
 		addSkill("§aТотем защиты§a", Totems.protectorTotem);
 		
 		//ItemToPermission
-		addSkill7str("§eПКМ§f - открыть клетку.", ItemToPermission.pet);
+		addSkill("§eПКМ§f - открыть клетку.", ItemToPermission.pet);
+		*/
 	}
-	@Deprecated
+	
 	public void ItemChoose(PlayerInteractEvent e)
 	{
 		ItemStack item = e.getItem();
-		List<String> lore = item.getItemMeta().getLore();
-		//AdditionalMechanics.getPlugin().getLogger().info(lore.toString());
-		String skillName = lore.get(0);
+		String skillName = ItemUtil.getTag(item, "skill");
+		//AdditionalMechanics.getPlugin().getLogger().info(skillName);
 		ItemSkill skill = skills.getOrDefault(skillName, null);
 		if (skill!=null) {
 			skill.execute(e);
 		}
-		if (lore.size()>9) {
-			String skill7Name = lore.get(6);
-			//AdditionalMechanics.getPlugin().getLogger().info(skill7Name);
-			ItemSkill skill7str = skills7str.getOrDefault(skill7Name, null);
-			//AdditionalMechanics.getPlugin().getLogger().info(skill7str.toString());
-			if (skill7str!=null) {
-				skill7str.execute(e);
-			}
-		}
-		
 	}
 
 }

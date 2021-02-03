@@ -61,11 +61,11 @@ commands:
         permission: additionalmechanics.admin
     setitemtag:
         description: setitemtag
-        usage: /setitemtag "тэг"
+        usage: /setitemtag "тэг" "значение"
         permission: additionalmechanics.admin
     getitemtag:
         description: getitemtag
-        usage: /getitemtag
+        usage: /getitemtag "тэг"
         permission: additionalmechanics.admin
     prefix:
         description: prefix

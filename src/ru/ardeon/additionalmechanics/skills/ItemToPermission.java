@@ -1,7 +1,5 @@
 package ru.ardeon.additionalmechanics.skills;
 
-import java.util.List;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,30 +17,7 @@ public class ItemToPermission {
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			ItemStack item = e.getItem();
-			List<String> lore = item.getItemMeta().getLore();
-			//World world = player.getWorld();
-			
-			String string10 = "";
-			if (lore.size()>=10) {
-				string10 = lore.get(9);
-				//AdditionalMechanics.getPlugin().getLogger().info(string10);
-				/*try {
-					string10 = string10.substring(2);
-					//AdditionalMechanics.getPlugin().getLogger().info(string2);
-				} catch (Exception ex) {
-					
-				}
-				*/
-			}
-			int petN = PetConverter.PetNameToID(string10);
-			/*
-			try {
-				petN = Integer.parseInt(string2);
-			}
-			catch (NumberFormatException ex)
-			{
-			   petN = 0;
-			}*/
+			int petN = PetConverter.PetNameToID(item);
 			if (petN!=0) {
 				String permission = "pet."+petN;
 				boolean hasPet =  player.hasPermission(permission);
