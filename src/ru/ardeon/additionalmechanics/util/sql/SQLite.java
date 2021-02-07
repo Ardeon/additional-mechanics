@@ -16,7 +16,6 @@ public class SQLite extends Database{
 	public SQLite(AdditionalMechanics instance){
 		super(instance);
 		dataFolder = new File(plugin.getDataFolder(), dbname+".db");
-		table = "vars";
 		load();
 		dbname = plugin.configLoader.getVars().getString("SQLite.Filename", "vars");
 	}

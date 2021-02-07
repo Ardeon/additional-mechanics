@@ -3,7 +3,6 @@ package ru.ardeon.additionalmechanics.vars;
 import java.util.HashMap;
 import java.util.Set;
 
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
@@ -29,8 +28,8 @@ public class PlayerVarManager {
 	public void saveUser(String uuid) {
 		MoneyData moneyData = users.get(uuid).moneyData;
 		ArenaData arenaData = users.get(uuid).arenaData;
-		playerPointsbd.saveVars(uuid, moneyData);
-		playerPointsbd.saveStats(uuid, arenaData);
+		playerPointsbd.moneyTable.saveData(uuid, moneyData);
+		playerPointsbd.arenatable.saveData(uuid, arenaData);
 	}
 	
 	public void saveUsers() {
@@ -64,12 +63,12 @@ public class PlayerVarManager {
 		users.remove(uuid);
 	}
 	
-	public MoneyData getOrCreateUserScore(Player player){
-		return playerPointsbd.getOrCreatePlayerScore(player);
+	public MoneyData getOrCreateUserScore(String uuid){
+		return playerPointsbd.moneyTable.getOrCreate(uuid);
 	}
 	
-	public ArenaData getOrCreateUserStats(Player player){
-		return playerPointsbd.getOrCreatePlayerStats(player);
+	public ArenaData getOrCreateUserStats(String uuid){
+		return playerPointsbd.arenatable.getOrCreate(uuid);
 	}
 	
 	PlayerVarManager(SQLite playerPointsbd, AdditionalMechanics plugin){

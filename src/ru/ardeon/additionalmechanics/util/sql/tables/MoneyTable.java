@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-import org.bukkit.entity.Player;
-
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.util.sql.DataBaseTable;
 import ru.ardeon.additionalmechanics.util.sql.Database;
@@ -25,13 +23,12 @@ public class MoneyTable extends DataBaseTable{
 			"PRIMARY KEY (`player`)" +
 			");";
 	
-	MoneyTable(Database dataBase) {
+	public MoneyTable(Database dataBase) {
 		super(dataBase, creating);
 		// TODO Auto-generated constructor stub
 	}
 
-	public MoneyData getOrCreate(Player player) {
-		String uuid = player.getUniqueId().toString().toLowerCase();
+	public MoneyData getOrCreate(String uuid) {
         PreparedStatement preparedStatement = null;
         Connection connection = null;
         try {
@@ -51,7 +48,7 @@ public class MoneyTable extends DataBaseTable{
                 }
             }
             if (!playerExist) {
-            	setDefault(player);
+            	setDefault(uuid);
             	return new MoneyData();
             }
             return new MoneyData(var1, var2, var3, var4, var5);
@@ -70,8 +67,7 @@ public class MoneyTable extends DataBaseTable{
         return null;
 	}
 
-	public void setDefault(Player player) {
-		String uuid = player.getUniqueId().toString().toLowerCase();
+	public void setDefault(String uuid) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
@@ -100,8 +96,7 @@ public class MoneyTable extends DataBaseTable{
         return;
 	}
 
-	public void saveData(Player player, MoneyData moneyData) {
-		String uuid = player.getUniqueId().toString().toLowerCase();
+	public void saveData(String uuid, MoneyData moneyData) {
 		PreparedStatement ps = null;
 		Connection connection = null;
 		if (moneyData==null) {

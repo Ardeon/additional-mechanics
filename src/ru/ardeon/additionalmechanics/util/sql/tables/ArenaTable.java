@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-import org.bukkit.entity.Player;
-
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.util.sql.DataBaseTable;
 import ru.ardeon.additionalmechanics.util.sql.Database;
@@ -60,13 +58,12 @@ public class ArenaTable extends DataBaseTable{
     		+ "?,?,?,?,?,?,?,?,"//11
     		+ "?,?,?,?,?,?,?,?)";//12
 
-	protected ArenaTable(Database dataBase) {
+	public ArenaTable(Database dataBase) {
 		super(dataBase, creatingString());
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ArenaData getOrCreatePlayerStats(Player player) {
-		String uuid = player.getUniqueId().toString().toLowerCase();
+	public ArenaData getOrCreate(String uuid) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
@@ -89,7 +86,7 @@ public class ArenaTable extends DataBaseTable{
                 }
             }
             if (!playerExist) {
-            	setDefault(player);
+            	setDefault(uuid);
             }
             return progress;
         } catch (SQLException ex) {
@@ -107,8 +104,7 @@ public class ArenaTable extends DataBaseTable{
         return null;      
     }
 	
-	private void setDefault(Player player) {
-    	String uuid = player.getUniqueId().toString().toLowerCase();
+	private void setDefault(String uuid) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -132,8 +128,7 @@ public class ArenaTable extends DataBaseTable{
         return;
 	}
 	
-	public void saveStats(Player player, ArenaData progress) {
-		String uuid = player.getUniqueId().toString().toLowerCase();
+	public void saveData(String uuid, ArenaData progress) {
         Connection connection = null;
         PreparedStatement ps = null;
         if (progress==null) {
