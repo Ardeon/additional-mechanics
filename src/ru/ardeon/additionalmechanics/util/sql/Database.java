@@ -10,13 +10,17 @@ import java.util.logging.Level;
 import org.bukkit.entity.Player;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
-import ru.ardeon.additionalmechanics.vars.playerdata.ArenaProgress;
-import ru.ardeon.additionalmechanics.vars.playerdata.Score;
+import ru.ardeon.additionalmechanics.util.sql.tables.ArenaTable;
+import ru.ardeon.additionalmechanics.util.sql.tables.MoneyTable;
+import ru.ardeon.additionalmechanics.vars.playerdata.ArenaData;
+import ru.ardeon.additionalmechanics.vars.playerdata.MoneyData;
 
 
 public abstract class Database {
 	AdditionalMechanics plugin;
     Connection connection;
+    public MoneyTable moneyTable;
+    public ArenaTable arenatable;
     public String table = "vars";
     public String CreateTable = "CREATE TABLE IF NOT EXISTS vars (" +
 			"`player` varchar(36) NOT NULL," +
@@ -112,36 +116,8 @@ public abstract class Database {
 			e.printStackTrace();
 		}
 	}
-
-    public Integer getVar(String uuid, int varID) {//legacy
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT player,var" + varID + " FROM " + table + " WHERE player = '"+uuid+"';");
-            rs = ps.executeQuery();
-            while(rs.next()){
-                if(rs.getString(1).equalsIgnoreCase(uuid.toLowerCase())){
-                    return rs.getInt(2); 
-                }
-            }
-        } catch (SQLException ex) {
-            plugin.getLogger().log(Level.SEVERE, "Couldn't execute SQL statement: ", ex);
-        } finally {
-            try {
-                if (ps != null)
-                    ps.close();
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, "Failed to close SQL connection: ", ex);
-            }
-        }
-        return null;
-    }
     
-    public ArenaProgress getOrCreatePlayerStats(Player player) {
+    public ArenaData getOrCreatePlayerStats(Player player) {
 		String uuid = player.getUniqueId().toString().toLowerCase();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -150,7 +126,7 @@ public abstract class Database {
             ps = conn.prepareStatement("SELECT * FROM arenastats WHERE player = '"+uuid+"';");
             boolean playerExist = false;
             ResultSet rs = ps.executeQuery();
-            ArenaProgress progress = new ArenaProgress();
+            ArenaData progress = new ArenaData();
             while(rs.next()){
                 if(rs.getString(1).equalsIgnoreCase(uuid.toLowerCase())){
                 	playerExist = true;
@@ -209,7 +185,7 @@ public abstract class Database {
 	}
 
 
-	public Score getOrCreatePlayerScore(Player player) {
+	public MoneyData getOrCreatePlayerScore(Player player) {
 		String uuid = player.getUniqueId().toString().toLowerCase();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -231,9 +207,9 @@ public abstract class Database {
             }
             if (!playerExist) {
             	setDefaultVars(player);
-            	return new Score();
+            	return new MoneyData();
             }
-            return new Score(var1, var2, var3, var4, var5);
+            return new MoneyData(var1, var2, var3, var4, var5);
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, "Couldn't execute SQL statement:", ex);
         } finally {
@@ -279,7 +255,7 @@ public abstract class Database {
         return;      
     }
     
-    public void saveVars(String uuid, Score score) {
+    public void saveVars(String uuid, MoneyData score) {
         Connection conn = null;
         PreparedStatement ps = null;
         if (score==null) {
@@ -316,7 +292,7 @@ public abstract class Database {
         return;      
     }
     
-    public void saveStats(String uuid, ArenaProgress progress) {
+    public void saveStats(String uuid, ArenaData progress) {
         Connection conn = null;
         PreparedStatement ps = null;
         if (progress==null) {
@@ -339,33 +315,6 @@ public abstract class Database {
 	            	x++;
 	            }
             }
-            ps.executeUpdate();
-            return;
-        } catch (SQLException ex) {
-            plugin.getLogger().log(Level.SEVERE, "Couldn't execute SQL statement:", ex);
-        } finally {
-            try {
-                if (ps != null)
-                    ps.close();
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, "Failed to close SQL connection: ", ex);
-            }
-        }
-        return;      
-    }
-
-	public void setVar(String uuid, int varID, Integer value) {//legacy
-		if (varID < 1 || varID >5) {
-			return;
-		}
-        Connection conn = null;
-        PreparedStatement ps = null;
-        try {
-            conn = getSQLConnection();
-            ps = conn.prepareStatement("UPDATE vars SET var"+varID+"=? WHERE player = '"+uuid+"';");                                                                                                            
-            ps.setInt(1, value); 
             ps.executeUpdate();
             return;
         } catch (SQLException ex) {

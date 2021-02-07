@@ -8,9 +8,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.util.sql.SQLite;
-import ru.ardeon.additionalmechanics.vars.playerdata.ArenaProgress;
+import ru.ardeon.additionalmechanics.vars.playerdata.ArenaData;
+import ru.ardeon.additionalmechanics.vars.playerdata.MoneyData;
 import ru.ardeon.additionalmechanics.vars.playerdata.PlayerData;
-import ru.ardeon.additionalmechanics.vars.playerdata.Score;
 
 public class PlayerVarManager {
 	private HashMap<String, PlayerData> users = new HashMap<String, PlayerData>();
@@ -27,10 +27,10 @@ public class PlayerVarManager {
 	}
 	
 	public void saveUser(String uuid) {
-		Score score = users.get(uuid).score;
-		ArenaProgress progress = users.get(uuid).arenaprogress;
-		playerPointsbd.saveVars(uuid, score);
-		playerPointsbd.saveStats(uuid, progress);
+		MoneyData moneyData = users.get(uuid).moneyData;
+		ArenaData arenaData = users.get(uuid).arenaData;
+		playerPointsbd.saveVars(uuid, moneyData);
+		playerPointsbd.saveStats(uuid, arenaData);
 	}
 	
 	public void saveUsers() {
@@ -45,18 +45,18 @@ public class PlayerVarManager {
 	}
 	
 	public int getVar(String uuid, int varID){
-		Score score = users.get(uuid).score;
-		return score.getVar(varID);
+		MoneyData moneyData = users.get(uuid).moneyData;
+		return moneyData.getVar(varID);
 	}
 	
 	public void setVar(String uuid, int varID, int value){
-		Score score = users.get(uuid).score;
-		score.setVar(varID, value);
+		MoneyData moneyData = users.get(uuid).moneyData;
+		moneyData.setVar(varID, value);
 	}
 	
 	public void addToVar(String uuid, int varID, int value){
-		Score score = users.get(uuid).score;
-		score.addToVar(varID, value);
+		MoneyData moneyData = users.get(uuid).moneyData;
+		moneyData.addToVar(varID, value);
 	}
 	
 	public void removeUser(String uuid) {
@@ -64,11 +64,11 @@ public class PlayerVarManager {
 		users.remove(uuid);
 	}
 	
-	public Score getOrCreateUserScore(Player player){
+	public MoneyData getOrCreateUserScore(Player player){
 		return playerPointsbd.getOrCreatePlayerScore(player);
 	}
 	
-	public ArenaProgress getOrCreateUserStats(Player player){
+	public ArenaData getOrCreateUserStats(Player player){
 		return playerPointsbd.getOrCreatePlayerStats(player);
 	}
 	

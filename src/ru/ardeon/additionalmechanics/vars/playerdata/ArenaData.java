@@ -1,6 +1,6 @@
 package ru.ardeon.additionalmechanics.vars.playerdata;
 
-public class ArenaProgress {
+public class ArenaData extends AbstractData{
 	int[] boots = new int[12];
 	int[] legs = new int[12];
 	int[] chest = new int[12];

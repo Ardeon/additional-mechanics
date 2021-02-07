@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import ru.ardeon.additionalmechanics.vars.playerdata.ArenaProgress;
+import ru.ardeon.additionalmechanics.vars.playerdata.ArenaData;
 
 public class SetArenaStatCommand implements CommandExecutor {
 	PlayerVarManager uservars;
@@ -24,38 +24,38 @@ public class SetArenaStatCommand implements CommandExecutor {
 			try {
 				classID = Integer.parseInt(args[1]);
 				statID = Integer.parseInt(args[2]);
-				ArenaProgress arenaprogress = uservars.getData(uuid).arenaprogress;
+				ArenaData arenaData = uservars.getData(uuid).arenaData;
 				switch (statID) {
 				case 1 :{
-					player.sendMessage(""+arenaprogress.getBoots(classID));
+					player.sendMessage(""+arenaData.getBoots(classID));
 					break;
 				}
 				case 2 :{
-					player.sendMessage(""+arenaprogress.getLegs(classID));
+					player.sendMessage(""+arenaData.getLegs(classID));
 					break;
 				}
 				case 3 :{
-					player.sendMessage(""+arenaprogress.getChest(classID));
+					player.sendMessage(""+arenaData.getChest(classID));
 					break;
 				}
 				case 4 :{
-					player.sendMessage(""+arenaprogress.getPower(classID, 1));
+					player.sendMessage(""+arenaData.getPower(classID, 1));
 					break;
 				}
 				case 5 :{
-					player.sendMessage(""+arenaprogress.getPower(classID, 2));
+					player.sendMessage(""+arenaData.getPower(classID, 2));
 					break;
 				}
 				case 6 :{
-					player.sendMessage(""+arenaprogress.getPower(classID, 3));
+					player.sendMessage(""+arenaData.getPower(classID, 3));
 					break;
 				}
 				case 7 :{
-					player.sendMessage(""+arenaprogress.getPower(classID, 4));
+					player.sendMessage(""+arenaData.getPower(classID, 4));
 					break;
 				}
 				case 8 :{
-					player.sendMessage(""+arenaprogress.getPower(classID, 5));
+					player.sendMessage(""+arenaData.getPower(classID, 5));
 					break;
 				}
 				}

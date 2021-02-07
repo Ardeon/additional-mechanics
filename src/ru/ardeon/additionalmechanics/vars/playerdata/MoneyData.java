@@ -1,9 +1,9 @@
 package ru.ardeon.additionalmechanics.vars.playerdata;
 
-public class Score {
+public class MoneyData extends AbstractData{
 	public int[] var = new int[5];
 	
-	public Score() {
+	public MoneyData() {
 	}
 	
 	public int getVar(int varID) {
@@ -21,7 +21,7 @@ public class Score {
 		var[varID-1] += value;
 	}
 	
-	public Score(int var1, int var2, int var3, int var4, int var5) {
+	public MoneyData(int var1, int var2, int var3, int var4, int var5) {
 		this.var[0] = var1;
 		this.var[1] = var2;
 		this.var[2] = var3;

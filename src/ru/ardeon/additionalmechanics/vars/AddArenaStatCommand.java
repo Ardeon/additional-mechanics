@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import ru.ardeon.additionalmechanics.vars.playerdata.ArenaProgress;
+import ru.ardeon.additionalmechanics.vars.playerdata.ArenaData;
 
 public class AddArenaStatCommand implements CommandExecutor {
 	PlayerVarManager uservars;
@@ -26,38 +26,38 @@ public class AddArenaStatCommand implements CommandExecutor {
 				classID = Integer.parseInt(args[1]);
 				statID = Integer.parseInt(args[2]);
 				value = Integer.parseInt(args[3]);
-				ArenaProgress arenaprogress = uservars.getData(uuid).arenaprogress;
+				ArenaData arenaData = uservars.getData(uuid).arenaData;
 				switch (statID) {
 				case 1 :{
-					arenaprogress.upgradeBoots(classID, value);
+					arenaData.upgradeBoots(classID, value);
 					break;
 				}
 				case 2 :{
-					arenaprogress.upgradeLegs(classID, value);
+					arenaData.upgradeLegs(classID, value);
 					break;
 				}
 				case 3 :{
-					arenaprogress.upgradeChest(classID, value);
+					arenaData.upgradeChest(classID, value);
 					break;
 				}
 				case 4 :{
-					arenaprogress.upgradePower(classID, 1, value);
+					arenaData.upgradePower(classID, 1, value);
 					break;
 				}
 				case 5 :{
-					arenaprogress.upgradePower(classID, 2, value);
+					arenaData.upgradePower(classID, 2, value);
 					break;
 				}
 				case 6 :{
-					arenaprogress.upgradePower(classID, 3, value);
+					arenaData.upgradePower(classID, 3, value);
 					break;
 				}
 				case 7 :{
-					arenaprogress.upgradePower(classID, 4, value);
+					arenaData.upgradePower(classID, 4, value);
 					break;
 				}
 				case 8 :{
-					arenaprogress.upgradePower(classID, 5, value);
+					arenaData.upgradePower(classID, 5, value);
 					break;
 				}
 				}
