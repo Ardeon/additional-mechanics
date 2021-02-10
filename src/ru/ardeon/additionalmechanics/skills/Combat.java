@@ -22,7 +22,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import ru.ardeon.additionalmechanics.myEntity.Bait;
-import ru.ardeon.additionalmechanics.util.LevelOfPermission;
+import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class Combat {
 	public static ItemSkill agro = new ItemSkill() {
@@ -32,11 +32,9 @@ public class Combat {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.RED_DYE))) 		
 			{
-				//String uuid = player.getUniqueId().toString().toLowerCase();
-				
-				int power = LevelOfPermission.getLevel(player, "adm.agro", 5);
-				// PlayerVarManager.getInstance().getData(uuid).arenaprogress.getPower(4, 1);
-				int cd = LevelOfPermission.getLevel(player, "adm.agrocd", 7);
+				//power 5 cd 7
+				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(4, 1);
+				int cd = (int) (power * 1.5);
 				player.setCooldown(Material.RED_DYE, 1200 - cd * 60);
 				AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(player.getLocation(), EntityType.AREA_EFFECT_CLOUD);
 				cloud.setDuration(1);
@@ -71,7 +69,8 @@ public class Combat {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.STICK))) 
 			{
-				int cd = LevelOfPermission.getLevel(player, "adm.slowstickcd", 7);
+				//cd 7
+				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(5, 1);
 				Class<Snowball> ball = Snowball.class;
 				Snowball r = e.getPlayer().launchProjectile(ball);
 				r.setShooter(e.getPlayer());
@@ -90,8 +89,9 @@ public class Combat {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.FIREWORK_STAR))) 
 			{
-				int power = LevelOfPermission.getLevel(player, "adm.explosion", 3);
-				int cd = LevelOfPermission.getLevel(player, "adm.explosioncd", 7);
+				//power 3 cd 7
+				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(4, 2);
+				int cd = power * 2;
 				player.setCooldown(Material.FIREWORK_STAR, 800 - cd * 40);
 				world.createExplosion(player.getLocation(), 2 + power, false, false, player);
 			}
@@ -105,7 +105,8 @@ public class Combat {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.QUARTZ))) 
 			{
-				int cd = LevelOfPermission.getLevel(player, "adm.quartzcd", 7);
+				//cd 7
+				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(6, 1);
 				Class<SmallFireball> ball = SmallFireball.class;
 				SmallFireball r = e.getPlayer().launchProjectile(ball);
 				r.setShooter(e.getPlayer());
@@ -123,8 +124,8 @@ public class Combat {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.BLACK_DYE))) 
 			{
-				int power = LevelOfPermission.getLevel(player, "adm.rage", 3);
-				int cd = LevelOfPermission.getLevel(player, "adm.ragecd", 7);
+				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(2, 2);
+				int cd = power/3;
 				player.setCooldown(Material.BLACK_DYE, 600 - cd * 50);
 				double newhealth = player.getHealth()-3;
 				if (newhealth<1)
@@ -150,7 +151,8 @@ public class Combat {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.PLAYER_HEAD))) 
 			{
-				int cd = LevelOfPermission.getLevel(player, "adm.baitcd", 7);
+				//cd 7
+				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(3, 2);
 				player.setCooldown(Material.PLAYER_HEAD, 1600 - cd * 120);
 				world.playSound(player.getLocation(), Sound.ENTITY_EVOKER_AMBIENT, 2, 1);
 				world.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 2, 1.2f);

@@ -60,7 +60,6 @@ public class ArenaTable extends DataBaseTable{
 
 	public ArenaTable(Database dataBase) {
 		super(dataBase, creatingString());
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ArenaData getOrCreate(String uuid) {

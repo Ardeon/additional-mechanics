@@ -19,6 +19,14 @@ commands:
         description: добавление altar
         usage: /altar <имя>
         permission: additionalmechanics.admin
+    testitemencode:
+        description: testitemencode
+        usage: /testitemencode
+        permission: additionalmechanics.admin
+    testitemdecode:
+        description: testitemdecode
+        usage: /testitemdecode
+        permission: additionalmechanics.admin
     stoptimer:
         description: Запустить таймер рестарта
         usage: /stoptimer <mins>

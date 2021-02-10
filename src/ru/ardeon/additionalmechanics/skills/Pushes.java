@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
-import ru.ardeon.additionalmechanics.util.LevelOfPermission;
+import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class Pushes {
 	public static ItemSkill forceJump = new ItemSkill() {
@@ -36,7 +36,8 @@ public class Pushes {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.TRIPWIRE_HOOK))) 
 			{
-				int cd = LevelOfPermission.getLevel(player, "adm.hookcd", 7);
+				//cd 7
+				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(2, 1);
 				player.setCooldown(Material.TRIPWIRE_HOOK, 100 - cd * 5);
 				world.spawnParticle(Particle.END_ROD, player.getEyeLocation(), 10);
 				Arrow ar = player.launchProjectile(Arrow.class);

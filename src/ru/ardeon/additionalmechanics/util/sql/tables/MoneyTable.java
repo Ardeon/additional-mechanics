@@ -15,17 +15,16 @@ public class MoneyTable extends DataBaseTable{
 
 	static String creating = "CREATE TABLE IF NOT EXISTS vars (" +
 			"`player` varchar(36) NOT NULL," +
-			"`var1` int NOT NULL," +
-			"`var2` int NOT NULL," +
-			"`var3` int NOT NULL," +
-			"`var4` int NOT NULL," +
-			"`var5` int NOT NULL," +
+			"`var1` int NOT NULL DEFAULT 0," +
+			"`var2` int NOT NULL DEFAULT 0," +
+			"`var3` int NOT NULL DEFAULT 0," +
+			"`var4` int NOT NULL DEFAULT 0," +
+			"`var5` int NOT NULL DEFAULT 0," +
 			"PRIMARY KEY (`player`)" +
 			");";
 	
 	public MoneyTable(Database dataBase) {
 		super(dataBase, creating);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MoneyData getOrCreate(String uuid) {
