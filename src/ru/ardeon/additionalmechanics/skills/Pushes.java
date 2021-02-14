@@ -19,9 +19,10 @@ public class Pushes {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.FEATHER))) 
 			{
+				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(3, 1);
 				world.spawnParticle(Particle.CLOUD, player.getLocation(), 7);
 				player.setCooldown(Material.FEATHER, 40);
-				Vector j = player.getLocation().getDirection().normalize().multiply(2.4);
+				Vector j = player.getLocation().getDirection().normalize().multiply(1.5 + 0.2 * power);
 				j.setY(0.4);
 				player.setVelocity(j);
 				world.playSound(player.getLocation(), Sound.ENTITY_PARROT_FLY, 2, 1);

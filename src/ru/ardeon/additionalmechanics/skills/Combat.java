@@ -124,16 +124,17 @@ public class Combat {
 			World world = player.getWorld();
 			if (!(player.hasCooldown(Material.BLACK_DYE))) 
 			{
+				//7
 				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(2, 2);
-				int cd = power/3;
+				int cd = power;
 				player.setCooldown(Material.BLACK_DYE, 600 - cd * 50);
 				double newhealth = player.getHealth()-3;
 				if (newhealth<1)
 					newhealth=1;
 				player.setHealth(newhealth);
-				PotionEffect ef = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 150, 1 + power);
+				PotionEffect ef = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 150, 1 + power/2);
 				ef.apply(player);
-				ef = new PotionEffect(PotionEffectType.REGENERATION, 150 + power * 20, 2 + power/3);
+				ef = new PotionEffect(PotionEffectType.REGENERATION, 150 + power * 20, 2 + power/2);
 				ef.apply(player);
 				ef = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 150, 1);
 				ef.apply(player);
