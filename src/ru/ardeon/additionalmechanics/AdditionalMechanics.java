@@ -28,7 +28,7 @@ public class AdditionalMechanics extends JavaPlugin{
     public VarManager varManager;
     public RandomManager rm;
     private LuckPerms lpapi = null;
-    public SkillSwitcher skillSwitcher;
+    public InteractSkillSwitcher interactSkillSwitcher;
     
     public static AdditionalMechanics getPlugin() {
     	return p;
@@ -53,8 +53,8 @@ public class AdditionalMechanics extends JavaPlugin{
     	//    lpapi = provider.getProvider();
     	//}
     	gc = new GuildsController();
-    	skillSwitcher = new SkillSwitcher();
-    	getServer().getPluginManager().registerEvents(new EventsListener(skillSwitcher), this);
+    	interactSkillSwitcher = new InteractSkillSwitcher();
+    	getServer().getPluginManager().registerEvents(new EventsListener(interactSkillSwitcher), this);
     	getServer().getPluginManager().registerEvents(new ScrollListener(), this);
         rm = new RandomManager(this);
         loadBlocks();

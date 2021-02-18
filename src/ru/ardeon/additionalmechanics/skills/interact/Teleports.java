@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics.skills;
+package ru.ardeon.additionalmechanics.skills.interact;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,8 +10,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
+import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
+
 public class Teleports {
-	public static ItemSkill blink = new ItemSkill() {
+	public static InteractSkill blink = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();

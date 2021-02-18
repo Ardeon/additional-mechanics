@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics.skills;
+package ru.ardeon.additionalmechanics.skills.interact;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,10 +9,11 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.util.PetConverter;
 
 public class ItemToPermission {
-	public static ItemSkill pet = new ItemSkill() {
+	public static InteractSkill pet = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();

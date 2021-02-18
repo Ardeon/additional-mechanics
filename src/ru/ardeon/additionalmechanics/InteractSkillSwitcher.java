@@ -5,24 +5,24 @@ import java.util.HashMap;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import ru.ardeon.additionalmechanics.skills.Combat;
-import ru.ardeon.additionalmechanics.skills.Heals;
-import ru.ardeon.additionalmechanics.skills.ItemSkill;
-import ru.ardeon.additionalmechanics.skills.ItemToPermission;
-import ru.ardeon.additionalmechanics.skills.Pushes;
-import ru.ardeon.additionalmechanics.skills.Teleports;
-import ru.ardeon.additionalmechanics.skills.Totems;
+import ru.ardeon.additionalmechanics.skills.interact.Combat;
+import ru.ardeon.additionalmechanics.skills.interact.Heals;
+import ru.ardeon.additionalmechanics.skills.interact.ItemToPermission;
+import ru.ardeon.additionalmechanics.skills.interact.Pushes;
+import ru.ardeon.additionalmechanics.skills.interact.Teleports;
+import ru.ardeon.additionalmechanics.skills.interact.Totems;
+import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
 
-public class SkillSwitcher
+public class InteractSkillSwitcher
 {
-	private HashMap<String,ItemSkill> skills = new HashMap<String,ItemSkill>();
+	private HashMap<String,InteractSkill> skills = new HashMap<String,InteractSkill>();
 	
-	public SkillSwitcher(){
+	public InteractSkillSwitcher(){
 		addDefaultSkills();
 	}
 	
-	public void addSkill(String name, ItemSkill skill) {
+	public void addSkill(String name, InteractSkill skill) {
 		skills.put(name, skill);
 	}
 	
@@ -88,7 +88,7 @@ public class SkillSwitcher
 		ItemStack item = e.getItem();
 		String skillName = ItemUtil.getTag(item, "skill");
 		//AdditionalMechanics.getPlugin().getLogger().info(skillName);
-		ItemSkill skill = skills.getOrDefault(skillName, null);
+		InteractSkill skill = skills.getOrDefault(skillName, null);
 		if (skill!=null) {
 			skill.execute(e);
 		}

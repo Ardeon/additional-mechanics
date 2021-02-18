@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics.skills;
+package ru.ardeon.additionalmechanics.skills.interact;
 
 import java.util.List;
 

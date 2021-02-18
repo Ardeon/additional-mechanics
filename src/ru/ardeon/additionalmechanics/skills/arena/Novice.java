@@ -2,10 +2,10 @@ package ru.ardeon.additionalmechanics.skills.arena;
 
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import ru.ardeon.additionalmechanics.skills.ItemSkill;
+import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 
 public class Novice {
-	ItemSkill smallHeal = new ItemSkill() {
+	InteractSkill smallHeal = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			

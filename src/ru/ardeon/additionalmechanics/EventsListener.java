@@ -34,21 +34,21 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
-import ru.ardeon.additionalmechanics.skills.Heals;
+import ru.ardeon.additionalmechanics.skills.interact.Heals;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
 import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 
 
 public class EventsListener implements Listener 
 {
-	private SkillSwitcher skillSwitcher;
+	private InteractSkillSwitcher interactSkillSwitcher;
 	
-	EventsListener(SkillSwitcher skillSwitcher){
-		this.skillSwitcher = skillSwitcher;
+	EventsListener(InteractSkillSwitcher interactSkillSwitcher){
+		this.interactSkillSwitcher = interactSkillSwitcher;
 	}
 	
 	public void reload() {
-		this.skillSwitcher = AdditionalMechanics.getPlugin().skillSwitcher;
+		this.interactSkillSwitcher = AdditionalMechanics.getPlugin().interactSkillSwitcher;
 	}
 	@Deprecated
 	@EventHandler
@@ -260,7 +260,7 @@ public class EventsListener implements Listener
 			{
 				ItemStack item = e.getItem();
 				if (ItemUtil.testForSkillTag(item)) {
-					skillSwitcher.ItemChoose(e);
+					interactSkillSwitcher.ItemChoose(e);
 				}
 			}
 		}

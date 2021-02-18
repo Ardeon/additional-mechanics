@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics.skills;
+package ru.ardeon.additionalmechanics.skills.interact;
 
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -9,10 +9,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
+import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class Pushes {
-	public static ItemSkill forceJump = new ItemSkill() {
+	public static InteractSkill forceJump = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -30,7 +31,7 @@ public class Pushes {
 			}
 		}
 	};
-	public static ItemSkill hook = new ItemSkill() {
+	public static InteractSkill hook = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();

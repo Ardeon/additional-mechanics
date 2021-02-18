@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics.skills;
+package ru.ardeon.additionalmechanics.skills.interact;
 
 import java.util.List;
 
@@ -20,11 +20,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class Heals {
-	public static ItemSkill holy = new ItemSkill() {
+	public static InteractSkill holy = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -64,7 +65,7 @@ public class Heals {
 			}
 		}
 	};
-	public static ItemSkill honey = new ItemSkill() {
+	public static InteractSkill honey = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -83,7 +84,7 @@ public class Heals {
 			}
 		}
 	};
-	public static ItemSkill firstAid = new ItemSkill() {
+	public static InteractSkill firstAid = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();

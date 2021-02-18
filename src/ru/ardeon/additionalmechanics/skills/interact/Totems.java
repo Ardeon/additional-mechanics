@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics.skills;
+package ru.ardeon.additionalmechanics.skills.interact;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -9,10 +9,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import ru.ardeon.additionalmechanics.myEntity.HealTotem;
 import ru.ardeon.additionalmechanics.myEntity.ProtectorTotem;
 import ru.ardeon.additionalmechanics.myEntity.WindTotem;
+import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class Totems {
-	public static ItemSkill healTotem = new ItemSkill() {
+	public static InteractSkill healTotem = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -30,7 +31,7 @@ public class Totems {
 			}
 		}
 	};
-	public static ItemSkill windTotem = new ItemSkill() {
+	public static InteractSkill windTotem = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -48,7 +49,7 @@ public class Totems {
 			}
 		}
 	};
-	public static ItemSkill protectorTotem = new ItemSkill() {
+	public static InteractSkill protectorTotem = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();

@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics.skills;
+package ru.ardeon.additionalmechanics.skills.interact;
 
 import java.util.List;
 
@@ -22,10 +22,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import ru.ardeon.additionalmechanics.myEntity.Bait;
+import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class Combat {
-	public static ItemSkill agro = new ItemSkill() {
+	public static InteractSkill agro = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -62,7 +63,7 @@ public class Combat {
 			}
 		}
 	};
-	public static ItemSkill damagingSnowball = new ItemSkill() {
+	public static InteractSkill damagingSnowball = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -82,7 +83,7 @@ public class Combat {
 		}
 		
 	};
-	public static ItemSkill explosion = new ItemSkill() {
+	public static InteractSkill explosion = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -98,7 +99,7 @@ public class Combat {
 		}
 		
 	};
-	public static ItemSkill fireballWithEffect = new ItemSkill() {
+	public static InteractSkill fireballWithEffect = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -117,7 +118,7 @@ public class Combat {
 		}
 		
 	};
-	public static ItemSkill rage = new ItemSkill() {
+	public static InteractSkill rage = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -145,7 +146,7 @@ public class Combat {
 			}
 		}
 	};
-	public static ItemSkill scarecrow = new ItemSkill() {
+	public static InteractSkill scarecrow = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
@@ -182,7 +183,7 @@ public class Combat {
 			eq.setHelmet(helmet);
 		}
 	};
-	public static ItemSkill soulAgro = new ItemSkill() {
+	public static InteractSkill soulAgro = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
