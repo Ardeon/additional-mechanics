@@ -55,32 +55,6 @@ public class InteractSkillSwitcher
 		
 		//ItemToPermission
 		addSkill("pet", ItemToPermission.pet);
-		/*
-		//Combat
-		addSkill("§aПровокация§a", Combat.agro);
-		addSkill("§aОковы§a", Combat.damagingSnowball);
-		addSkill("§aВзрыв§a", Combat.explosion);
-		addSkill("§aИссушение§a", Combat.fireballWithEffect);
-		addSkill("§aСлепая ярость§a", Combat.rage);
-		addSkill("§aПриманка§a", Combat.scarecrow);
-		addSkill("§aОслабить врагов§a", Combat.soulAgro);
-		//Heals
-		addSkill("§aЛечение§a", Heals.holy);
-		addSkill("§aИсцеление§a", Heals.honey);
-		addSkill("§aПервая помощь§a", Heals.firstAid);
-		//Pushes
-		addSkill("§aТолчок§a", Pushes.forceJump);
-		addSkill("§aПритягивание§a", Pushes.hook);
-		//teleports
-		addSkill("§ashort blink§a", Teleports.blink);
-		//totems
-		addSkill("§aТотем лечения§a", Totems.healTotem);
-		addSkill("§aТотем ветра§a", Totems.windTotem);
-		addSkill("§aТотем защиты§a", Totems.protectorTotem);
-		
-		//ItemToPermission
-		addSkill("§eПКМ§f - открыть клетку.", ItemToPermission.pet);
-		*/
 	}
 	
 	public void ItemChoose(PlayerInteractEvent e)

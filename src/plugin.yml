@@ -99,6 +99,10 @@ commands:
         description: получить переменную игрока
         usage: /getarenastats <player> <1-12> <1-8>
         permission: additionalmechanics.admin
+    testgetmeta:
+        description: получить переменную игрока
+        usage: /testgetmeta <player> <field>
+        permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
@@ -205,4 +209,4 @@ permissions: #права
     additionalmechanics.adventurer.hook.length.3:
         description: none
 depend: [Multiverse-Core]
-softdepend: [WorldGuard, PlaceholderAPI, ProtocolLib, LuckPerms]
+softdepend: [WorldGuard, PlaceholderAPI, ProtocolLib, LuckPerms, CMI]

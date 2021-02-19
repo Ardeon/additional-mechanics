@@ -23,7 +23,7 @@ public class JoinListener implements Listener {
 		String uuid = player.getUniqueId().toString().toLowerCase();
 		MoneyData moneyData = playerVars.getOrCreateUserScore(uuid);
 		ArenaData arenaData = playerVars.getOrCreateUserStats(uuid);
-		PlayerData data = new PlayerData(moneyData, arenaData);
+		PlayerData data = new PlayerData(player, moneyData, arenaData, playerVars.cmidata);
 		playerVars.adduser(uuid, data);
 	}
 	@EventHandler

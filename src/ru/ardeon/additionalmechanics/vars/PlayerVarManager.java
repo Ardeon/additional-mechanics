@@ -8,6 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.util.sql.SQLite;
+import ru.ardeon.additionalmechanics.vars.cmidata.CMIData;
 import ru.ardeon.additionalmechanics.vars.playerdata.ArenaData;
 import ru.ardeon.additionalmechanics.vars.playerdata.MoneyData;
 import ru.ardeon.additionalmechanics.vars.playerdata.PlayerData;
@@ -16,6 +17,7 @@ public class PlayerVarManager {
 	private HashMap<String, PlayerData> users = new HashMap<String, PlayerData>();
 	private SQLite playerPointsbd;
 	private BukkitRunnable autosave;
+	public CMIData cmidata = new CMIData();
 	public static PlayerVarManager instance;
 	
 	public static PlayerVarManager getInstance() {
@@ -85,6 +87,7 @@ public class PlayerVarManager {
 		plugin.getServer().getPluginCommand("addtovar").setExecutor(new AddToVarCommand(this));
 		plugin.getServer().getPluginCommand("addarenastat").setExecutor(new AddArenaStatCommand(this));
 		plugin.getServer().getPluginCommand("getarenastat").setExecutor(new SetArenaStatCommand(this));
+		plugin.getServer().getPluginCommand("testgetmeta").setExecutor(new TestGetMetaCommand(this));
 		autosave = new BukkitRunnable() {
 			@Override
 			public void run() {
