@@ -4,14 +4,19 @@ import java.util.Collection;
 import java.util.Formatter;
 import java.util.function.Predicate;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BoundingBox;
 
 public class Altar {
+	BossBar chargeBar = Bukkit.createBossBar("Заряд алтаря", BarColor.WHITE, BarStyle.SOLID);
     int charge = 0;
     BoundingBox area;
     World w;
@@ -45,6 +50,7 @@ public class Altar {
 	
 	public void disable() {
 		try {
+			chargeBar.removeAll();
 			if (checkTimer != null && !checkTimer.isCancelled())
 				checkTimer.cancel();
 		}
@@ -55,9 +61,32 @@ public class Altar {
     {
 		Collection<Entity> players = w.getNearbyEntities(area, testplayer);
 		Integer n = players.size();
+		chargeBar.removeAll();
 		if (players.size()>0) {
-			targetWorld.setTime(targetWorld.getTime()+25*4*n);
+			if (charge > 0) {
+				int delta = 25*n;
+				charge -= delta;
+				targetWorld.setTime(targetWorld.getTime()+delta);
+				//AdditionalMechanics.getPlugin().getLogger().info(""+charge);
+			}
+			chargeBar.setVisible(true);
+			double barProgress = ((double) charge)/12000;
+			if (barProgress<0) {
+				barProgress = 0;
+			}
+			if (barProgress>1) {
+				barProgress = 1;
+			}
+			chargeBar.setProgress(barProgress);
+			for (Entity player : players) {
+				chargeBar.addPlayer((Player)player);
+			}
+			
 			//return;
+		}
+		else {
+			if (charge<=12000)
+				charge+=5;
 		}
 			
 		long h = targetWorld.getTime()/1000;
@@ -71,7 +100,7 @@ public class Altar {
 		for (Entity p : players)
 		{
 			Player player = (Player) p;
-			player.sendTitle(str, "", 3, 10, 3);
+			player.sendTitle(str, "", 0, 10, 0);
 		}
     }
 	
