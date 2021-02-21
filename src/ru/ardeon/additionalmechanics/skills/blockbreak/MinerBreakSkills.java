@@ -1,6 +1,8 @@
 package ru.ardeon.additionalmechanics.skills.blockbreak;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,11 +12,13 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import ru.ardeon.additionalmechanics.guild.miners.PermissonConvert;
 import ru.ardeon.additionalmechanics.skills.template.BlockBreakSkill;
+import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class MinerBreakSkills {
 	public static BlockBreakSkill bigHalls = new BlockBreakSkill() {
+		Set<Material> stones = new HashSet<Material>();
+		
 		@Override
 		public void execute(BlockBreakEvent e) {
 			Player p = e.getPlayer();
@@ -30,11 +34,13 @@ public class MinerBreakSkills {
 					{
 						float yaw = p.getLocation().getYaw();//0 = positive z; 90 = negative x; 
 						int z0=0,x0=0,z1=0,x1=0,y=0,x=0;
-						int power = PermissonConvert.getMineSize(p);
-						if (power==0)
+						Integer power = PlayerVarManager.getInstance().getData(p).getCMIint("minesize");
+						if (power==0||power==null)
 							return;
-						if (power==3)
+						if (power>=3) {
 							y=1;
+							power = 3;
+						}
 						if (power>1)
 							x=1;
 						if (yaw>315||yaw<=45) {

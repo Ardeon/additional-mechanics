@@ -20,7 +20,8 @@ public class ConfigLoader {
 	private FileConfiguration configBlocks;
 	private File configFilePermkit;
 	private FileConfiguration configPermkit;
-    
+	private File altarFile;
+	private YamlConfiguration altar;
 
     public ConfigLoader() {
     	init();
@@ -38,16 +39,21 @@ public class ConfigLoader {
     public FileConfiguration getConfigPermkit() {
     	return configPermkit;
     }
+    public FileConfiguration getConfigAltar() {
+    	return altar;
+    }
     
 	public void init() {
 		configFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "config.yml");
 		varsFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "vars.yml");
 		configFileBlocks = new File(AdditionalMechanics.getPlugin().getDataFolder(), "configBlocks.yml");
 		configFilePermkit = new File(AdditionalMechanics.getPlugin().getDataFolder(), "configPermkit.yml");
+		altarFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "altar.yml");
 		vars = new YamlConfiguration();
 	    config = new YamlConfiguration();
 	    configBlocks = new YamlConfiguration();
 	    configPermkit = new YamlConfiguration();
+	    altar  = new YamlConfiguration();
 	    try {
             firstRun();
         } catch (Exception e) {
@@ -73,6 +79,10 @@ public class ConfigLoader {
         	configFilePermkit.getParentFile().mkdirs();
         	copy(AdditionalMechanics.getPlugin().getResource("configPermkit.yml"), configFilePermkit);
         }
+        if(!altarFile.exists()) {
+        	altarFile.getParentFile().mkdirs();
+        	copy(AdditionalMechanics.getPlugin().getResource("altar.yml"), altarFile);
+        }
     }
 	
     private void copy(InputStream in, File file) {
@@ -95,6 +105,7 @@ public class ConfigLoader {
             vars.load(varsFile);
             configBlocks.load(configFileBlocks);
             configPermkit.load(configFilePermkit);
+            altar.load(altarFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,6 +116,7 @@ public class ConfigLoader {
             vars.save(varsFile);
             configBlocks.save(configFileBlocks);
             configPermkit.save(configFilePermkit);
+            altar.save(altarFile);
         } catch (IOException e) {
             e.printStackTrace();
         }

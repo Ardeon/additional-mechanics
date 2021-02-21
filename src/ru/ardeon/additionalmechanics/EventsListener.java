@@ -10,7 +10,6 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -264,18 +263,6 @@ public class EventsListener implements Listener
 				}
 			}
 		}
-		else
-			if (e.getAction().equals(Action.PHYSICAL)&&e.hasBlock())
-			{
-				Block b = e.getClickedBlock();
-				if (AdditionalMechanics.pushBlocks.contains(b))
-				{
-					Vector v = e.getPlayer().getLocation().getDirection().clone();
-					v = v.normalize().multiply(4);
-					v = v.setY(0.5);
-					e.getPlayer().setVelocity(v);
-				}
-			}
 	}
 
 }//конец класса

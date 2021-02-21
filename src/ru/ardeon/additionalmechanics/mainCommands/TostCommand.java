@@ -16,7 +16,7 @@ public class TostCommand implements CommandExecutor {
 		if (args.length==1&&args[0].equalsIgnoreCase("reload"))
 		{
 			AdditionalMechanics.getPlugin().configLoader.loadYamls();
-			AdditionalMechanics.getPlugin().loadBlocks();
+			AdditionalMechanics.getPlugin().setAltar();
 			return true;
 		}
 		return false;

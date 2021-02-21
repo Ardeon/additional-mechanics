@@ -1,10 +1,8 @@
 package ru.ardeon.additionalmechanics;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.luckperms.api.LuckPerms;
@@ -20,7 +18,6 @@ import ru.ardeon.additionalmechanics.vars.VarManager;
 
 public class AdditionalMechanics extends JavaPlugin{
     static AdditionalMechanics p; 
-    static HashSet<Block> pushBlocks = new HashSet<Block>();
     public static Altar altar;
     public static BuildManager bm;
     GuildsController gc;
@@ -57,32 +54,33 @@ public class AdditionalMechanics extends JavaPlugin{
     	getServer().getPluginManager().registerEvents(new EventsListener(interactSkillSwitcher), this);
     	getServer().getPluginManager().registerEvents(new ScrollListener(), this);
         rm = new RandomManager(this);
-        loadBlocks();
         varManager = new VarManager(this);
         
         CommandManager.CommandRegister();
-        //altar = new Altar();
+        setAltar();
         bm = new BuildManager();
         getLogger().info("AdditionalMechanics started!");
         getServer().getPluginManager().registerEvents(new TargetListener(), this);
     }
     
+    public void setAltar() {
+    	if (altar!=null) {
+    		altar.disable();
+    	}
+    	String world = configLoader.getConfigAltar().getString("world", "wild");
+    	Location loc = configLoader.getConfigAltar().getLocation("location", null);
+        World targetWorld = null;
+        if (Bukkit.getWorld(world)!=null) {
+        	targetWorld = Bukkit.getWorld(world);
+        }
+        else {
+        	targetWorld = Bukkit.getWorlds().get(0);
+        }
+        altar = new Altar(targetWorld, loc);
+    }
+    
     public LuckPerms getLP() {
     	return lpapi;
-    }
-
-    public void loadBlocks() 
-    {
-    	pushBlocks.clear();
-    	Set<String> k = configLoader.getConfigBlocks().getKeys(false);
-        for (String key : k) 
-		{
-        	Location l = configLoader.getConfigBlocks().getLocation(key+".location", null);
-        	if (l!=null) {
-        		Block b = l.getBlock();
-        		pushBlocks.add(b);
-        	}
-		}
     }
 
 }
