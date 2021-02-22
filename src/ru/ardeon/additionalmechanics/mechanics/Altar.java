@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics;
+package ru.ardeon.additionalmechanics.mechanics;
 
 import java.util.Collection;
 import java.util.Formatter;
@@ -14,6 +14,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BoundingBox;
+
+import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class Altar {
 	BossBar chargeBar = Bukkit.createBossBar("Заряд алтаря", BarColor.WHITE, BarStyle.SOLID);

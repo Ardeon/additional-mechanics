@@ -10,6 +10,7 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -18,6 +19,7 @@ import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -72,6 +74,38 @@ public class EventsListener implements Listener
 					}
 				}
 			}	
+		}
+	}
+	
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+	public void onPlayEditSpawner(PlayerInteractEvent e) {
+		if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && (e.getClickedBlock().getState() instanceof CreatureSpawner)) {
+			CreatureSpawner sp = (CreatureSpawner) e.getClickedBlock().getState();
+			ItemStack i = e.getItem();
+		    switch (e.getMaterial()) {
+		    case CREEPER_HEAD :
+		    	if (!sp.getSpawnedType().equals(EntityType.CREEPER)) {
+		    		sp.setSpawnedType(EntityType.CREEPER);
+		    		i.setAmount(i.getAmount()-1);
+		    	}
+		    	break;
+		    case ZOMBIE_HEAD :
+		    	if (!sp.getSpawnedType().equals(EntityType.ZOMBIE)) {
+		    		sp.setSpawnedType(EntityType.ZOMBIE);
+		    		i.setAmount(i.getAmount()-1);
+		    	}
+		    	break;
+		    case SKELETON_SKULL :
+		    	if (!sp.getSpawnedType().equals(EntityType.SKELETON)) {
+		    		sp.setSpawnedType(EntityType.SKELETON);
+		    		i.setAmount(i.getAmount()-1);
+		    	}
+		    	break;
+			default:
+				break;
+		    }
+		    e.setCancelled(true);
+		    sp.update();
 		}
 	}
 	

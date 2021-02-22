@@ -2,6 +2,9 @@ package ru.ardeon.additionalmechanics.mainCommands;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.StopTimerCommand;
+import ru.ardeon.additionalmechanics.mainCommands.roll.dicecmd;
+import ru.ardeon.additionalmechanics.mainCommands.roll.flipcmd;
+import ru.ardeon.additionalmechanics.mainCommands.roll.rollcmd;
 import ru.ardeon.additionalmechanics.mechanics.builds.RegisterBuildCommand;
 import ru.ardeon.additionalmechanics.mechanics.builds.TestBuildCommand;
 import ru.ardeon.additionalmechanics.mechanics.tempterritory.TestRegionCommand;
@@ -25,5 +28,12 @@ public class CommandManager {
         t.getServer().getPluginCommand("prefix").setExecutor(new PrefixCommand(t.getLP()));
         t.getServer().getPluginCommand("setitemtag").setExecutor(new SetItemTagCommand());
         t.getServer().getPluginCommand("getitemtag").setExecutor(new GetItemTagCommand());
+        
+		t.getServer().getPluginCommand("flip").setExecutor(new flipcmd());
+		t.getServer().getPluginCommand("roll").setExecutor(new rollcmd());
+		t.getServer().getPluginCommand("dice").setExecutor(new dicecmd());
+		t.getServer().getPluginCommand("guild").setExecutor(new guildregister());
+		t.getServer().getPluginCommand("giveperm").setExecutor(new GivePerm());
+		t.getServer().getPluginCommand("moonskip").setExecutor(new MoonskipCommand());
 	}
 }

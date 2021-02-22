@@ -103,6 +103,24 @@ commands:
         description: получить переменную игрока
         usage: /testgetmeta <player> <field>
         permission: additionalmechanics.admin
+    flip:
+      description: Бросок монетки
+      usage: /flip
+    roll:
+      description: Случайное число
+      usage: /roll
+    dice:
+      description: Бросок кубика
+      usage: /dice
+    guild:
+      description: guild
+      permission: additionalmechanics.admin
+    giveperm:
+      description: guild
+      permission: additionalmechanics.admin
+    moonskip:
+      description: moonskip
+      permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
