@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class MoonManager {
-	boolean fullMoon = false;
+	public boolean fullMoon = false;
 	boolean prefullMoon = false;
 	boolean roll = false;
 	

@@ -16,6 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BoundingBox;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.mechanics.moon.MoonManager;
 
 public class Altar {
 	BossBar chargeBar = Bukkit.createBossBar("Заряд алтаря", BarColor.WHITE, BarStyle.SOLID);
@@ -34,10 +35,6 @@ public class Altar {
 				timeSkip();
 		}
 	};
-	
-	public Altar(){
-		
-	}
 	
 	public Altar(World world, Location loc){
         targetWorld = world;
@@ -64,46 +61,64 @@ public class Altar {
 		Collection<Entity> players = w.getNearbyEntities(area, testplayer);
 		Integer n = players.size();
 		chargeBar.removeAll();
+		MoonManager moonManager = AdditionalMechanics.getPlugin().getMoonManager();
 		if (players.size()>0) {
-			if (charge > 0) {
-				int delta = 25*n;
-				charge -= delta;
-				targetWorld.setTime(targetWorld.getTime()+delta);
-				//AdditionalMechanics.getPlugin().getLogger().info(""+charge);
+			if (moonManager != null && moonManager.fullMoon) {
+				for (Entity p : players)
+				{
+					Player player = (Player) p;
+					player.sendTitle("Незеритовая луна", "перемотка времени невозможна", 0, 10, 0);
+					chargeBar.addPlayer(player);
+				}
 			}
-			chargeBar.setVisible(true);
-			double barProgress = ((double) charge)/12000;
-			if (barProgress<0) {
-				barProgress = 0;
+			else {
+				if (charge > 0) {
+					int delta = 25*n;
+					charge -= delta;
+					targetWorld.setTime(targetWorld.getTime()+delta);
+					//AdditionalMechanics.getPlugin().getLogger().info(""+charge);
+				}
+				else {
+					;
+					for (Entity p : players)
+					{
+						p.setVelocity(p.getLocation().toVector().subtract(area.getCenter()).normalize().setY(0.2));
+						Player player = (Player) p;
+						player.sendTitle("§3Алтарь разряжен", "§7приходите позже", 0, 10, 0);
+					}
+				}
+				chargeBar.setVisible(true);
+				double barProgress = ((double) charge)/12000;
+				if (barProgress<0) {
+					barProgress = 0;
+				}
+				if (barProgress>1) {
+					barProgress = 1;
+				}
+				chargeBar.setProgress(barProgress);
+				
+				long h = targetWorld.getTime()/1000;
+				h+=6;
+				if (h>=24)
+					h-=24;
+				Formatter f = new Formatter();
+				long min = (targetWorld.getTime()%1000)/17;
+				String str = f.format("§6§l%02d:%02d", h, min).toString();
+				f.close();
+				for (Entity p : players)
+				{
+					Player player = (Player) p;
+					player.sendTitle(str, "", 0, 10, 0);
+					chargeBar.addPlayer(player);
+				}
 			}
-			if (barProgress>1) {
-				barProgress = 1;
-			}
-			chargeBar.setProgress(barProgress);
-			for (Entity player : players) {
-				chargeBar.addPlayer((Player)player);
-			}
-			
-			//return;
 		}
 		else {
 			if (charge<=12000)
 				charge+=5;
 		}
 			
-		long h = targetWorld.getTime()/1000;
-		h+=6;
-		if (h>=24)
-			h-=24;
-		Formatter f = new Formatter();
-		long min = (targetWorld.getTime()%1000)/17;
-		String str = f.format("§6§l%02d:%02d", h, min).toString();
-		f.close();
-		for (Entity p : players)
-		{
-			Player player = (Player) p;
-			player.sendTitle(str, "", 0, 10, 0);
-		}
+		
     }
 	
 	public boolean setArea(Location loc) 

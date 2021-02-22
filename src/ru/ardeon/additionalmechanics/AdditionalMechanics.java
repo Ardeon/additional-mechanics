@@ -65,8 +65,8 @@ public class AdditionalMechanics extends JavaPlugin{
 		CommandManager.CommandRegister();
 		
 		loadRecipe();
-		setAltar();
 		setMoonManager();
+		setAltar();
 		bm = new BuildManager();
 		getLogger().info("AdditionalMechanics started!");
 		getServer().getPluginManager().registerEvents(new TargetListener(), this);
