@@ -21,6 +21,7 @@ import ru.ardeon.additionalmechanics.mechanics.moon.MoonManager;
 public class Altar {
 	BossBar chargeBar = Bukkit.createBossBar("Заряд алтаря", BarColor.WHITE, BarStyle.SOLID);
     int charge = 0;
+    boolean useable = false;
     BoundingBox area;
     World w;
     World targetWorld;
@@ -58,66 +59,72 @@ public class Altar {
 
 	public void timeSkip() 
     {
-		Collection<Entity> players = w.getNearbyEntities(area, testplayer);
+		Collection<Entity> players = w.getNearbyEntities(area.clone().expand(2), testplayer);
 		Integer n = players.size();
 		chargeBar.removeAll();
 		MoonManager moonManager = AdditionalMechanics.getPlugin().getMoonManager();
 		if (players.size()>0) {
+			if (charge < 0 || !useable) {
+				useable = false;
+				chargeBar.setColor(BarColor.RED);
+				chargeBar.setTitle("Заряд алтаря - [§cРазряжен§f]");
+				
+			}
+			double barProgress = ((double) charge)/12000;
+			if (barProgress<0) {
+				barProgress = 0;
+			}
+			if (barProgress>1) {
+				barProgress = 1;
+			}
+			chargeBar.setProgress(barProgress);
+			long h = targetWorld.getTime()/1000;
+			h+=6;
+			if (h>=24)
+				h-=24;
+			Formatter f = new Formatter();
+			long min = (targetWorld.getTime()%1000)/17;
+			String str = f.format("§6§l%02d:%02d", h, min).toString();
+			f.close();
+			for (Entity p : players) {
+				Player player = (Player) p;
+				player.sendTitle(str, "", 0, 10, 0);
+				chargeBar.addPlayer(player);
+			}
+		}
+		players = w.getNearbyEntities(area, testplayer);
+		if (players.size()>0) {
 			if (moonManager != null && moonManager.fullMoon) {
-				for (Entity p : players)
-				{
+				for (Entity p : players) {
 					Player player = (Player) p;
 					player.sendTitle("Незеритовая луна", "перемотка времени невозможна", 0, 10, 0);
 					chargeBar.addPlayer(player);
 				}
 			}
 			else {
-				if (charge > 0) {
+				if (charge > 0 && useable) {
 					int delta = 25*n;
 					charge -= delta;
 					targetWorld.setTime(targetWorld.getTime()+delta);
-					//AdditionalMechanics.getPlugin().getLogger().info(""+charge);
-				}
+				} 
 				else {
-					;
-					for (Entity p : players)
-					{
+					for (Entity p : players) {
 						p.setVelocity(p.getLocation().toVector().subtract(area.getCenter()).normalize().setY(0.2));
 						Player player = (Player) p;
-						player.sendTitle("§3Алтарь разряжен", "§7приходите позже", 0, 10, 0);
+						player.sendMessage("§3Алтарь разряжен. §7приходите позже");
 					}
 				}
-				chargeBar.setVisible(true);
-				double barProgress = ((double) charge)/12000;
-				if (barProgress<0) {
-					barProgress = 0;
-				}
-				if (barProgress>1) {
-					barProgress = 1;
-				}
-				chargeBar.setProgress(barProgress);
-				
-				long h = targetWorld.getTime()/1000;
-				h+=6;
-				if (h>=24)
-					h-=24;
-				Formatter f = new Formatter();
-				long min = (targetWorld.getTime()%1000)/17;
-				String str = f.format("§6§l%02d:%02d", h, min).toString();
-				f.close();
-				for (Entity p : players)
-				{
-					Player player = (Player) p;
-					player.sendTitle(str, "", 0, 10, 0);
-					chargeBar.addPlayer(player);
-				}
 			}
-		}
-		else {
+		} else {
 			if (charge<=12000)
 				charge+=5;
+			if (charge>4000) {
+				useable = true;
+				chargeBar.setColor(BarColor.WHITE);
+				chargeBar.setTitle("Заряд алтаря");
+			}
 		}
-			
+		
 		
     }
 	
