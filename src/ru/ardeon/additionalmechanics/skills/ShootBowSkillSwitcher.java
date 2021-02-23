@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
 
+import ru.ardeon.additionalmechanics.skills.shootbow.ShootBowSkills;
 import ru.ardeon.additionalmechanics.skills.template.ShootBowSkill;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
 
@@ -29,7 +30,7 @@ public class ShootBowSkillSwitcher {
 	}
 	
 	public void addDefaultSkills() {
-		
+		addSkill("blastArrow", ShootBowSkills.blastArrow);
 	}
 	
 	public void SkillChoose(EntityShootBowEvent e)

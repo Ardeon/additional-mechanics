@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
+import ru.ardeon.additionalmechanics.skills.projectilehit.ProjectileHitSkills;
 import ru.ardeon.additionalmechanics.skills.template.ProjectileHitSkill;
 
 public class ProjectileHitSkillSwitcher {
@@ -28,7 +29,10 @@ public class ProjectileHitSkillSwitcher {
 	}
 	
 	public void addDefaultSkills() {
-		
+		addSkill("explosiveArrow", ProjectileHitSkills.explosiveArrow);
+		addSkill("fireball", ProjectileHitSkills.fireball);
+		addSkill("hook", ProjectileHitSkills.hook);
+		addSkill("snowball", ProjectileHitSkills.snowball);
 	}
 	
 	public void SkillChoose(ProjectileHitEvent e)

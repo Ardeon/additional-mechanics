@@ -14,7 +14,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Zombie;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -101,27 +100,5 @@ public class Heals {
 			}
 		}
 	};
-	
-	
-	public static boolean SoulUse(PlayerInteractEntityEvent e)//for delete
-	{
-		Player player = e.getPlayer();
-		Entity target = e.getRightClicked();
-		World world = player.getWorld();
-		if (!(player.hasCooldown(Material.SLIME_BALL))&& (target instanceof Player)) 
-		{
-			player.setCooldown(Material.SLIME_BALL, 50);
-			Player targetplayer = (Player) target;
-			world.playSound(player.getLocation(), Sound.BLOCK_BUBBLE_COLUMN_UPWARDS_AMBIENT, 1, 1.2f);
-			PotionEffect ef = new PotionEffect(PotionEffectType.HEAL, 1, 2);
-			ef.apply(targetplayer);
-			ef = new PotionEffect(PotionEffectType.SPEED, 120, 1);
-			ef.apply(targetplayer);
-			ef = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 120, 2);
-			ef.apply(targetplayer);
-			return true;
-		}
-		return false;
-	}
 	
 }
