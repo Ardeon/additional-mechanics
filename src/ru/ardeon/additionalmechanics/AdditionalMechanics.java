@@ -1,5 +1,7 @@
 package ru.ardeon.additionalmechanics;
 
+import java.util.logging.Level;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -52,7 +54,7 @@ public class AdditionalMechanics extends JavaPlugin{
 			lpapi = LuckPermsProvider.get();
 		}
 		catch(IllegalStateException e) {
-			this.getLogger().info("ERROR LuckPerms not load");
+			this.getLogger().log(Level.WARNING, "ERROR LuckPerms not load");
 		};
 		gc = new GuildsController();
 		interactSkillSwitcher = new InteractSkillSwitcher();

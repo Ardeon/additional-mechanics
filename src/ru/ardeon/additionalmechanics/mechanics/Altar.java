@@ -21,6 +21,7 @@ import ru.ardeon.additionalmechanics.mechanics.moon.MoonManager;
 public class Altar {
 	BossBar chargeBar = Bukkit.createBossBar("Заряд алтаря", BarColor.WHITE, BarStyle.SOLID);
     int charge = 0;
+    int messageCooldown = 0;
     boolean useable = false;
     BoundingBox area;
     World w;
@@ -32,8 +33,12 @@ public class Altar {
 		@Override
 		public void run()
 		{
-			if (activeted)
+			if (activeted) {
 				timeSkip();
+				if (messageCooldown>0) {
+					messageCooldown--;
+				}
+			}
 		}
 	};
 	
@@ -106,6 +111,10 @@ public class Altar {
 					int delta = 25*n;
 					charge -= delta;
 					targetWorld.setTime(targetWorld.getTime()+delta);
+					if (messageCooldown<=0) {
+						Bukkit.broadcastMessage("§7Кто-то пришёл к алтарю и запустил ход времени");
+						messageCooldown= 1000;
+					}
 				} 
 				else {
 					for (Entity p : players) {

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.util.message.AdmMessage;
 
 public class MoonManager {
 	public boolean fullMoon = false;
@@ -40,19 +41,19 @@ public class MoonManager {
 				if (!fullMoon) {
 					if (time > 11000 && !roll) {
 						if(Math.random() > 0.25) {
-							Bukkit.broadcastMessage("§8[§bСобытие§8] §7Луна вот-вот обретёт свою полную форму. Этой ночью нежить прорвётся наружу."
+							AdmMessage.getInstance().broadcastEvent("§7Луна вот-вот обретёт свою полную форму. Этой ночью нежить прорвётся наружу."
 									+ " Основательно подготовьтесь к её приходу или найдите надёжное укрытие!");
 							roll = true;
 						}
 						else {
 							world.setFullTime(fulltime + 24000);
-							Bukkit.broadcastMessage("§8[§bСобытие§8] §7Незеритовая луна не появится этой ночью.");
+							AdmMessage.getInstance().broadcastEvent("§7Незеритовая луна не появится этой ночью.");
 						}
 						
 						
 					}
 					else if (time > 12000) {
-						Bukkit.broadcastMessage("§8[§bСобытие§8] §7Незеритовая Луна начала оказывать влияние на окружающий мир."
+						AdmMessage.getInstance().broadcastEvent("§7Незеритовая Луна начала оказывать влияние на окружающий мир."
 								+ " Монстры стали гораздо сильнее и обрели магически способностию Как можно скорее найдите укрытие!");
 						fullMoon = true;
 					}
@@ -60,12 +61,12 @@ public class MoonManager {
 				}
 				if (!prefullMoon) {
 					prefullMoon = true;
-					Bukkit.broadcastMessage("§8[§bСобытие§8] §7Этой ночью луна может обрести свою полную форму. §8Незеритовая луна появится с шансом - 75%.");
+					AdmMessage.getInstance().broadcastEvent("§7Этой ночью луна может обрести свою полную форму. §8Незеритовая луна появится с шансом - 75%.");
 				}
 			}
 			else {
 				if (fullMoon) {
-					Bukkit.broadcastMessage("§8[§bСобытие§8] §7Незеритовая Луна ушла за горизонт. Монстры потеряли свои силы. Можно покидать убежище!");
+					AdmMessage.getInstance().broadcastEvent("§7Незеритовая Луна ушла за горизонт. Монстры потеряли свои силы. Можно покидать убежище!");
 				}
 				roll = false;
 				prefullMoon = false;
