@@ -1,7 +1,6 @@
 package ru.ardeon.additionalmechanics.skills.interact;
 
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;

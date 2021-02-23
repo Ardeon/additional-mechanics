@@ -21,7 +21,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
-import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class Heals {
@@ -73,7 +72,7 @@ public class Heals {
 			if (!(player.hasCooldown(Material.HONEYCOMB))) 
 			{
 				//cd 7
-				int cd = LevelOfPermission.getLevel(player, "adm.honeycd", 7);
+				int cd = 0;
 				player.setCooldown(Material.HONEYCOMB, 2000 - cd * 100);
 				world.playSound(player.getLocation(), Sound.ENTITY_PLAYER_HURT_SWEET_BERRY_BUSH, 1, 1.2f);
 				world.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1.2f);

@@ -12,8 +12,7 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class ItemUtil {
 
-	@Deprecated
-	public static boolean testForLore(ItemStack item) {//legacy
+	public static boolean testForLore(ItemStack item) {
 		if (item != null) {
 			if (item.hasItemMeta() && item.getItemMeta().hasLore()) {
 				return true;

@@ -35,6 +35,11 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
+import ru.ardeon.additionalmechanics.skills.EntityDamageByEntitySkillSwitcher;
+import ru.ardeon.additionalmechanics.skills.InteractEntitySkillSwitcher;
+import ru.ardeon.additionalmechanics.skills.InteractSkillSwitcher;
+import ru.ardeon.additionalmechanics.skills.ProjectileHitSkillSwitcher;
+import ru.ardeon.additionalmechanics.skills.ShootBowSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.interact.Heals;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
 import ru.ardeon.additionalmechanics.util.LevelOfPermission;
@@ -42,15 +47,16 @@ import ru.ardeon.additionalmechanics.util.LevelOfPermission;
 
 public class EventsListener implements Listener 
 {
-	private InteractSkillSwitcher interactSkillSwitcher;
-	
-	EventsListener(InteractSkillSwitcher interactSkillSwitcher){
-		this.interactSkillSwitcher = interactSkillSwitcher;
-	}
+	private EntityDamageByEntitySkillSwitcher entityDamageByEntitySkillSwitcher = EntityDamageByEntitySkillSwitcher.getInstance();
+	private InteractEntitySkillSwitcher interactEntitySkillSwitcher = InteractEntitySkillSwitcher.getInstance();
+	private InteractSkillSwitcher interactSkillSwitcher = InteractSkillSwitcher.getInstance();
+	private ProjectileHitSkillSwitcher projectileHitSkillSwitcher = ProjectileHitSkillSwitcher.getInstance();
+	private ShootBowSkillSwitcher shootBowSkillSwitcher = ShootBowSkillSwitcher.getInstance();
 	
 	public void reload() {
-		this.interactSkillSwitcher = AdditionalMechanics.getPlugin().interactSkillSwitcher;
+		this.interactSkillSwitcher = InteractSkillSwitcher.getInstance();
 	}
+	
 	@Deprecated
 	@EventHandler
 	public void ShootBow(EntityShootBowEvent e) {
@@ -293,7 +299,7 @@ public class EventsListener implements Listener
 			{
 				ItemStack item = e.getItem();
 				if (ItemUtil.testForSkillTag(item)) {
-					interactSkillSwitcher.ItemChoose(e);
+					interactSkillSwitcher.SkillChoose(e);
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-package ru.ardeon.additionalmechanics;
+package ru.ardeon.additionalmechanics.skills;
 
 import java.util.HashMap;
 
@@ -16,9 +16,15 @@ import ru.ardeon.additionalmechanics.util.ItemUtil;
 
 public class InteractSkillSwitcher
 {
-	private HashMap<String,InteractSkill> skills = new HashMap<String,InteractSkill>();
+	static private InteractSkillSwitcher interactSkillSwitcher;
+	static public InteractSkillSwitcher getInstance() {
+		if (interactSkillSwitcher==null)
+			interactSkillSwitcher = new InteractSkillSwitcher();
+		return interactSkillSwitcher;
+	}
 	
-	public InteractSkillSwitcher(){
+	private HashMap<String,InteractSkill> skills = new HashMap<String,InteractSkill>();
+	private InteractSkillSwitcher(){
 		addDefaultSkills();
 	}
 	
@@ -57,7 +63,7 @@ public class InteractSkillSwitcher
 		addSkill("pet", ItemToPermission.pet);
 	}
 	
-	public void ItemChoose(PlayerInteractEvent e)
+	public void SkillChoose(PlayerInteractEvent e)
 	{
 		ItemStack item = e.getItem();
 		String skillName = ItemUtil.getTag(item, "skill");

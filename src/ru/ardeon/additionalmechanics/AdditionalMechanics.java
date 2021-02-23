@@ -33,7 +33,6 @@ public class AdditionalMechanics extends JavaPlugin{
     public VarManager varManager;
     public RandomManager rm;
     private LuckPerms lpapi = null;
-    public InteractSkillSwitcher interactSkillSwitcher;
     private MoonManager moonManager;
     
     public static AdditionalMechanics getPlugin() {
@@ -57,8 +56,7 @@ public class AdditionalMechanics extends JavaPlugin{
 			this.getLogger().log(Level.WARNING, "ERROR LuckPerms not load");
 		};
 		gc = new GuildsController();
-		interactSkillSwitcher = new InteractSkillSwitcher();
-		getServer().getPluginManager().registerEvents(new EventsListener(interactSkillSwitcher), this);
+		getServer().getPluginManager().registerEvents(new EventsListener(), this);
 		getServer().getPluginManager().registerEvents(new ScrollListener(), this);
 		rm = new RandomManager(this);
 		varManager = new VarManager(this);
