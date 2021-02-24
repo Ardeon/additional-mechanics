@@ -48,7 +48,7 @@ public class ProjectileHitSkills {
 				if (t instanceof Mob) {
 					Mob nt = (Mob) t;
 					ef.apply(nt);
-					nt.damage(2, (Entity) shooter);
+					nt.damage(1, (Entity) shooter);
 					w.spawnParticle(Particle.SMOKE_LARGE, nt.getEyeLocation(), 7);
 				}
 			}
