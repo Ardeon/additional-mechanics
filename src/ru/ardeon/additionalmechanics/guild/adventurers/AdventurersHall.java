@@ -11,7 +11,6 @@ public class AdventurersHall {
 	HorseController guestHorseController = new HorseController();
 	
 	public AdventurersHall(){
-		AdditionalMechanics.getPlugin().getServer().getPluginManager().registerEvents(new AdventurersListener(this), AdditionalMechanics.getPlugin());
 		AdditionalMechanics.getPlugin().getServer().getPluginCommand("horsetest").setExecutor(new HorseCommand(this));
 		AdditionalMechanics.getPlugin().getServer().getPluginCommand("rideon").setExecutor(new RideCommand(this));
 		AdditionalMechanics.getPlugin().getServer().getPluginCommand("launchhook").setExecutor(new HookCommand());

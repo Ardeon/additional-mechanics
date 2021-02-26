@@ -2,9 +2,11 @@ package ru.ardeon.additionalmechanics.mechanics.scan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
@@ -13,14 +15,14 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import ru.ardeon.additionalmechanics.util.ConverterMaterial;
-import ru.ardeon.additionalmechanics.util.Filter;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.util.ConverterMaterial;
 
 public abstract class Scan {
 	protected Block start;
 	protected Block target;
-	protected Filter filter;
+	//protected Filter filter;
+	protected Set<Material> requiredBlocks;
 	protected BossBar bar;
 	protected Player p;
 	protected Location partloc;
@@ -46,13 +48,13 @@ public abstract class Scan {
 					Block c = spots.get(curr).getRelative(i, j, k);//;
 					if (!testBlock(c))
 						continue;
-					if (target!=null&&filter.test(c.getType())) {
+					if (target!=null&&requiredBlocks.contains(c.getType())) {
 						if (partloc.distance(target.getLocation())>partloc.distance(c.getLocation())) {
 							target=c;
 						}
 					}
 					else {
-						if (filter.test(c.getType()))
+						if (requiredBlocks.contains(c.getType()))
 							target=c;
 					}
 				}
@@ -70,10 +72,10 @@ public abstract class Scan {
 	
 	public abstract boolean testBlock(Block c);
 	
-	public Scan(Player p, Block start, Filter filter, int power, ConverterMaterial converter, String endMessage, String startMessage, String title) {
+	public Scan(Player p, Block start, Set<Material> requiredBlocks, int power, ConverterMaterial converter, String endMessage, String startMessage, String title) {
 		this.p = p;
 		this.start = start;
-		this.filter = filter;
+		this.requiredBlocks = requiredBlocks;
 		this.endMessage = endMessage;
 		this.startMessage = startMessage;
 		this.title = title;

@@ -1,18 +1,20 @@
 package ru.ardeon.additionalmechanics.guild.miners.orescaner;
 
+import java.util.Set;
+
 import org.bukkit.Instrument;
+import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import ru.ardeon.additionalmechanics.mechanics.scan.Scan;
-import ru.ardeon.additionalmechanics.util.Filter;
 
 public class OreScaner extends Scan {
 	
-	public OreScaner(Player p, Block start, Filter filter, int power) {
-		super(p, start, filter, power, new OreConverter(), "§2Поиск руды закончен", "§3Поиск руды...", "Сканирование...");
+	public OreScaner(Player p, Block start, Set<Material> requiredBlocks, int power) {
+		super(p, start, requiredBlocks, power, new OreConverter(), "§2Поиск руды закончен", "§3Поиск руды...", "Сканирование...");
 	}
 
 	@Override

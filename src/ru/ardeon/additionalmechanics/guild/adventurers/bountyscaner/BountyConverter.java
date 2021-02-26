@@ -1,33 +1,38 @@
 package ru.ardeon.additionalmechanics.guild.adventurers.bountyscaner;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.bukkit.Material;
 
 import ru.ardeon.additionalmechanics.util.ConverterMaterial;
-@Deprecated
-public class BountyConverter extends ConverterMaterial {
 
+public class BountyConverter extends ConverterMaterial {
+	Set<Material> dedaultset = new HashSet<Material>(Arrays.asList(Material.END_PORTAL_FRAME, Material.CHEST, Material.SPAWNER, Material.DISPENSER));
+	
 	@Override
 	public String NameOf(Material m) {
 		String s="";
 		switch (m) {
 		case END_PORTAL_FRAME: {
-			s="§8Рамка портала";
+			s="1";
 			break;
 		}
 		case CHEST: {
-			s="§7Сундук";
+			s="2";
 			break;
 		}
 		case SPAWNER: {
-			s="§6Спавнер";
+			s="3";
 			break;
 		}
 		case DISPENSER: {
-			s="§9Раздатчик";
+			s="4";
 			break;
 		}
 		default:
-			s="§f-";
+			s="";
 			break;
 		}
 		return s;
@@ -35,66 +40,36 @@ public class BountyConverter extends ConverterMaterial {
 	
 	@Override
 	public boolean testForMaterial(Material m) {
-		if (m!=null&&(m.equals(Material.END_PORTAL_FRAME)||m.equals(Material.CHEST)||m.equals(Material.SPAWNER)||m.equals(Material.DISPENSER)))
+		if (dedaultset.contains(m))
 			return true;
 		return false;
 	}
 	
 	@Override
-	public Material FromString(String s) {
-		Material m = null;
+	public Set<Material> FromString(String s) {
+		Set<Material> set = new HashSet<Material>();
 		switch (s) {
-		case "§8Рамка портала": {
-			m=Material.END_PORTAL_FRAME;
+		case "1": {
+			set.add(Material.END_PORTAL_FRAME);
 			break;
 		}
-		case "§7Сундук": {
-			m=Material.CHEST;
+		case "2": {
+			set.add(Material.CHEST);
 			break;
 		}
-		case "§6Спавнер": {
-			m=Material.SPAWNER;
+		case "3": {
+			set.add(Material.SPAWNER);
 			break;
 		}
-		case "§9Раздатчик": {
-			m=Material.DISPENSER;
+		case "4": {
+			set.add(Material.DISPENSER);
 			break;
 		}
 		default:
+			set.addAll(dedaultset);
 			break;
 		}
-		return m;
-	}
-	
-	@Override
-	public String getNext(String s) {
-		String next="";
-		switch (s) {
-		case "§8Рамка портала": {
-			next="§7Сундук";
-			break;
-		}
-		case "§7Сундук": {
-			next="§6Спавнер";
-			break;
-		}
-		case "§6Спавнер": {
-			next="§9Раздатчик";
-			break;
-		}
-		case "§9Раздатчик": {
-			next="§fВсё";
-			break;
-		}
-		case "§fВсё": {
-			next="§8Рамка портала";
-			break;
-		}
-		default:
-			next="§8Рамка портала";
-			break;
-		}
-		return next;
+		return set;
 	}
 
 }

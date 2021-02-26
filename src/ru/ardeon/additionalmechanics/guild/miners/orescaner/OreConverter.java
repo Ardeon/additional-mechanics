@@ -1,121 +1,89 @@
 package ru.ardeon.additionalmechanics.guild.miners.orescaner;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.bukkit.Material;
 
 import ru.ardeon.additionalmechanics.util.ConverterMaterial;
-@Deprecated
+
 public class OreConverter extends ConverterMaterial {
+	Set<Material> dedaultset = new HashSet<Material>(Arrays.asList(Material.COAL_ORE,Material.IRON_ORE,Material.GOLD_ORE,Material.LAPIS_ORE,
+			Material.EMERALD_ORE,Material.DIAMOND_ORE,Material.NETHER_QUARTZ_ORE,Material.NETHER_GOLD_ORE));
+	
 	@Override
 	public String NameOf(Material m) {
 		String s="";
 		switch (m) {
 		case COAL_ORE: {
-			s="§8Уголь";
+			s="1";
 			break;
 		}
 		case IRON_ORE: {
-			s="§7Железо";
+			s="2";
 			break;
 		}
 		case GOLD_ORE: {
-			s="§6Золото";
+			s="3";
 			break;
 		}
 		case LAPIS_ORE: {
-			s="§9Лазурит";
+			s="4";
 			break;
 		}
 		case EMERALD_ORE: {
-			s="§aИзумруд";
+			s="5";
 			break;
 		}
 		case DIAMOND_ORE: {
-			s="§bАлмаз";
+			s="6";
 			break;
 		}
 		default:
-			s="§f-";
+			s="";
 			break;
 		}
 		return s;
 	}
 	@Override
 	public boolean testForMaterial(Material m) {
-		if (m!=null&&(m.equals(Material.COAL_ORE)||m.equals(Material.IRON_ORE)||m.equals(Material.GOLD_ORE)||m.equals(Material.LAPIS_ORE)
-				||m.equals(Material.EMERALD_ORE)||m.equals(Material.DIAMOND_ORE)
-				||m.equals(Material.NETHER_QUARTZ_ORE)||m.equals(Material.NETHER_GOLD_ORE)))
+		if (dedaultset.contains(m))
 			return true;
 		return false;
 	}
 	@Override
-	public Material FromString(String s) {
-		Material m = null;
+	public Set<Material> FromString(String s) {
+		Set<Material> set = new HashSet<Material>();
 		switch (s) {
-		case "§8Уголь": {
-			m=Material.COAL_ORE;
+		case "1": {
+			set.add(Material.COAL_ORE);
 			break;
 		}
-		case "§7Железо": {
-			m=Material.IRON_ORE;
+		case "2": {
+			set.add(Material.IRON_ORE);
 			break;
 		}
-		case "§6Золото": {
-			m=Material.GOLD_ORE;
+		case "3": {
+			set.add(Material.GOLD_ORE);
 			break;
 		}
-		case "§9Лазурит": {
-			m=Material.LAPIS_ORE;
+		case "4": {
+			set.add(Material.LAPIS_ORE);
 			break;
 		}
-		case "§aИзумруд": {
-			m=Material.EMERALD_ORE;
+		case "5": {
+			set.add(Material.EMERALD_ORE);
 			break;
 		}
-		case "§bАлмаз": {
-			m=Material.DIAMOND_ORE;
+		case "6": {
+			set.add(Material.DIAMOND_ORE);
 			break;
 		}
 		default:
+			set.addAll(dedaultset);
 			break;
 		}
-		return m;
-	}
-	@Override
-	public String getNext(String s) {
-		String next="";
-		switch (s) {
-		case "§8Уголь": {
-			next="§7Железо";
-			break;
-		}
-		case "§7Железо": {
-			next="§6Золото";
-			break;
-		}
-		case "§6Золото": {
-			next="§9Лазурит";
-			break;
-		}
-		case "§9Лазурит": {
-			next="§aИзумруд";
-			break;
-		}
-		case "§aИзумруд": {
-			next="§bАлмаз";
-			break;
-		}
-		case "§bАлмаз": {
-			next="§fВсё";
-			break;
-		}
-		case "§fВсё": {
-			next="§8Уголь";
-			break;
-		}
-		default:
-			next="§8Уголь";
-			break;
-		}
-		return next;
+		return set;
 	}
 }

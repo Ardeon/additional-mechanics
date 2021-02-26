@@ -11,8 +11,6 @@ public class HookCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
 		if (sender instanceof Player) {
 			Player p = (Player) sender;
-			//Arrow arrow = p.launchProjectile(Arrow.class);
-			//arrow.addScoreboardTag("grapplinghook");
 			BatmanHook.useHook(p);
 			return true;
 		}
