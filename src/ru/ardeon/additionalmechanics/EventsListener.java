@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -16,6 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import ru.ardeon.additionalmechanics.skills.BlockBreakSkillSwitcher;
+import ru.ardeon.additionalmechanics.skills.BlockDropItemSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.EntityDamageByEntitySkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.InteractEntitySkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.InteractSkillSwitcher;
@@ -26,6 +28,7 @@ import ru.ardeon.additionalmechanics.util.ItemUtil;
 public class EventsListener implements Listener 
 {
 	private BlockBreakSkillSwitcher blockBreakSkillSwitcher = BlockBreakSkillSwitcher.getInstance();
+	private BlockDropItemSkillSwitcher blockDropItemSkillSwitcher = BlockDropItemSkillSwitcher.getInstance();
 	private EntityDamageByEntitySkillSwitcher entityDamageByEntitySkillSwitcher = EntityDamageByEntitySkillSwitcher.getInstance();
 	private InteractEntitySkillSwitcher interactEntitySkillSwitcher = InteractEntitySkillSwitcher.getInstance();
 	private InteractSkillSwitcher interactSkillSwitcher = InteractSkillSwitcher.getInstance();
@@ -39,6 +42,11 @@ public class EventsListener implements Listener
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onPlayerMine(BlockBreakEvent e) {
 		blockBreakSkillSwitcher.SkillChoose(e);
+	}
+	
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+	public void onPlayerGetBlockDrop(BlockDropItemEvent e) {
+		blockDropItemSkillSwitcher.SkillChoose(e);
 	}
 	
 	@EventHandler

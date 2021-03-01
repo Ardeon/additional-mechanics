@@ -9,6 +9,7 @@ import ru.ardeon.additionalmechanics.skills.interact.Combat;
 import ru.ardeon.additionalmechanics.skills.interact.Heals;
 import ru.ardeon.additionalmechanics.skills.interact.ItemToPermission;
 import ru.ardeon.additionalmechanics.skills.interact.Pushes;
+import ru.ardeon.additionalmechanics.skills.interact.ScanSkills;
 import ru.ardeon.additionalmechanics.skills.interact.Teleports;
 import ru.ardeon.additionalmechanics.skills.interact.Totems;
 import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
@@ -61,6 +62,10 @@ public class InteractSkillSwitcher
 		
 		//ItemToPermission
 		addSkill("pet", ItemToPermission.pet);
+		
+		//Scans
+		addSkill("minerScan", ScanSkills.minerScan);
+		addSkill("adventurerScan", ScanSkills.adventurerScan);
 	}
 	
 	public void SkillChoose(PlayerInteractEvent e)

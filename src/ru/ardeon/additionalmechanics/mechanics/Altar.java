@@ -64,7 +64,7 @@ public class Altar {
 
 	public void timeSkip() 
     {
-		Collection<Entity> players = w.getNearbyEntities(area.clone().expand(2), testplayer);
+		Collection<Entity> players = w.getNearbyEntities(area.clone().expand(6), testplayer);
 		Integer n = players.size();
 		chargeBar.removeAll();
 		MoonManager moonManager = AdditionalMechanics.getPlugin().getMoonManager();
