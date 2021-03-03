@@ -20,7 +20,7 @@ public class HorseCommand implements CommandExecutor {
 		if ((sender instanceof Player)) 
 		{
 			Player p = (Player) sender;
-			hall.getGuestHorseController().CreateHorse(p, EntityType.HORSE, 20, 0.2, 0.8);
+			hall.getHorseController().CreateHorse(p, EntityType.HORSE, 20, 0.2, 0.8);
 			return true;
 		}
 		return false;

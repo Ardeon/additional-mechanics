@@ -15,11 +15,22 @@ import org.bukkit.potion.PotionEffectType;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 
 public class HorseController {
+	private static HorseController horseController;
+	public static HorseController getInstace() {
+		if (horseController==null)
+			horseController = new HorseController();
+		return horseController;
+	}
+	
 	public HashSet<Entity> horses = new HashSet<Entity>();
-	public String itemLore = "§6Призыв коня";
 	
+	public void clear() {
+		for (Entity horse : horses) {
+			horse.remove();
+		}
+	}
 	
-	public HorseController() {
+	private HorseController() {
 		AdditionalMechanics.getPlugin().getServer().getPluginManager().registerEvents(new Horselistener(this), AdditionalMechanics.getPlugin());
 	}
 	

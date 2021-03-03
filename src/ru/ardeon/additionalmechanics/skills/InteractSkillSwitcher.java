@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import ru.ardeon.additionalmechanics.skills.interact.AdventurerInteractSkills;
 import ru.ardeon.additionalmechanics.skills.interact.Combat;
 import ru.ardeon.additionalmechanics.skills.interact.Heals;
 import ru.ardeon.additionalmechanics.skills.interact.ItemToPermission;
@@ -66,6 +67,9 @@ public class InteractSkillSwitcher
 		//Scans
 		addSkill("minerScan", ScanSkills.minerScan);
 		addSkill("adventurerScan", ScanSkills.adventurerScan);
+		
+		//adventurer
+		addSkill("horse", AdventurerInteractSkills.horse);
 	}
 	
 	public void SkillChoose(PlayerInteractEvent e)

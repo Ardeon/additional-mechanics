@@ -1,5 +1,6 @@
 package ru.ardeon.additionalmechanics.vars;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,21 +16,28 @@ public class JoinListener implements Listener {
 	
 	JoinListener(PlayerVarManager playerVars){
 		this.playerVars = playerVars;
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			registerPlayer(player);
+		}
 	}
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
-		String uuid = player.getUniqueId().toString().toLowerCase();
-		MoneyData moneyData = playerVars.getOrCreateUserScore(uuid);
-		ArenaData arenaData = playerVars.getOrCreateUserStats(uuid);
-		PlayerData data = new PlayerData(player, moneyData, arenaData, playerVars.cmidata);
-		playerVars.adduser(uuid, data);
+		registerPlayer(player);
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		Player player = e.getPlayer();
 		String uuid = player.getUniqueId().toString().toLowerCase();
 		playerVars.removeUser(uuid);
+	}
+	
+	void registerPlayer(Player player) {
+		String uuid = player.getUniqueId().toString().toLowerCase();
+		MoneyData moneyData = playerVars.getOrCreateUserScore(uuid);
+		ArenaData arenaData = playerVars.getOrCreateUserStats(uuid);
+		PlayerData data = new PlayerData(player, moneyData, arenaData, playerVars.cmidata);
+		playerVars.adduser(uuid, data);
 	}
 }

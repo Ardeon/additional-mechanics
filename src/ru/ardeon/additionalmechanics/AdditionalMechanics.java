@@ -16,6 +16,7 @@ import net.luckperms.api.LuckPermsProvider;
 import ru.ardeon.additionalmechanics.common.antitarget.TargetListener;
 import ru.ardeon.additionalmechanics.configs.ConfigLoader;
 import ru.ardeon.additionalmechanics.guild.GuildsController;
+import ru.ardeon.additionalmechanics.guild.adventurers.horse.HorseController;
 import ru.ardeon.additionalmechanics.mainCommands.CommandManager;
 import ru.ardeon.additionalmechanics.mechanics.Altar;
 import ru.ardeon.additionalmechanics.mechanics.builds.BuildManager;
@@ -42,6 +43,7 @@ public class AdditionalMechanics extends JavaPlugin{
     @Override
     public void onDisable() {
     	configLoader.saveYamls();
+    	HorseController.getInstace().clear();
     }
     
     @Override
@@ -110,7 +112,8 @@ public class AdditionalMechanics extends JavaPlugin{
         recipe.setIngredient('B', Material.DRAGON_BREATH);
         recipe.setIngredient('T', Material.ENCHANTING_TABLE);
         recipe.setIngredient('M', Material.BEACON);
-        Bukkit.addRecipe(recipe);
+        if (Bukkit.getRecipe(spawner)!=null)
+        	Bukkit.addRecipe(recipe);
     }
     
     public LuckPerms getLP() {

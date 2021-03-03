@@ -21,7 +21,7 @@ public class RideCommand implements CommandExecutor {
 			if (p!=null&&p.isOnline()) {
 				switch (args[0].toLowerCase()) {
 				case "horse":{
-					hall.getGuestHorseController().CreateHorse(p, EntityType.HORSE, 20, 0.33, 0.5);
+					hall.getHorseController().CreateHorse(p, EntityType.HORSE, 20, 0.33, 0.5);
 					break;
 				}
 				default:

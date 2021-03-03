@@ -35,4 +35,17 @@ public class PlayerData {
 		}
 		return value;
 	}
+	
+	public Double getCMIdouble(String field) {
+		Double value;
+		try {
+			String string = getCMIstring(field);
+			value = Double.parseDouble(string);
+		}
+		catch (NumberFormatException e)
+		{
+			value = null;
+		}
+		return value;
+	}
 }

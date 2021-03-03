@@ -7,8 +7,7 @@ import ru.ardeon.additionalmechanics.guild.adventurers.horse.HorseCommand;
 import ru.ardeon.additionalmechanics.guild.adventurers.horse.HorseController;
 
 public class AdventurersHall {
-	HorseController guildHorseController = new HorseController();
-	HorseController guestHorseController = new HorseController();
+	private HorseController horseController = HorseController.getInstace();
 	
 	public AdventurersHall(){
 		AdditionalMechanics.getPlugin().getServer().getPluginCommand("horsetest").setExecutor(new HorseCommand(this));
@@ -17,11 +16,7 @@ public class AdventurersHall {
 		AdditionalMechanics.getPlugin().getServer().getPluginManager().registerEvents(new HookListener(), AdditionalMechanics.getPlugin());
 	}
 	
-	public HorseController getGuildHorseController() {
-		return guildHorseController;
-	}
-	
-	public HorseController getGuestHorseController() {
-		return guestHorseController;
+	public HorseController getHorseController() {
+		return horseController;
 	}
 }
