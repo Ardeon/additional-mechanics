@@ -23,6 +23,7 @@ import ru.ardeon.additionalmechanics.mechanics.builds.BuildManager;
 import ru.ardeon.additionalmechanics.mechanics.moon.MoonManager;
 import ru.ardeon.additionalmechanics.mechanics.portal.ScrollListener;
 import ru.ardeon.additionalmechanics.randomchest.RandomManager;
+import ru.ardeon.additionalmechanics.util.sidebar.AdmSideBar;
 import ru.ardeon.additionalmechanics.vars.VarManager;
 
 public class AdditionalMechanics extends JavaPlugin{
@@ -35,6 +36,7 @@ public class AdditionalMechanics extends JavaPlugin{
     public RandomManager rm;
     private LuckPerms lpapi = null;
     private MoonManager moonManager;
+    public AdmSideBar sideBar;
     
     public static AdditionalMechanics getPlugin() {
     	return p;
@@ -66,6 +68,7 @@ public class AdditionalMechanics extends JavaPlugin{
 		
 		CommandManager.CommandRegister();
 		
+		sideBar = new AdmSideBar();
 		loadRecipe();
 		setMoonManager();
 		setAltar();

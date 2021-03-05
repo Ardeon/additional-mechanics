@@ -2,6 +2,7 @@ package ru.ardeon.additionalmechanics;
 
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -14,6 +15,8 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import ru.ardeon.additionalmechanics.skills.BlockBreakSkillSwitcher;
@@ -37,6 +40,23 @@ public class EventsListener implements Listener
 	
 	public void reload() {
 		this.interactSkillSwitcher = InteractSkillSwitcher.getInstance();
+	}
+	
+	@EventHandler
+	public void PlayerQuit(PlayerQuitEvent e) {
+		Player player = e.getPlayer();
+		AdditionalMechanics.getPlugin().sideBar.pushString("§f[§c-§f] §7" + player.getName());
+	}
+	
+	@EventHandler
+	public void PlayerJoin(PlayerJoinEvent e) {
+		String message = "";
+		Player player = e.getPlayer();
+		if (!player.hasPlayedBefore())
+			message = "§f[§a+§f] §7" + player.getName() + " §8на сервере впервые!";
+		else
+			message = "§f[§a+§f] §7" + player.getName();
+		AdditionalMechanics.getPlugin().sideBar.pushString(message+"123456789012345678901234567890123456789012345678901234567890");
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

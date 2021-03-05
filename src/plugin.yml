@@ -121,6 +121,9 @@ commands:
     moonskip:
       description: moonskip
       permission: additionalmechanics.admin
+    admsidebar:
+      description: включение/выключение сайдбара
+      permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access

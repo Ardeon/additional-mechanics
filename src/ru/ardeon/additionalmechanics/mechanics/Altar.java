@@ -49,6 +49,10 @@ public class Altar {
         	checkTimer.runTaskTimer(AdditionalMechanics.getPlugin(), 20L, 5L);
 	}
 	
+	public Location getLocation() {
+		return new Location(w, area.getCenterX(), area.getCenterY(), area.getCenterZ());
+	}
+	
 	public void setWorld(World world) {
 		targetWorld = world;
 	}

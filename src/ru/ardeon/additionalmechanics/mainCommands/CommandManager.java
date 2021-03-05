@@ -35,5 +35,7 @@ public class CommandManager {
 		t.getServer().getPluginCommand("guild").setExecutor(new guildregister());
 		t.getServer().getPluginCommand("giveperm").setExecutor(new GivePerm());
 		t.getServer().getPluginCommand("moonskip").setExecutor(new MoonskipCommand());
+		
+		t.getServer().getPluginCommand("admsidebar").setExecutor(new AdmSidebarCommand());
 	}
 }
