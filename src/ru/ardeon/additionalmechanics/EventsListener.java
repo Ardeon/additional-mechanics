@@ -43,10 +43,13 @@ public class EventsListener implements Listener
 		this.interactSkillSwitcher = InteractSkillSwitcher.getInstance();
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void PlayerDeath(BroadcastDeathMessageEvent e) {
 		String text = e.getTextComponent().toLegacyText();
 		AdditionalMechanics.getPlugin().sideBar.pushString(text);
+		e.setCancelled(true);
+		e.setCancelled(true);
+		e.getBroadcastedWorlds().clear();
 	}
 	
 	@EventHandler

@@ -52,10 +52,10 @@ public class AdmSideBar {
 			messages[14].setPrefix(string.substring(0, 64));
 			//string.lastIndexOf("§r");
 			//string.lastIndexOf("§", 0)
-			if (string.length()>128)
-				messages[14].setSuffix(string.substring(64, 128));
+			if (string.length()>126)
+				messages[14].setSuffix("§7" + string.substring(64, 126));
 			else
-				messages[14].setSuffix(string.substring(64));
+				messages[14].setSuffix("§7" + string.substring(64));
 		}
 		else {
 			messages[14].setPrefix(string);
