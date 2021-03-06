@@ -230,4 +230,4 @@ permissions: #права
     additionalmechanics.adventurer.hook.length.3:
         description: none
 depend: [Multiverse-Core]
-softdepend: [WorldGuard, PlaceholderAPI, ProtocolLib, LuckPerms, CMI]
+softdepend: [WorldGuard, PlaceholderAPI, ProtocolLib, LuckPerms, CMI, DeathMessages]

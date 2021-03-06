@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.joshb.deathmessages.api.events.BroadcastDeathMessageEvent;
 import ru.ardeon.additionalmechanics.skills.BlockBreakSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.BlockDropItemSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.EntityDamageByEntitySkillSwitcher;
@@ -43,9 +44,9 @@ public class EventsListener implements Listener
 	}
 	
 	@EventHandler
-	public void PlayerQuit(PlayerQuitEvent e) {
-		Player player = e.getPlayer();
-		AdditionalMechanics.getPlugin().sideBar.pushString("§f[§c-§f] §7" + player.getName());
+	public void PlayerDeath(BroadcastDeathMessageEvent e) {
+		String text = e.getTextComponent().toLegacyText();
+		AdditionalMechanics.getPlugin().sideBar.pushString(text);
 	}
 	
 	@EventHandler
@@ -56,7 +57,13 @@ public class EventsListener implements Listener
 			message = "§f[§a+§f] §7" + player.getName() + " §8на сервере впервые!";
 		else
 			message = "§f[§a+§f] §7" + player.getName();
-		AdditionalMechanics.getPlugin().sideBar.pushString(message+"123456789012345678901234567890123456789012345678901234567890");
+		AdditionalMechanics.getPlugin().sideBar.pushString(message);//+"123456789012345678901234567890123456789012345678901234567890");
+	}
+	
+	@EventHandler
+	public void PlayerQuit(PlayerQuitEvent e) {
+		Player player = e.getPlayer();
+		AdditionalMechanics.getPlugin().sideBar.pushString("§f[§c-§f] §7" + player.getName());
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

@@ -14,6 +14,7 @@ public class AdmSideBar {
 	Objective obj;
 	String[] strings = new String[15];
 	Team[] messages = new Team[15];
+	//DeathMessages deathMessages;
 	
 	public AdmSideBar(){
 		Arrays.fill(strings, "");
@@ -26,6 +27,12 @@ public class AdmSideBar {
 			messages[i].addEntry("§" + getMask(i));
 			messages[i].setPrefix("");
 		}
+		//try {
+		//	deathMessages = DeathMessages.plugin;
+		//}
+		//catch(IllegalStateException e) {
+		//	AdditionalMechanics.getPlugin().getLogger().log(Level.WARNING, "ERROR LuckPerms not load");
+		//};
 	}
 	
 	public void addViewer(Player player) {
@@ -43,6 +50,8 @@ public class AdmSideBar {
 		}
 		if (string.length()>64) {
 			messages[14].setPrefix(string.substring(0, 64));
+			//string.lastIndexOf("§r");
+			//string.lastIndexOf("§", 0)
 			if (string.length()>128)
 				messages[14].setSuffix(string.substring(64, 128));
 			else

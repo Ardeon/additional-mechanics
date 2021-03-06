@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="D:/newBuild/plugins/LuckPerms-Bukkit-5.1.93.jar"/>
 	<classpathentry kind="lib" path="D:/newBuild/cache/patched_1.16.4.jar"/>
 	<classpathentry kind="lib" path="D:/newBuild/plugins/CMI8.8.0.3.jar"/>
+	<classpathentry kind="lib" path="D:/newBuild/plugins/DeathMessages-1.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
