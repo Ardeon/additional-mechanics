@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,7 +24,7 @@ import ru.ardeon.additionalmechanics.mechanics.builds.BuildManager;
 import ru.ardeon.additionalmechanics.mechanics.moon.MoonManager;
 import ru.ardeon.additionalmechanics.mechanics.portal.ScrollListener;
 import ru.ardeon.additionalmechanics.randomchest.RandomManager;
-import ru.ardeon.additionalmechanics.util.sidebar.AdmSideBar;
+import ru.ardeon.additionalmechanics.util.sidebar.PlayerSidebars;
 import ru.ardeon.additionalmechanics.vars.VarManager;
 
 public class AdditionalMechanics extends JavaPlugin{
@@ -36,7 +37,7 @@ public class AdditionalMechanics extends JavaPlugin{
     public RandomManager rm;
     private LuckPerms lpapi = null;
     private MoonManager moonManager;
-    public AdmSideBar sideBar;
+    public PlayerSidebars sideBars;
     
     public static AdditionalMechanics getPlugin() {
     	return p;
@@ -60,20 +61,27 @@ public class AdditionalMechanics extends JavaPlugin{
 			this.getLogger().log(Level.WARNING, "ERROR LuckPerms not load");
 		};
 		gc = new GuildsController();
-		getServer().getPluginManager().registerEvents(new EventsListener(), this);
-		getServer().getPluginManager().registerEvents(new ScrollListener(), this);
+		sideBars = new PlayerSidebars();
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			sideBars.addPlayer(player);
+			sideBars.getBar(player).addViewer(player);
+		}
+		
 		rm = new RandomManager(this);
 		varManager = new VarManager(this);
 		
 		
 		CommandManager.CommandRegister();
 		
-		sideBar = new AdmSideBar();
+		
 		loadRecipe();
 		setMoonManager();
 		setAltar();
 		bm = new BuildManager();
 		getLogger().info("AdditionalMechanics started!");
+		
+		getServer().getPluginManager().registerEvents(new EventsListener(), this);
+		getServer().getPluginManager().registerEvents(new ScrollListener(), this);
 		getServer().getPluginManager().registerEvents(new TargetListener(), this);
     }
     

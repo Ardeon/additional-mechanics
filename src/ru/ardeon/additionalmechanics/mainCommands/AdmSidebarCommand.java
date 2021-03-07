@@ -14,22 +14,28 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 public class AdmSidebarCommand implements CommandExecutor, TabCompleter {
 
 	AdmSidebarCommand(){
-		AdditionalMechanics.getPlugin().getServer().getPluginCommand("admsidebar").setTabCompleter(this);;
+		AdditionalMechanics.getPlugin().getServer().getPluginCommand("sidebar").setTabCompleter(this);;
 	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
-		if (sender instanceof Player && args.length >= 1) {
+		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (args[0].equalsIgnoreCase("on")) {
-				AdditionalMechanics.getPlugin().sideBar.addViewer(player);
+			if (args.length >= 1) {
+				if (args[0].equalsIgnoreCase("on")) {
+					AdditionalMechanics.getPlugin().sideBars.getBar(player).addViewer(player);
+					return true;
+				}
+				if (args[0].equalsIgnoreCase("off")) {
+					AdditionalMechanics.getPlugin().sideBars.getBar(player).removeViewer(player);
+					return true;
+				}
+			}
+			else {
+				AdditionalMechanics.getPlugin().sideBars.getBar(player).toggleViewer(player);
 				return true;
 			}
-				
-			if (args[0].equalsIgnoreCase("off")) {
-				AdditionalMechanics.getPlugin().sideBar.removeViewer(player);
-				return true;
-			}
+			
 			
 		}
 		return false;

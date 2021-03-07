@@ -1,5 +1,8 @@
 package ru.ardeon.additionalmechanics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -19,7 +22,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.Zrips.CMI.events.CMIAfkEnterEvent;
+import com.Zrips.CMI.events.CMIAfkLeaveEvent;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+
 import net.joshb.deathmessages.api.events.BroadcastDeathMessageEvent;
+import net.raidstone.wgevents.events.RegionsEnteredEvent;
 import ru.ardeon.additionalmechanics.skills.BlockBreakSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.BlockDropItemSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.EntityDamageByEntitySkillSwitcher;
@@ -28,6 +36,7 @@ import ru.ardeon.additionalmechanics.skills.InteractSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.ProjectileHitSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.ShootBowSkillSwitcher;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
+import ru.ardeon.additionalmechanics.util.sidebar.AdmSideBar;
 
 public class EventsListener implements Listener 
 {
@@ -46,7 +55,9 @@ public class EventsListener implements Listener
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void PlayerDeath(BroadcastDeathMessageEvent e) {
 		String text = e.getTextComponent().toLegacyText();
-		AdditionalMechanics.getPlugin().sideBar.pushString(text);
+		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
+			bar.pushString(text);
+		}
 		e.setCancelled(true);
 		e.setCancelled(true);
 		e.getBroadcastedWorlds().clear();
@@ -54,19 +65,66 @@ public class EventsListener implements Listener
 	
 	@EventHandler
 	public void PlayerJoin(PlayerJoinEvent e) {
+		
 		String message = "";
 		Player player = e.getPlayer();
+		AdditionalMechanics.getPlugin().sideBars.addPlayer(player);
+		AdditionalMechanics.getPlugin().sideBars.getBar(player).addViewer(player);
 		if (!player.hasPlayedBefore())
-			message = "§f[§a+§f] §7" + player.getName() + " §8на сервере впервые!";
+			message = "§8[§a+§8] §f" + player.getName() + " §7на сервере впервые!";
 		else
-			message = "§f[§a+§f] §7" + player.getName();
-		AdditionalMechanics.getPlugin().sideBar.pushString(message);//+"123456789012345678901234567890123456789012345678901234567890");
+			message = "§8[§a+§8] §f" + player.getName();
+		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
+			bar.pushString(message);
+		}
+	}
+	
+	@EventHandler
+	public void PlayerAFK(CMIAfkEnterEvent e) {
+		Player player = e.getPlayer();
+		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
+			bar.pushString("§8[§7●§8] §f" + player.getName() + " §7афк");
+		}
+	}
+	
+	@EventHandler
+	public void PlayerAFKleave(CMIAfkLeaveEvent e) {
+		Player player = e.getPlayer();
+		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
+			bar.pushString("§8[§a●§8] §f" + player.getName() + " §7активен");
+		}
+	}
+	
+	
+	@EventHandler
+	public void PlayerEnterRegion(RegionsEnteredEvent e) {
+		Player player = e.getPlayer();
+		if (player==null)
+			return;
+		List<ProtectedRegion> regions = new ArrayList<ProtectedRegion>();
+		regions.addAll(e.getRegions());
+		regions.sort((region1, region2) -> region2.getPriority() - region1.getPriority());
+		String string = null;
+		for (int i = 0; i < regions.size(); i++) {
+			if (string==null) {
+				string = "" + regions.get(i).getId() + "§7";
+			} else {
+				string = string + ", " + regions.get(i).getId();
+			}
+		}
+		if (string == null)
+			string = "§7Можно приватить";
+		string = "§eРегион§f: " + string;
+		AdditionalMechanics.getPlugin().sideBars.getBar(player).setString(string, 13);
 	}
 	
 	@EventHandler
 	public void PlayerQuit(PlayerQuitEvent e) {
 		Player player = e.getPlayer();
-		AdditionalMechanics.getPlugin().sideBar.pushString("§f[§c-§f] §7" + player.getName());
+		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
+			bar.pushString("§8[§c-§8] §f" + player.getName());
+		}
+		AdditionalMechanics.getPlugin().sideBars.removePlayer(player);;
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

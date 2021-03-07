@@ -36,6 +36,6 @@ public class CommandManager {
 		t.getServer().getPluginCommand("giveperm").setExecutor(new GivePerm());
 		t.getServer().getPluginCommand("moonskip").setExecutor(new MoonskipCommand());
 		
-		t.getServer().getPluginCommand("admsidebar").setExecutor(new AdmSidebarCommand());
+		t.getServer().getPluginCommand("sidebar").setExecutor(new AdmSidebarCommand());
 	}
 }

@@ -19,7 +19,7 @@ public class AdmSideBar {
 	public AdmSideBar(){
 		Arrays.fill(strings, "");
 		board = Bukkit.getScoreboardManager().getNewScoreboard();
-		obj = board.registerNewObjective("events", "dummy", "События");
+		obj = board.registerNewObjective("events", "dummy", "§6§lSenTeeNell §8alfa");
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		for(int i = 14; i >= 0; i--) {
 			obj.getScore("§" + getMask(i)).setScore(i+1);
@@ -27,12 +27,18 @@ public class AdmSideBar {
 			messages[i].addEntry("§" + getMask(i));
 			messages[i].setPrefix("");
 		}
-		//try {
-		//	deathMessages = DeathMessages.plugin;
-		//}
-		//catch(IllegalStateException e) {
-		//	AdditionalMechanics.getPlugin().getLogger().log(Level.WARNING, "ERROR LuckPerms not load");
-		//};
+		messages[10].setPrefix(" §8«---» §6Последние события §8«---»");
+		messages[12].setPrefix("§f/menu §7- открыть меню");
+		
+	}
+	
+	public void toggleViewer(Player player) {
+		if (player.getScoreboard()==Bukkit.getScoreboardManager().getMainScoreboard()) {
+			player.setScoreboard(board);
+		}
+		else {
+			player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+		}
 	}
 	
 	public void addViewer(Player player) {
@@ -43,23 +49,42 @@ public class AdmSideBar {
 		player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 	}
 	
+	public void setString(String string, int n) {
+		if (n>14||n<9)
+			return;
+		if (string.length()>64) {
+			messages[n].setPrefix(string.substring(0, 64));
+			//string.lastIndexOf("§r");
+			//string.lastIndexOf("§", 0)
+			if (string.length()>126)
+				messages[n].setSuffix("§7" + string.substring(64, 126));
+			else
+				messages[n].setSuffix("§7" + string.substring(64));
+		}
+		else {
+			messages[n].setPrefix(string);
+			messages[n].setSuffix("");
+		}
+			
+	}
+	
 	public void pushString(String string) {
-		for(int i = 1; i <= 14; i++) {
+		for(int i = 1; i <= 8; i++) {
 			messages[i-1].setPrefix(messages[i].getPrefix());
 			messages[i-1].setSuffix(messages[i].getSuffix());
 		}
 		if (string.length()>64) {
-			messages[14].setPrefix(string.substring(0, 64));
+			messages[8].setPrefix(string.substring(0, 64));
 			//string.lastIndexOf("§r");
 			//string.lastIndexOf("§", 0)
 			if (string.length()>126)
-				messages[14].setSuffix("§7" + string.substring(64, 126));
+				messages[8].setSuffix("§8" + string.substring(64, 126));
 			else
-				messages[14].setSuffix("§7" + string.substring(64));
+				messages[8].setSuffix("§8" + string.substring(64));
 		}
 		else {
-			messages[14].setPrefix(string);
-			messages[14].setSuffix("");
+			messages[8].setPrefix(string);
+			messages[8].setSuffix("");
 		}
 			
 	}
