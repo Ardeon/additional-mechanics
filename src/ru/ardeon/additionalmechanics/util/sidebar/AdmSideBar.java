@@ -27,7 +27,7 @@ public class AdmSideBar {
 			messages[i].addEntry("§" + getMask(i));
 			messages[i].setPrefix("");
 		}
-		messages[10].setPrefix(" §8«---» §6Последние события §8«---»");
+		messages[10].setPrefix("  §6Последние события:");
 		messages[12].setPrefix("§f/menu §7- открыть меню");
 		
 	}

@@ -43,7 +43,40 @@ public class PlayerSidebars {
 			" §6§lSenTeeNell ",
 			" §6§lSenTeeNell ",
 			" §6§lSenTeeNell ");
+	final List<String> tips = Arrays.asList("§f/sidebar §7- отключить эту панель",
+			"§f/menu §7- открыть меню",
+			
+			"§f/setup §7- настроить персонажа",
+			
+			"§f/wiki §7- наша википедия",
+			
+			"§f/discord §7- наш дискорд",
+			
+			"§f/vk §7- наш вк",
+			
+			"§f/tpa §7- телепорт к игроку",
+			
+			"§f/sethome §7- определить дом",
+			
+			"§f/suicide §7 - убить себя");
+	
 	Map<Player, AdmSideBar> bars = new HashMap<Player, AdmSideBar>();
+	BukkitRunnable tipsChanger = new BukkitRunnable() {
+		int n = 0;
+		@Override
+		public void run() {
+			if (tips.size()>n) {
+				
+				for (AdmSideBar bar : getAllBars()){
+					bar.setString(tips.get(n), 12);;
+				}
+				n++;
+			}
+			else
+				n=0;
+			
+		}
+	};
 	BukkitRunnable animation = new BukkitRunnable() {
 		int n = 0;
 		@Override
@@ -63,6 +96,7 @@ public class PlayerSidebars {
 	
 	public PlayerSidebars(){
 		animation.runTaskTimer(AdditionalMechanics.getPlugin(), 200, 1);
+		tipsChanger.runTaskTimer(AdditionalMechanics.getPlugin(), 400, 600);
 	}
 	
 	public void addPlayer(Player player) {

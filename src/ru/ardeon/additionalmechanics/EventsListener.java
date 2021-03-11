@@ -71,9 +71,9 @@ public class EventsListener implements Listener
 		AdditionalMechanics.getPlugin().sideBars.addPlayer(player);
 		AdditionalMechanics.getPlugin().sideBars.getBar(player).addViewer(player);
 		if (!player.hasPlayedBefore())
-			message = "§8[§a+§8] §f" + player.getName() + " §7на сервере впервые!";
-		else
 			message = "§8[§a+§8] §f" + player.getName();
+		else
+			message = "§8[§a+§8] §7" + player.getName();
 		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
 			bar.pushString(message);
 		}
@@ -83,7 +83,7 @@ public class EventsListener implements Listener
 	public void PlayerAFK(CMIAfkEnterEvent e) {
 		Player player = e.getPlayer();
 		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString("§8[§7●§8] §f" + player.getName() + " §7афк");
+			bar.pushString("§8[§7●§8] §7" + player.getName());
 		}
 	}
 	
@@ -91,7 +91,7 @@ public class EventsListener implements Listener
 	public void PlayerAFKleave(CMIAfkLeaveEvent e) {
 		Player player = e.getPlayer();
 		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString("§8[§a●§8] §f" + player.getName() + " §7активен");
+			bar.pushString("§8[§a●§8] §7" + player.getName());
 		}
 	}
 	
@@ -122,7 +122,7 @@ public class EventsListener implements Listener
 	public void PlayerQuit(PlayerQuitEvent e) {
 		Player player = e.getPlayer();
 		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString("§8[§c-§8] §f" + player.getName());
+			bar.pushString("§8[§c-§8] §7" + player.getName());
 		}
 		AdditionalMechanics.getPlugin().sideBars.removePlayer(player);;
 	}
