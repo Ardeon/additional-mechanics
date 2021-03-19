@@ -124,6 +124,10 @@ commands:
     sidebar:
       description: включение/выключение сайдбара
       permission: additionalmechanics.sidebar
+    portaladd:
+      permission: additionalmechanics.admin
+    portalmenu:
+      permission: additionalmechanics.admin
 permissions: #права
     additionalmechanics.admin:
         description: admin access
@@ -230,4 +234,4 @@ permissions: #права
     additionalmechanics.adventurer.hook.length.3:
         description: none
 depend: [Multiverse-Core]
-softdepend: [WorldGuard, WorldGuardEvents, PlaceholderAPI, ProtocolLib, LuckPerms, CMI, DeathMessages]
+softdepend: [WorldGuard, WorldGuardEvents, PlaceholderAPI, ProtocolLib, LuckPerms, CMI, DeathMessages, DeluxeCombat]

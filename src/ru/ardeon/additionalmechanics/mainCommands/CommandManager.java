@@ -37,5 +37,8 @@ public class CommandManager {
 		t.getServer().getPluginCommand("moonskip").setExecutor(new MoonskipCommand());
 		
 		t.getServer().getPluginCommand("sidebar").setExecutor(new AdmSidebarCommand());
+		
+		t.getServer().getPluginCommand("portaladd").setExecutor(new PortalAddCmd());
+		t.getServer().getPluginCommand("portalmenu").setExecutor(new PortalMenuCmd());
 	}
 }

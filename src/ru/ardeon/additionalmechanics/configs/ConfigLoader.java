@@ -22,7 +22,9 @@ public class ConfigLoader {
 	private FileConfiguration configPermkit;
 	private File altarFile;
 	private YamlConfiguration altar;
-
+	private File portalsFile;
+	private FileConfiguration portals;
+	
     public ConfigLoader() {
     	init();
     }
@@ -42,6 +44,9 @@ public class ConfigLoader {
     public FileConfiguration getConfigAltar() {
     	return altar;
     }
+    public FileConfiguration getConfigPortals() {
+    	return portals;
+    }
     
 	public void init() {
 		configFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "config.yml");
@@ -49,11 +54,13 @@ public class ConfigLoader {
 		configFileBlocks = new File(AdditionalMechanics.getPlugin().getDataFolder(), "configBlocks.yml");
 		configFilePermkit = new File(AdditionalMechanics.getPlugin().getDataFolder(), "configPermkit.yml");
 		altarFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "altar.yml");
+		portalsFile = new File(AdditionalMechanics.getPlugin().getDataFolder(), "portals.yml");
 		vars = new YamlConfiguration();
 	    config = new YamlConfiguration();
 	    configBlocks = new YamlConfiguration();
 	    configPermkit = new YamlConfiguration();
-	    altar  = new YamlConfiguration();
+	    altar = new YamlConfiguration();
+	    portals = new YamlConfiguration();
 	    try {
             firstRun();
         } catch (Exception e) {
@@ -83,6 +90,10 @@ public class ConfigLoader {
         	altarFile.getParentFile().mkdirs();
         	copy(AdditionalMechanics.getPlugin().getResource("altar.yml"), altarFile);
         }
+        if(!portalsFile.exists()) {
+        	portalsFile.getParentFile().mkdirs();
+        	copy(AdditionalMechanics.getPlugin().getResource("portals.yml"), portalsFile);
+        }
     }
 	
     private void copy(InputStream in, File file) {
@@ -106,6 +117,7 @@ public class ConfigLoader {
             configBlocks.load(configFileBlocks);
             configPermkit.load(configFilePermkit);
             altar.load(altarFile);
+            portals.load(portalsFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,6 +129,7 @@ public class ConfigLoader {
             configBlocks.save(configFileBlocks);
             configPermkit.save(configFilePermkit);
             altar.save(altarFile);
+            portals.save(portalsFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
