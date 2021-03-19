@@ -28,6 +28,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import net.joshb.deathmessages.api.events.BroadcastDeathMessageEvent;
 import net.raidstone.wgevents.events.RegionsEnteredEvent;
+import nl.marido.deluxecombat.events.PlayerTogglePVPEvent;
 import ru.ardeon.additionalmechanics.skills.BlockBreakSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.BlockDropItemSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.EntityDamageByEntitySkillSwitcher;
@@ -61,6 +62,20 @@ public class EventsListener implements Listener
 		e.setCancelled(true);
 		e.setCancelled(true);
 		e.getBroadcastedWorlds().clear();
+	}
+	
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void PlayerTogglePvp(PlayerTogglePVPEvent e) {
+		String message = "";
+		if (e.getNewPVPStatus()) {
+			message = "§8[§a⚔§8] §7"+e.getPlayer().getName();
+		}
+		else {
+			message = "§8[§7⚔§8] §7"+e.getPlayer().getName();
+		}
+		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
+			bar.pushString(message);
+		}
 	}
 	
 	@EventHandler
