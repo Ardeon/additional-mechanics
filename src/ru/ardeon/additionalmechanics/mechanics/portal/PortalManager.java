@@ -55,7 +55,7 @@ public class PortalManager {
 	}
 	
 	public PortalMenu getMenuAllPortals() {
-		PortalMenu menu = new PortalMenu("Порталы", getPortals());
+		PortalMenu menu = new PortalMenu("§aПорталы", getPortals());
 		return menu;
 	}
 	
