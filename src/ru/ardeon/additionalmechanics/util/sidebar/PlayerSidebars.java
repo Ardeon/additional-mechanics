@@ -44,21 +44,24 @@ public class PlayerSidebars {
 			" §6§lSenTeeNell ",
 			" §6§lSenTeeNell ");
 	final List<String> tips = Arrays.asList("§f/sidebar §7- отключить эту панель",
-			"§f/menu §7- открыть меню",
+			"§f/menu §7- меню",
 			
-			"§f/setup §7- настроить персонажа",
+			"§f/setup §7- настройки",
 			
-			"§f/wiki §7- наша википедия",
+			"§f/wiki §7- википедия",
 			
-			"§f/discord §7- наш дискорд",
+			"§f/discord §7- дискорд",
 			
 			"§f/vk §7- наш вк",
 			
-			"§f/tpa §7- телепорт к игроку",
+			"§f/tpa §7- тп к игроку"
 			
-			"§f/sethome §7- определить дом",
+			//"§f/sethome §7- определить дом",
 			
-			"§f/suicide §7 - убить себя");
+			//"§f/suicide §7 - убить себя"
+			);
+	
+	private String[] cache = new String[15];
 	
 	Map<Player, AdmSideBar> bars = new HashMap<Player, AdmSideBar>();
 	BukkitRunnable tipsChanger = new BukkitRunnable() {
@@ -100,7 +103,9 @@ public class PlayerSidebars {
 	}
 	
 	public void addPlayer(Player player) {
-		bars.put(player, new AdmSideBar());
+		AdmSideBar bar = new AdmSideBar(cache);
+		bars.put(player, bar);
+		bar.addViewer(player);
 	}
 	
 	public void removePlayer(Player player) {
@@ -111,10 +116,23 @@ public class PlayerSidebars {
 		bars.remove(player);
 	}
 	
+	public void sendEventToAll(String string) {
+		for (AdmSideBar bar : getAllBars()){
+			bar.pushString(string);
+		}
+		putToCache(string);
+	}
+	
 	public Collection<AdmSideBar> getAllBars() {
 		return bars.values();
 	}
 	public AdmSideBar getBar(Player player) {
 		return bars.get(player);
+	}
+	private void putToCache(String string) {
+		for(int i = 1; i < cache.length; i++) {
+			cache[i-1] = cache[i];
+		}
+		cache[cache.length - 1] = string;
 	}
 }

@@ -32,6 +32,17 @@ public class AdmSideBar {
 		
 	}
 	
+	public AdmSideBar(String[] text) {
+		this();
+		if(text!=null) {
+			for (int i = 0; i < text.length; i++) {
+				if (text[i]!=null)
+					pushString(text[i]);
+			}
+		}
+		
+	}
+	
 	public void toggleViewer(Player player) {
 		if (player.getScoreboard()==Bukkit.getScoreboardManager().getMainScoreboard()) {
 			player.setScoreboard(board);

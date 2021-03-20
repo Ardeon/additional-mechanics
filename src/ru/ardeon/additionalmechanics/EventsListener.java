@@ -37,7 +37,6 @@ import ru.ardeon.additionalmechanics.skills.InteractSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.ProjectileHitSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.ShootBowSkillSwitcher;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
-import ru.ardeon.additionalmechanics.util.sidebar.AdmSideBar;
 
 public class EventsListener implements Listener 
 {
@@ -56,10 +55,7 @@ public class EventsListener implements Listener
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void PlayerDeath(BroadcastDeathMessageEvent e) {
 		String text = e.getTextComponent().toLegacyText();
-		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString(text);
-		}
-		e.setCancelled(true);
+		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(text);
 		e.setCancelled(true);
 		e.getBroadcastedWorlds().clear();
 	}
@@ -73,9 +69,7 @@ public class EventsListener implements Listener
 		else {
 			message = "§8[§7⚔§8] §7"+e.getPlayer().getName();
 		}
-		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString(message);
-		}
+		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
 	}
 	
 	@EventHandler
@@ -84,30 +78,25 @@ public class EventsListener implements Listener
 		String message = "";
 		Player player = e.getPlayer();
 		AdditionalMechanics.getPlugin().sideBars.addPlayer(player);
-		AdditionalMechanics.getPlugin().sideBars.getBar(player).addViewer(player);
 		if (!player.hasPlayedBefore())
 			message = "§8[§a+§8] §f" + player.getName();
 		else
 			message = "§8[§a+§8] §7" + player.getName();
-		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString(message);
-		}
+		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
 	}
 	
 	@EventHandler
 	public void PlayerAFK(CMIAfkEnterEvent e) {
 		Player player = e.getPlayer();
-		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString("§8[§7●§8] §7" + player.getName());
-		}
+		String message = "§8[§7●§8] §7" + player.getName();
+		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
 	}
 	
 	@EventHandler
 	public void PlayerAFKleave(CMIAfkLeaveEvent e) {
 		Player player = e.getPlayer();
-		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString("§8[§a●§8] §7" + player.getName());
-		}
+		String message = "§8[§a●§8] §7" + player.getName();
+		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
 	}
 	
 	
@@ -136,10 +125,9 @@ public class EventsListener implements Listener
 	@EventHandler
 	public void PlayerQuit(PlayerQuitEvent e) {
 		Player player = e.getPlayer();
-		for (AdmSideBar bar : AdditionalMechanics.getPlugin().sideBars.getAllBars()){
-			bar.pushString("§8[§c-§8] §7" + player.getName());
-		}
-		AdditionalMechanics.getPlugin().sideBars.removePlayer(player);;
+		String message = "§8[§c-§8] §7" + player.getName();
+		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
+		AdditionalMechanics.getPlugin().sideBars.removePlayer(player);
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
