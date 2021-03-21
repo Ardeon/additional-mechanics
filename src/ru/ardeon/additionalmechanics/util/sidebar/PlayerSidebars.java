@@ -43,7 +43,7 @@ public class PlayerSidebars {
 			" §6§lSenTeeNell ",
 			" §6§lSenTeeNell ",
 			" §6§lSenTeeNell ");
-	final List<String> tips = Arrays.asList("§f/sidebar §7- отключить эту панель",
+	final List<String> tips = Arrays.asList("§f/sidebar §7- панель",
 			"§f/menu §7- меню",
 			
 			"§f/setup §7- настройки",
