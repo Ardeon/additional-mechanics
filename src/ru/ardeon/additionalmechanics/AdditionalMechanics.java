@@ -1,5 +1,8 @@
 package ru.ardeon.additionalmechanics;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -38,12 +41,23 @@ public class AdditionalMechanics extends JavaPlugin{
     private LuckPerms lpapi = null;
     private MoonManager moonManager;
     public PlayerSidebars sideBars;
-    
+    private List<WeakReference<Reloadable>> reloadables = new ArrayList<WeakReference<Reloadable>>();
     public static AdditionalMechanics getPlugin() {
     	return p;
     }
-	
-    @Override
+
+    public void reload(){
+    	for (WeakReference<Reloadable> item : reloadables){
+    		item.get().reload();
+		}
+		setAltar();
+	}
+
+	public void addReloadingItem(Reloadable item){
+		reloadables.add(new WeakReference<>(item));
+	}
+
+	@Override
     public void onDisable() {
     	configLoader.saveYamls();
     	HorseController.getInstace().clear();

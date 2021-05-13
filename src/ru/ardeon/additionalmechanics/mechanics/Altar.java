@@ -1,7 +1,6 @@
 package ru.ardeon.additionalmechanics.mechanics;
 
-import java.util.Collection;
-import java.util.Formatter;
+import java.util.*;
 import java.util.function.Predicate;
 
 import org.bukkit.Bukkit;
@@ -13,22 +12,28 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.BoundingBox;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.Reloadable;
+import ru.ardeon.additionalmechanics.configs.Setting;
 import ru.ardeon.additionalmechanics.mechanics.moon.MoonManager;
 
-public class Altar {
-	BossBar chargeBar = Bukkit.createBossBar("Заряд алтаря", BarColor.WHITE, BarStyle.SOLID);
-    int charge = 0;
-    int messageCooldown = 0;
-    boolean useable = false;
-    BoundingBox area;
-    World w;
-    World targetWorld;
-    boolean activeted;
-    Predicate<Entity> testplayer = p -> (p instanceof Player);
-    BukkitRunnable checkTimer = new BukkitRunnable() 
+public class Altar implements Reloadable {
+	private static List<BukkitTask> timers = new ArrayList<>();
+
+	private BossBar chargeBar = Bukkit.createBossBar(Setting.ALTAR_CHARGE_TEXT.getString(), BarColor.WHITE, BarStyle.SOLID);
+	private int charge = 0;
+	private int messageCooldown = 0;
+	private boolean usable = false;
+	private BoundingBox area;
+	private World w;
+	private World targetWorld;
+	private boolean activeted;
+	private final Predicate<Entity> testPlayer = p -> (p instanceof Player);
+	private BukkitTask timerTask;
+	private BukkitRunnable checkTimer = new BukkitRunnable()
 	{
 		@Override
 		public void run()
@@ -41,12 +46,18 @@ public class Altar {
 			}
 		}
 	};
-	
+
+    public static void removeAllTimers(){
+		for (BukkitTask task : timers){
+			task.cancel();
+		}
+	}
+
 	public Altar(World world, Location loc){
         targetWorld = world;
-        activeted = setArea(loc);
+        activeted = setArea(loc) && Setting.ALTAR_ENABLE.getBool();
         if (activeted)
-        	checkTimer.runTaskTimer(AdditionalMechanics.getPlugin(), 20L, 5L);
+			timerTask = checkTimer.runTaskTimer(AdditionalMechanics.getPlugin(), 20L, 5L);
 	}
 	
 	public Location getLocation() {
@@ -68,15 +79,15 @@ public class Altar {
 
 	public void timeSkip() 
     {
-		Collection<Entity> players = w.getNearbyEntities(area.clone().expand(6), testplayer);
+		Collection<Entity> players = w.getNearbyEntities(area.clone().expand(6), testPlayer);
 		Integer n = players.size();
 		chargeBar.removeAll();
 		MoonManager moonManager = AdditionalMechanics.getPlugin().getMoonManager();
 		if (players.size()>0) {
-			if (charge < 0 || !useable) {
-				useable = false;
+			if (charge < 0 || !usable) {
+				usable = false;
 				chargeBar.setColor(BarColor.RED);
-				chargeBar.setTitle("Заряд алтаря - [§cРазряжен§f]");
+				chargeBar.setTitle(Setting.ALTAR_DISCHARGED_TEXT.getString());
 				
 			}
 			double barProgress = ((double) charge)/12000;
@@ -101,22 +112,22 @@ public class Altar {
 				chargeBar.addPlayer(player);
 			}
 		}
-		players = w.getNearbyEntities(area, testplayer);
+		players = w.getNearbyEntities(area, testPlayer);
 		if (players.size()>0) {
 			if (moonManager != null && moonManager.fullMoon) {
 				for (Entity p : players) {
 					Player player = (Player) p;
-					player.sendTitle("Незеритовая луна", "перемотка времени невозможна", 0, 10, 0);
+					player.sendTitle(Setting.ALTAR_MOON_TITLE_TEXT.getString(), Setting.ALTAR_MOON_SUBTITLE_TEXT.getString(), 0, 10, 0);
 					chargeBar.addPlayer(player);
 				}
 			}
 			else {
-				if (charge > 0 && useable) {
+				if (charge > 0 && usable) {
 					int delta = 25*n;
 					charge -= delta;
 					targetWorld.setTime(targetWorld.getTime()+delta);
 					if (messageCooldown<=0) {
-						Bukkit.broadcastMessage("§7Кто-то пришёл к алтарю и запустил ход времени");
+						Bukkit.broadcastMessage(Setting.ALTAR_BROADCAST_TEXT.getString());
 						messageCooldown= 1000;
 					}
 				} 
@@ -124,7 +135,7 @@ public class Altar {
 					for (Entity p : players) {
 						p.setVelocity(p.getLocation().toVector().subtract(area.getCenter()).normalize().setY(0.2));
 						Player player = (Player) p;
-						player.sendMessage("§3Алтарь разряжен. §7приходите позже");
+						player.sendMessage(Setting.ALTAR_DISCHARGED_MASSAGE.getString());
 					}
 				}
 			}
@@ -132,9 +143,9 @@ public class Altar {
 			if (charge<=12000)
 				charge+=5;
 			if (charge>4000) {
-				useable = true;
+				usable = true;
 				chargeBar.setColor(BarColor.WHITE);
-				chargeBar.setTitle("Заряд алтаря");
+				chargeBar.setTitle(Setting.ALTAR_CHARGE_TEXT.getString());
 			}
 		}
 		
@@ -152,4 +163,10 @@ public class Altar {
         area = BoundingBox.of(loc, 3, 3, 3);
         return true;
     }
+
+	@Override
+	public void reload() {
+		removeAllTimers();
+		chargeBar.removeAll();
+	}
 }
