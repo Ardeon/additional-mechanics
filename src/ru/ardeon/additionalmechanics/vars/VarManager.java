@@ -32,6 +32,11 @@ public class VarManager {
 		d.set("current", currentDonate);
 		//plugin.configLoader.saveYamls();
 	}
+
+	public void clearDonate() {
+		currentDonate = 0;
+		d.set("current", currentDonate);
+	}
 	
 	public VarManager(AdditionalMechanics plugin){
 		this.plugin = plugin;

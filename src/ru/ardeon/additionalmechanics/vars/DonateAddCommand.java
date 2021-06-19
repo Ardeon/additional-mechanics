@@ -16,13 +16,19 @@ public class DonateAddCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
 		if (args.length>=1)
 		{
-			try {
-				int x = Integer.parseInt(args[0]);
-				manager.addDonate(x);
+			if (args[0].equalsIgnoreCase("clear")) {
+				manager.clearDonate();
 			}
-			catch(Exception e){
-				e.printStackTrace();
-				return false;
+			else {
+				try {
+					int x = Integer.parseInt(args[0]);
+					manager.addDonate(x);
+				}
+				catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+
 			}
 			return true;
 		}
