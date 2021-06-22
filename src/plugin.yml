@@ -103,6 +103,10 @@ commands:
         description: получить переменную игрока
         usage: /testgetmeta <player> <field>
         permission: additionalmechanics.admin
+    achievementpoints:
+        description: манипуляция с очками достижений
+        usage: /achievementpoints <add/clear> <number>
+        permission: additionalmechanics.admin
     flip:
       description: Бросок монетки
       usage: /flip

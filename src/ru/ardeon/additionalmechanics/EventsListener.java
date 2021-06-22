@@ -15,11 +15,7 @@ import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 import com.Zrips.CMI.events.CMIAfkEnterEvent;
@@ -37,6 +33,7 @@ import ru.ardeon.additionalmechanics.skills.InteractSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.ProjectileHitSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.ShootBowSkillSwitcher;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
+import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class EventsListener implements Listener 
 {
@@ -98,8 +95,17 @@ public class EventsListener implements Listener
 		String message = "§8[§a●§8] §7" + player.getName();
 		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
 	}
-	
-	
+
+	//@EventHandler
+	//public void playerGetAchievement(PlayerAdvancementDoneEvent e){
+	//	PlayerVarManager.getInstance().achievementDB.addPoints(e.getPlayer(),1);
+	//	AdditionalMechanics.getPlugin().getLogger().warning("ты пидор");
+	//}
+	//@EventHandler
+	//public void playerGetAchievement(PlayerCommandPreprocessEvent e) {
+	//	AdditionalMechanics.getPlugin().getLogger().warning("ты пидор"+ e.getMessage());
+	//}
+
 	@EventHandler
 	public void PlayerEnterRegion(RegionsEnteredEvent e) {
 		Player player = e.getPlayer();
