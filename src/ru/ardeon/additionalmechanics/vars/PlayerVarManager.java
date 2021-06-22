@@ -65,7 +65,10 @@ public class PlayerVarManager {
 		Set<String> ent = scoreboard.getEntries();
 		ArrayList<PlayerAchievement> playerAchievementTop = new ArrayList<>();
 		for(String s : ent) {
-			playerAchievementTop.add(new PlayerAchievement(s,obj.getScore(s).getScore()));
+			int score = obj.getScore(s).getScore();
+			if (score==0)
+				continue;
+			playerAchievementTop.add(new PlayerAchievement(s, score));
 			//AdditionalMechanics.getPlugin().getLogger().info(""+obj.getScore(s).getScore());
 		}
 		setPlayerAchievementTop(playerAchievementTop);
@@ -129,7 +132,7 @@ public class PlayerVarManager {
 		autosave = new BukkitRunnable() {
 			@Override
 			public void run() {
-
+				refreshTop();
 				saveUsers();
 			}
 		};

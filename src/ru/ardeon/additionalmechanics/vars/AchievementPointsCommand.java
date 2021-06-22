@@ -27,19 +27,15 @@ public class AchievementPointsCommand implements CommandExecutor {
             String uuid = player.getUniqueId().toString().toLowerCase();
             switch (args[0]){
                 case "refresh":{
-                    Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-                    Objective obj = scoreboard.getObjective("bac_advancements");
-                    Set<String> ent = scoreboard.getEntries();
-                    ArrayList<PlayerAchievement> playerAchievementTop = new ArrayList<>();
-                    for(String s : ent) {
-                        playerAchievementTop.add(new PlayerAchievement(s,obj.getScore(s).getScore()));
-                        AdditionalMechanics.getPlugin().getLogger().info(""+obj.getScore(s).getScore());
-                    }
-                    PlayerVarManager.getInstance().setPlayerAchievementTop(playerAchievementTop);
+
+                    PlayerVarManager.getInstance().refreshTop();
                 }
                 case "get":{
                     ArrayList<PlayerAchievement> playerAchievementTop = PlayerVarManager.getInstance().getPlayerAchievementTop();
                     for (PlayerAchievement pa : playerAchievementTop) {
+                        int score = pa.getValue();
+                        if (score==0)
+                            continue;
                         AdditionalMechanics.getPlugin().getLogger().info(""+ pa.getValue() +" ---- "+pa.getPlayer());
                     }
                     return true;
