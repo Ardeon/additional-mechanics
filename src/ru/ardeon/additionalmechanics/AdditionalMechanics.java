@@ -89,7 +89,7 @@ public class AdditionalMechanics extends JavaPlugin{
 		
 		
 		loadRecipe();
-		setMoonManager();
+		//setMoonManager();
 		setAltar();
 		bm = new BuildManager();
 		getLogger().info("AdditionalMechanics started!");

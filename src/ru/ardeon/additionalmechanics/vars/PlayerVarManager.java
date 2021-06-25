@@ -59,6 +59,21 @@ public class PlayerVarManager {
 		playerAchievementTop = top;
 	}
 
+	public String getPlayerScoreFromScoreboard(String name, String objective) {
+		try{
+			Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+			Objective obj = scoreboard.getObjective(objective);
+			return "" + obj.getScore(name).getScore();
+		}
+		catch (IllegalArgumentException | IllegalStateException | NullPointerException e){
+			return "";
+		}
+	}
+
+	public String getPlayerScoreFromScoreboard(String name) {
+		return getPlayerScoreFromScoreboard(name, "bac_advancements");
+	}
+
 	public void refreshTop(){
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 		Objective obj = scoreboard.getObjective("bac_advancements");
