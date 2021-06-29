@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.util.ScoreboardVars;
 
 public class PlayerSidebars {
 	final List<String> title = Arrays.asList(" §6§lSenTeeNell ",
@@ -105,7 +106,9 @@ public class PlayerSidebars {
 	public void addPlayer(Player player) {
 		AdmSideBar bar = new AdmSideBar(cache);
 		bars.put(player, bar);
-		bar.addViewer(player);
+		if(ScoreboardVars.getVar(player.getName(), "adm_sidebar")==0){
+			bar.addViewer(player);
+		}
 	}
 	
 	public void removePlayer(Player player) {

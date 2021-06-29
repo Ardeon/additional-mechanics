@@ -10,6 +10,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.util.ScoreboardVars;
 
 public class AdmSidebarCommand implements CommandExecutor, TabCompleter {
 
@@ -23,10 +24,12 @@ public class AdmSidebarCommand implements CommandExecutor, TabCompleter {
 			Player player = (Player) sender;
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("on")) {
+					ScoreboardVars.setVar(player.getName(), "adm_sidebar",1);
 					AdditionalMechanics.getPlugin().sideBars.getBar(player).addViewer(player);
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("off")) {
+					ScoreboardVars.setVar(player.getName(), "adm_sidebar",0);
 					AdditionalMechanics.getPlugin().sideBars.getBar(player).removeViewer(player);
 					return true;
 				}

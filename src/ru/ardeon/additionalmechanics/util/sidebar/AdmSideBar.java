@@ -8,6 +8,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import ru.ardeon.additionalmechanics.util.ScoreboardVars;
 
 public class AdmSideBar {
 	Scoreboard board;
@@ -44,6 +45,12 @@ public class AdmSideBar {
 	}
 	
 	public void toggleViewer(Player player) {
+		if(ScoreboardVars.getVar(player.getName(), "adm_sidebar")==0){
+			ScoreboardVars.setVar(player.getName(), "adm_sidebar",1);
+		}
+		else {
+			ScoreboardVars.setVar(player.getName(), "adm_sidebar",1);
+		}
 		if (player.getScoreboard()==Bukkit.getScoreboardManager().getMainScoreboard()) {
 			player.setScoreboard(board);
 		}

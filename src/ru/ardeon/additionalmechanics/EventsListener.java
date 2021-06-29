@@ -33,6 +33,7 @@ import ru.ardeon.additionalmechanics.skills.InteractSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.ProjectileHitSkillSwitcher;
 import ru.ardeon.additionalmechanics.skills.ShootBowSkillSwitcher;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
+import ru.ardeon.additionalmechanics.util.ScoreboardVars;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 
 public class EventsListener implements Listener 
