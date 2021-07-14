@@ -1,11 +1,12 @@
 name: Additionalmechanics
-main: ru.ru.ardeon.ru.ardeon.additionalmechanics.AdditionalMechanics
+main: ru.ardeon.additionalmechanics.AdditionalMechanics
 version: 1.1
 api-version: 1.16
+
 commands:
-    tost:
-        description: добавление поля
-        usage: /tost <имя>
+    adm:
+        description: main command
+        usage: /adm <subcommand>
         permission: ru.ardeon.additionalmechanics.admin
     horsetest:
         description: test
@@ -102,6 +103,10 @@ commands:
     testgetmeta:
         description: получить переменную игрока
         usage: /testgetmeta <player> <field>
+        permission: ru.ardeon.additionalmechanics.admin
+    achievementpoints:
+        description: манипуляция с очками достижений
+        usage: /achievementpoints <get/refresh>
         permission: ru.ardeon.additionalmechanics.admin
     flip:
       description: Бросок монетки
