@@ -1,11 +1,12 @@
 package ru.ardeon.additionalmechanics;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import org.apache.logging.log4j.core.LoggerContext;
@@ -39,25 +40,33 @@ import ru.ardeon.additionalmechanics.randomchest.RandomManager;
 import ru.ardeon.additionalmechanics.vars.VarManager;
 
 public class AdditionalMechanics extends JavaPlugin{
-    static AdditionalMechanics p; 
-    public static Altar altar;
-    public static BuildManager bm;
-    GuildsController gc;
-    public ConfigLoader configLoader;
-    public VarManager varManager;
-    public RandomManager rm;
+    private static AdditionalMechanics p;
+	private static Altar altar;
+    private static BuildManager bm;
+    private GuildsController gc;
+	private ConfigLoader configLoader;
+	private VarManager varManager;
+	private RandomManager rm;
     private LuckPerms lpapi = null;
     private MoonManager moonManager;
-    public PlayerSidebars sideBars;
-    private List<WeakReference<Reloadable>> reloadables = new ArrayList<WeakReference<Reloadable>>();
+	private PlayerSidebars sideBars;
+    private final List<WeakReference<Reloadable>> reloadables = new ArrayList<>();
 	private static Logger loggerADM = LogManager.getLogger("Adm");
+
     public static AdditionalMechanics getPlugin() {
     	return p;
     }
+	public static Altar getAltar(){ return altar; }
+	public static BuildManager getBuildManager(){ return bm; }
 
-    public void reload(){
+	public VarManager getVarManager(){ return varManager; }
+	public RandomManager getRandomManager() { return rm; }
+
+	public PlayerSidebars getSideBars() { return sideBars; }
+
+	public void reload(){
     	for (WeakReference<Reloadable> item : reloadables){
-    		item.get().reload();
+    		Objects.requireNonNull(item.get()).reload();
 		}
 		setAltar();
 	}
@@ -85,7 +94,7 @@ public class AdditionalMechanics extends JavaPlugin{
 		}
 		catch(IllegalStateException e) {
 			this.getLogger().log(Level.WARNING, "ERROR LuckPerms not load");
-		};
+		}
 		gc = new GuildsController();
 		sideBars = new PlayerSidebars();
 		for(Player player : Bukkit.getOnlinePlayers()) {
@@ -117,7 +126,7 @@ public class AdditionalMechanics extends JavaPlugin{
     	}
     	String world = configLoader.getConfigAltar().getString("world", "wild");
     	Location loc = configLoader.getConfigAltar().getLocation("location", null);
-        World targetWorld = null;
+        World targetWorld;
         if (Bukkit.getWorld(world)!=null) {
         	targetWorld = Bukkit.getWorld(world);
         }

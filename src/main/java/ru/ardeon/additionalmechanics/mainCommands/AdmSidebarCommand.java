@@ -25,17 +25,17 @@ public class AdmSidebarCommand implements CommandExecutor, TabCompleter {
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("on")) {
 					ScoreboardVars.setVar(player.getName(), "adm_sidebar",1);
-					AdditionalMechanics.getPlugin().sideBars.getBar(player).addViewer(player);
+					AdditionalMechanics.getPlugin().getSideBars().getBar(player).addViewer(player);
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("off")) {
 					ScoreboardVars.setVar(player.getName(), "adm_sidebar",0);
-					AdditionalMechanics.getPlugin().sideBars.getBar(player).removeViewer(player);
+					AdditionalMechanics.getPlugin().getSideBars().getBar(player).removeViewer(player);
 					return true;
 				}
 			}
 			else {
-				AdditionalMechanics.getPlugin().sideBars.getBar(player).toggleViewer(player);
+				AdditionalMechanics.getPlugin().getSideBars().getBar(player).toggleViewer(player);
 				return true;
 			}
 			

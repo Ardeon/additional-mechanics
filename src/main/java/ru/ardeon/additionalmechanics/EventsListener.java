@@ -51,7 +51,7 @@ public class EventsListener implements Listener
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void PlayerDeath(BroadcastDeathMessageEvent e) {
 		String text = e.getTextComponent().toLegacyText();
-		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(text);
+		AdditionalMechanics.getPlugin().getSideBars().sendEventToAll(text);
 		e.setCancelled(true);
 		e.getBroadcastedWorlds().clear();
 	}
@@ -65,7 +65,7 @@ public class EventsListener implements Listener
 		else {
 			message = "§8[§7⚔§8] §7"+e.getPlayer().getName();
 		}
-		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
+		AdditionalMechanics.getPlugin().getSideBars().sendEventToAll(message);
 	}
 	
 	@EventHandler
@@ -73,26 +73,26 @@ public class EventsListener implements Listener
 		
 		String message = "";
 		Player player = e.getPlayer();
-		AdditionalMechanics.getPlugin().sideBars.addPlayer(player);
+		AdditionalMechanics.getPlugin().getSideBars().addPlayer(player);
 		if (!player.hasPlayedBefore())
 			message = "§8[§a+§8] §f" + player.getName();
 		else
 			message = "§8[§a+§8] §7" + player.getName();
-		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
+		AdditionalMechanics.getPlugin().getSideBars().sendEventToAll(message);
 	}
 	
 	@EventHandler
 	public void PlayerAFK(CMIAfkEnterEvent e) {
 		Player player = e.getPlayer();
 		String message = "§8[§7●§8] §7" + player.getName();
-		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
+		AdditionalMechanics.getPlugin().getSideBars().sendEventToAll(message);
 	}
 	
 	@EventHandler
 	public void PlayerAFKleave(CMIAfkLeaveEvent e) {
 		Player player = e.getPlayer();
 		String message = "§8[§a●§8] §7" + player.getName();
-		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
+		AdditionalMechanics.getPlugin().getSideBars().sendEventToAll(message);
 	}
 
 	//@EventHandler
@@ -124,15 +124,15 @@ public class EventsListener implements Listener
 		if (string == null)
 			string = "§7Можно приватить";
 		string = "§eРегион§f: " + string;
-		AdditionalMechanics.getPlugin().sideBars.getBar(player).setString(string, 13);
+		AdditionalMechanics.getPlugin().getSideBars().getBar(player).setString(string, 13);
 	}
 	
 	@EventHandler
 	public void PlayerQuit(PlayerQuitEvent e) {
 		Player player = e.getPlayer();
 		String message = "§8[§c-§8] §7" + player.getName();
-		AdditionalMechanics.getPlugin().sideBars.sendEventToAll(message);
-		AdditionalMechanics.getPlugin().sideBars.removePlayer(player);
+		AdditionalMechanics.getPlugin().getSideBars().sendEventToAll(message);
+		AdditionalMechanics.getPlugin().getSideBars().removePlayer(player);
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

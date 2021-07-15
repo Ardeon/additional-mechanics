@@ -23,8 +23,8 @@ public class ScrollsInteractSkills {
 			if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 				ItemStack item = e.getItem();
 				Player p = e.getPlayer();
-				if (AdditionalMechanics.bm.builds.containsKey("portal")) {
-					Build build = AdditionalMechanics.bm.builds.get("portal");
+				if (AdditionalMechanics.getBuildManager().builds.containsKey("portal")) {
+					Build build = AdditionalMechanics.getBuildManager().builds.get("portal");
 					Block clicked = e.getClickedBlock();
 					int c1, c2, c3;
 					c1 = clicked.getX();
@@ -65,8 +65,8 @@ public class ScrollsInteractSkills {
 		public void execute(PlayerInteractEvent e) {
 			ItemStack item = e.getItem();
 			Player p = e.getPlayer();
-			if (AdditionalMechanics.bm.builds.containsKey("portal") && !p.hasCooldown(Material.PAPER)) {
-				Build build = AdditionalMechanics.bm.builds.get("portal");
+			if (AdditionalMechanics.getBuildManager().builds.containsKey("portal") && !p.hasCooldown(Material.PAPER)) {
+				Build build = AdditionalMechanics.getBuildManager().builds.get("portal");
 				int c1, c2, c3;
 				List<String> lore = item.getItemMeta().getLore();
 				String[] xyz = lore.get(1).split(" ");

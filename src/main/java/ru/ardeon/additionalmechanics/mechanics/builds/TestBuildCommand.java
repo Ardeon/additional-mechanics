@@ -25,7 +25,7 @@ public class TestBuildCommand implements CommandExecutor {
 				//AdditionalMechanics.getPlugin().getLogger().info(block.getType().toString());
 				//Build build = 
 				
-				return AdditionalMechanics.bm.builds.get(name).test(block);
+				return AdditionalMechanics.getBuildManager().builds.get(name).test(block);
 			}
 			catch(Exception e){
 				return false;

@@ -11,7 +11,7 @@ public class AltarInteractSkills {
 		
 		@Override
 		public void execute(PlayerInteractEvent e) {
-			Altar altar = AdditionalMechanics.altar;
+			Altar altar = AdditionalMechanics.getAltar();
 			altar.getLocation().distance(null);
 		}
 	};
