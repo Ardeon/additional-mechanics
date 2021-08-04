@@ -133,6 +133,8 @@ commands:
       permission: ru.ardeon.additionalmechanics.admin
     portalmenu:
       permission: ru.ardeon.additionalmechanics.admin
+    discordconfirm:
+      permission: ru.ardeon.additionalmechanics.discordlink
 permissions: #права
     additionalmechanics.admin:
         description: admin access
@@ -238,5 +240,5 @@ permissions: #права
         description: none
     additionalmechanics.adventurer.hook.length.3:
         description: none
-depend: [Multiverse-Core]
+depend: [Multiverse-Core, JDA]
 softdepend: [WorldGuard, WorldGuardEvents, PlaceholderAPI, ProtocolLib, LuckPerms, CMI, DeathMessages, DeluxeCombat]

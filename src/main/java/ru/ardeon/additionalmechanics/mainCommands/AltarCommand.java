@@ -14,9 +14,9 @@ public class AltarCommand implements CommandExecutor {
 		{
 			Player p = (Player) sender;
 
-			AdditionalMechanics.getPlugin().configLoader.getConfigAltar().set("location", p.getLocation());
+			AdditionalMechanics.getPlugin().getConfigLoader().getConfigAltar().set("location", p.getLocation());
 			AdditionalMechanics.getPlugin().getLogger().info(p.getLocation().toString());
-			AdditionalMechanics.getPlugin().configLoader.saveYamls();
+			AdditionalMechanics.getPlugin().getConfigLoader().saveYamls();
 			return true;
 		}
 		return false;

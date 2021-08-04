@@ -3,6 +3,7 @@ package ru.ardeon.additionalmechanics.mainCommands;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.mechanics.builds.RegisterBuildCommand;
 import ru.ardeon.additionalmechanics.mechanics.builds.TestBuildCommand;
+import ru.ardeon.additionalmechanics.util.discord.DiscordConfirmCmd;
 import ru.ardeon.additionalmechanics.vars.DonateAddCommand;
 import ru.ardeon.additionalmechanics.StopTimerCommand;
 import ru.ardeon.additionalmechanics.mainCommands.roll.dicecmd;
@@ -40,5 +41,7 @@ public class CommandManager {
 		
 		t.getServer().getPluginCommand("portaladd").setExecutor(new PortalAddCmd());
 		t.getServer().getPluginCommand("portalmenu").setExecutor(new PortalMenuCmd());
+
+        t.getServer().getPluginCommand("discordconfirm").setExecutor(new DiscordConfirmCmd());
 	}
 }

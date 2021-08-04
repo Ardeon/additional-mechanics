@@ -21,7 +21,7 @@ public class PortalManager {
 	private ArrayList<Portal> portals = new ArrayList<Portal>();
 	
 	private PortalManager() {
-		config = AdditionalMechanics.getPlugin().configLoader.getConfigPortals();
+		config = AdditionalMechanics.getPlugin().getConfigLoader().getConfigPortals();
 		load();
 	}
 	

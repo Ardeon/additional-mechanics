@@ -17,7 +17,7 @@ public class SQLite extends Database{
 		super(instance);
 		dataFolder = new File(plugin.getDataFolder(), dbname+".db");
 		load();
-		dbname = plugin.configLoader.getVars().getString("SQLite.Filename", "vars");
+		dbname = plugin.getConfigLoader().getVars().getString("SQLite.Filename", "vars");
 	}
 	
 	private boolean createFileIfNotExist() {

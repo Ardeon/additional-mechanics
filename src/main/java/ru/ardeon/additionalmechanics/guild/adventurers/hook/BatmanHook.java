@@ -60,7 +60,7 @@ public class BatmanHook {
 			perm=3;
 		if (perm==0)
 			return 0;
-		int length = AdditionalMechanics.getPlugin().configLoader.getConfig().getInt("ru.ardeon.additionalmechanics.adventurers.hook.length."+perm, 9);
+		int length = AdditionalMechanics.getPlugin().getConfigLoader().getConfig().getInt("ru.ardeon.additionalmechanics.adventurers.hook.length."+perm, 9);
 		return length;
 	}
 }

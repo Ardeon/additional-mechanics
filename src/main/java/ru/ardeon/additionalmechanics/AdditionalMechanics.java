@@ -4,6 +4,7 @@ package ru.ardeon.additionalmechanics;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +12,7 @@ import java.util.logging.Level;
 
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.xml.XmlConfiguration;
+import ru.ardeon.additionalmechanics.util.discord.DiscordBot;
 import ru.ardeon.additionalmechanics.util.sidebar.PlayerSidebars;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -50,6 +52,7 @@ public class AdditionalMechanics extends JavaPlugin{
     private LuckPerms lpapi = null;
     private MoonManager moonManager;
 	private PlayerSidebars sideBars;
+	private DiscordBot discordBot;
     private final List<WeakReference<Reloadable>> reloadables = new ArrayList<>();
 	private static Logger loggerADM = LogManager.getLogger("Adm");
 
@@ -58,9 +61,15 @@ public class AdditionalMechanics extends JavaPlugin{
     }
 	public static Altar getAltar(){ return altar; }
 	public static BuildManager getBuildManager(){ return bm; }
-
+	public ConfigLoader getConfigLoader(){ return configLoader; }
 	public VarManager getVarManager(){ return varManager; }
 	public RandomManager getRandomManager() { return rm; }
+    public LuckPerms getLP() {
+        return lpapi;
+    }
+    public DiscordBot getDiscordBot() { return discordBot; }
+
+    public static Logger getLoggerADM() { return loggerADM; }
 
 	public PlayerSidebars getSideBars() { return sideBars; }
 
@@ -107,8 +116,12 @@ public class AdditionalMechanics extends JavaPlugin{
 		
 		
 		CommandManager.CommandRegister();
-		
-		
+		try {
+            discordBot = new DiscordBot();
+		} catch (SQLException | IOException throwables) {
+			throwables.printStackTrace();
+		}
+
 		loadRecipe();
 		//setMoonManager();
 		setAltar();
@@ -180,8 +193,6 @@ public class AdditionalMechanics extends JavaPlugin{
         	Bukkit.addRecipe(recipe);
     }
     
-    public LuckPerms getLP() {
-    	return lpapi;
-    }
+
 
 }

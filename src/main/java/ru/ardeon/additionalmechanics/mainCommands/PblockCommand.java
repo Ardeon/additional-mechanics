@@ -15,7 +15,7 @@ public class PblockCommand implements CommandExecutor {
 			Player p = (Player) sender;
 			if (args.length==1)
 			{
-				AdditionalMechanics.getPlugin().configLoader.getConfigBlocks().set(args[0]+".location", p.getLocation());
+				AdditionalMechanics.getPlugin().getConfigLoader().getConfigBlocks().set(args[0]+".location", p.getLocation());
 				AdditionalMechanics.getPlugin().getLogger().info(p.getLocation().toString());
 				return true;
 			}

@@ -19,7 +19,7 @@ public class PermkitCommand implements CommandExecutor {
 			Player p = Bukkit.getPlayer(args[0]);
 			String mainGroup = args[1];
 			AdditionalMechanics t = AdditionalMechanics.getPlugin();
-			FileConfiguration config = t.configLoader.getConfigPermkit();
+			FileConfiguration config = t.getConfigLoader().getConfigPermkit();
 			if (config.contains(mainGroup, false)) {
 				ConfigurationSection groups = config.getConfigurationSection(mainGroup);
 				for(String minorGroup : groups.getKeys(false)) {

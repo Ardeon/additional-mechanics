@@ -40,7 +40,7 @@ public class VarManager {
 	
 	public VarManager(AdditionalMechanics plugin){
 		this.plugin = plugin;
-		cfg = this.plugin.configLoader.getVars();
+		cfg = this.plugin.getConfigLoader().getVars();
 		d = cfg.getConfigurationSection("donate");
 		currentDonate = d.getInt("current");
 		needDonate = d.getInt("need");

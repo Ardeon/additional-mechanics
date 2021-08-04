@@ -25,7 +25,7 @@ public class PermissionManager {
 	}
 	
 	static void PermissionCreate(String part){
-		ConfigurationSection section = AdditionalMechanics.getPlugin().configLoader.getConfig().getConfigurationSection(part);
+		ConfigurationSection section = AdditionalMechanics.getPlugin().getConfigLoader().getConfig().getConfigurationSection(part);
 		if (section!=null) {
 			Set<String> keys = section.getKeys(false);
 			for (String value : keys) {
