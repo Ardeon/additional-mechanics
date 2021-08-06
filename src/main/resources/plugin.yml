@@ -12,10 +12,6 @@ commands:
         description: test
         usage: /horsetest
         permission: ru.ardeon.additionalmechanics.admin
-    pblock:
-        description: добавление блока
-        usage: /pblock <имя>
-        permission: ru.ardeon.additionalmechanics.admin
     altar:
         description: добавление altar
         usage: /altar <имя>
@@ -43,10 +39,6 @@ commands:
     launchhook:
         description: test
         usage: /launchhook
-        permission: ru.ardeon.additionalmechanics.admin
-    permkit:
-        description: test
-        usage: /permkit
         permission: ru.ardeon.additionalmechanics.admin
     registerbuild:
         description: register build

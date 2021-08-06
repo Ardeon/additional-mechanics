@@ -16,11 +16,10 @@ public class CommandManager {
 	public static void CommandRegister() {
 		AdditionalMechanics t = AdditionalMechanics.getPlugin();
         t.getServer().getPluginCommand("adm").setExecutor(new ADMCommand());
-        t.getServer().getPluginCommand("pblock").setExecutor(new PblockCommand());
         t.getServer().getPluginCommand("altar").setExecutor(new AltarCommand());
         t.getServer().getPluginCommand("stoptimer").setExecutor(new StopTimerCommand());
         t.getServer().getPluginCommand("gr").setExecutor(new GradientCommand());
-        t.getServer().getPluginCommand("permkit").setExecutor(new PermkitCommand());
+        //t.getServer().getPluginCommand("permkit").setExecutor(new PermkitCommand());
         t.getServer().getPluginCommand("registerbuild").setExecutor(new RegisterBuildCommand());
         t.getServer().getPluginCommand("testbuild").setExecutor(new TestBuildCommand());
         t.getServer().getPluginCommand("trg").setExecutor(new TestRegionCommand());

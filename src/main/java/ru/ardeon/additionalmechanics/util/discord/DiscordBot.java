@@ -23,6 +23,8 @@ public class DiscordBot {
 
     private void startBot() {
         AdditionalMechanics plugin = AdditionalMechanics.getPlugin();
+        if (plugin.getConfig().getString("botInfo.token")==null)
+            return;
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
                 plugin.getLogger().info("Initializing bot");

@@ -16,7 +16,7 @@ public class AchievementDBSQLite extends AchievementDB{
         super(instance);
         dataFolder = new File(plugin.getDataFolder(), dbname+".db");
         load();
-        dbname = plugin.getConfigLoader().getVars().getString("AchievementDBSQLite.Filename", "Achievement");
+        dbname = plugin.getConfigLoader().getVars().getConfig().getString("AchievementDBSQLite.Filename", "Achievement");
     }
 
     private boolean createFileIfNotExist() {

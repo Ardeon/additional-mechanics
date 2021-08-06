@@ -53,4 +53,14 @@ public class ItemUtil {
 		}
 		return "";
 	}
+
+	public static int getTagInt(ItemStack item, String tag) {
+		String string = getTag(item, tag);
+		int value=0;
+		try {
+			value = Integer.parseInt(string);
+		}
+		catch (NumberFormatException ignored) { }
+		return value;
+	}
 }

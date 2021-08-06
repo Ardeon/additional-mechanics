@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.Reloadable;
-import ru.ardeon.additionalmechanics.configs.Setting;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -18,22 +17,23 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.BoundingBox;
 
+import ru.ardeon.additionalmechanics.configs.SettingsLoaderMain;
 import ru.ardeon.additionalmechanics.mechanics.moon.MoonManager;
 
 public class Altar implements Reloadable {
 	private static List<BukkitTask> timers = new ArrayList<>();
 
-	private BossBar chargeBar = Bukkit.createBossBar(Setting.ALTAR_CHARGE_TEXT.getString(), BarColor.WHITE, BarStyle.SOLID);
+	private final BossBar chargeBar = Bukkit.createBossBar(SettingsLoaderMain.SettingMain.ALTAR_CHARGE_TEXT.getString(), BarColor.WHITE, BarStyle.SOLID);
 	private int charge = 0;
 	private int messageCooldown = 0;
 	private boolean usable = false;
 	private BoundingBox area;
 	private World w;
 	private World targetWorld;
-	private boolean activeted;
+	private final boolean activeted;
 	private final Predicate<Entity> testPlayer = p -> (p instanceof Player);
 	private BukkitTask timerTask;
-	private BukkitRunnable checkTimer = new BukkitRunnable()
+	private final BukkitRunnable checkTimer = new BukkitRunnable()
 	{
 		@Override
 		public void run()
@@ -55,7 +55,7 @@ public class Altar implements Reloadable {
 
 	public Altar(World world, Location loc){
         targetWorld = world;
-        activeted = setArea(loc) && Setting.ALTAR_ENABLE.getBool();
+        activeted = setArea(loc) && SettingsLoaderMain.SettingMain.ALTAR_ENABLE.getBool();
         if (activeted)
 			timerTask = checkTimer.runTaskTimer(AdditionalMechanics.getPlugin(), 20L, 5L);
 	}
@@ -87,7 +87,7 @@ public class Altar implements Reloadable {
 			if (charge < 0 || !usable) {
 				usable = false;
 				chargeBar.setColor(BarColor.RED);
-				chargeBar.setTitle(Setting.ALTAR_DISCHARGED_TEXT.getString());
+				chargeBar.setTitle(SettingsLoaderMain.SettingMain.ALTAR_DISCHARGED_TEXT.getString());
 				
 			}
 			double barProgress = ((double) charge)/12000;
@@ -117,7 +117,7 @@ public class Altar implements Reloadable {
 			if (moonManager != null && moonManager.fullMoon) {
 				for (Entity p : players) {
 					Player player = (Player) p;
-					player.sendTitle(Setting.ALTAR_MOON_TITLE_TEXT.getString(), Setting.ALTAR_MOON_SUBTITLE_TEXT.getString(), 0, 10, 0);
+					player.sendTitle(SettingsLoaderMain.SettingMain.ALTAR_MOON_TITLE_TEXT.getString(), SettingsLoaderMain.SettingMain.ALTAR_MOON_SUBTITLE_TEXT.getString(), 0, 10, 0);
 					chargeBar.addPlayer(player);
 				}
 			}
@@ -127,7 +127,7 @@ public class Altar implements Reloadable {
 					charge -= delta;
 					targetWorld.setTime(targetWorld.getTime()+delta);
 					if (messageCooldown<=0) {
-						Bukkit.broadcastMessage(Setting.ALTAR_BROADCAST_TEXT.getString());
+						Bukkit.broadcastMessage(SettingsLoaderMain.SettingMain.ALTAR_BROADCAST_TEXT.getString());
 						messageCooldown= 1000;
 					}
 				} 
@@ -135,7 +135,7 @@ public class Altar implements Reloadable {
 					for (Entity p : players) {
 						p.setVelocity(p.getLocation().toVector().subtract(area.getCenter()).normalize().setY(0.2));
 						Player player = (Player) p;
-						player.sendMessage(Setting.ALTAR_DISCHARGED_MASSAGE.getString());
+						player.sendMessage(SettingsLoaderMain.SettingMain.ALTAR_DISCHARGED_MASSAGE.getString());
 					}
 				}
 			}
@@ -145,7 +145,7 @@ public class Altar implements Reloadable {
 			if (charge>4000) {
 				usable = true;
 				chargeBar.setColor(BarColor.WHITE);
-				chargeBar.setTitle(Setting.ALTAR_CHARGE_TEXT.getString());
+				chargeBar.setTitle(SettingsLoaderMain.SettingMain.ALTAR_CHARGE_TEXT.getString());
 			}
 		}
 		

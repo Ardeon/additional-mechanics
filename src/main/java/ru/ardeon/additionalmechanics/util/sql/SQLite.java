@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.configs.SettingsLoaderVars;
 
 
 public class SQLite extends Database{
@@ -17,7 +18,7 @@ public class SQLite extends Database{
 		super(instance);
 		dataFolder = new File(plugin.getDataFolder(), dbname+".db");
 		load();
-		dbname = plugin.getConfigLoader().getVars().getString("SQLite.Filename", "vars");
+		dbname = SettingsLoaderVars.SettingVars.BD_NAME.getString();
 	}
 	
 	private boolean createFileIfNotExist() {

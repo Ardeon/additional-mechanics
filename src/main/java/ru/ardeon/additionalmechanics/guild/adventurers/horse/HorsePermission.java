@@ -27,7 +27,7 @@ public class HorsePermission {
 			i=9;
 		if (p.hasPermission("ru.ardeon.additionalmechanics.adventurer.horse.hp.10"))
 			i=10;
-		double hp = AdditionalMechanics.getPlugin().getConfigLoader().getConfig().getDouble("guilds.adventurers.horse.hp."+i, 9);
+		double hp = AdditionalMechanics.getPlugin().getConfigLoader().getMain().getConfig().getDouble("guilds.adventurers.horse.hp."+i, 9);
 		return hp;
 	}
 	
@@ -53,7 +53,7 @@ public class HorsePermission {
 			i=9;
 		if (p.hasPermission("ru.ardeon.additionalmechanics.adventurer.horse.speed.10"))
 			i=10;
-		double speed = AdditionalMechanics.getPlugin().getConfigLoader().getConfig().getDouble("guilds.adventurers.horse.speed."+i, 0.2);
+		double speed = AdditionalMechanics.getPlugin().getConfigLoader().getMain().getConfig().getDouble("guilds.adventurers.horse.speed."+i, 0.2);
 		return speed;
 	}
 	
@@ -79,7 +79,7 @@ public class HorsePermission {
 			i=9;
 		if (p.hasPermission("ru.ardeon.additionalmechanics.adventurer.horse.jump.10"))
 			i=10;
-		double jump = AdditionalMechanics.getPlugin().getConfigLoader().getConfig().getDouble("guilds.adventurers.horse.jump."+i, 0.6);
+		double jump = AdditionalMechanics.getPlugin().getConfigLoader().getMain().getConfig().getDouble("guilds.adventurers.horse.jump."+i, 0.6);
 		return jump;
 	}
 	

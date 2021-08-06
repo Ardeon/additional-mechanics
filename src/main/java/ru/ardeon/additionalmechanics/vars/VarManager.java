@@ -4,6 +4,7 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import ru.ardeon.additionalmechanics.configs.SettingsLoaderVars;
 import ru.ardeon.additionalmechanics.util.sql.SQLite;
 
 public class VarManager {
@@ -40,10 +41,8 @@ public class VarManager {
 	
 	public VarManager(AdditionalMechanics plugin){
 		this.plugin = plugin;
-		cfg = this.plugin.getConfigLoader().getVars();
-		d = cfg.getConfigurationSection("donate");
-		currentDonate = d.getInt("current");
-		needDonate = d.getInt("need");
+		currentDonate = SettingsLoaderVars.SettingVars.DONATE_CURRENT.getInt();
+		needDonate = SettingsLoaderVars.SettingVars.DONATE_NEED.getInt();
 		playerPointsbd = new SQLite(plugin);
 		uservars = new PlayerVarManager(playerPointsbd, plugin);
 	}

@@ -9,12 +9,12 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-
+@Deprecated
 public class PermkitCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
-		if (args.length==2)
+		/*if (args.length==2)
 		{
 			Player p = Bukkit.getPlayer(args[0]);
 			String mainGroup = args[1];
@@ -48,7 +48,7 @@ public class PermkitCommand implements CommandExecutor {
 			}
 			
 			return true;
-		}
+		}*/
 		return false;
 	}
 

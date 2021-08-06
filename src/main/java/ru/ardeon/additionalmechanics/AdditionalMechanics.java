@@ -12,6 +12,7 @@ import java.util.logging.Level;
 
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.xml.XmlConfiguration;
+import ru.ardeon.additionalmechanics.configs.SettingsLoaderMain;
 import ru.ardeon.additionalmechanics.util.discord.DiscordBot;
 import ru.ardeon.additionalmechanics.util.sidebar.PlayerSidebars;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +42,10 @@ import ru.ardeon.additionalmechanics.mechanics.portal.ScrollListener;
 import ru.ardeon.additionalmechanics.randomchest.RandomManager;
 import ru.ardeon.additionalmechanics.vars.VarManager;
 
+/***
+ * Главный класс
+ * @author First-114
+ */
 public class AdditionalMechanics extends JavaPlugin{
     private static AdditionalMechanics p;
 	private static Altar altar;
@@ -56,23 +61,50 @@ public class AdditionalMechanics extends JavaPlugin{
     private final List<WeakReference<Reloadable>> reloadables = new ArrayList<>();
 	private static Logger loggerADM = LogManager.getLogger("Adm");
 
-    public static AdditionalMechanics getPlugin() {
-    	return p;
-    }
+    public static AdditionalMechanics getPlugin() {return p;}
+	/***
+	 * Получить главный {@link #altar}
+	 * @return Алтарь хорошей погоды
+	 */
 	public static Altar getAltar(){ return altar; }
 	public static BuildManager getBuildManager(){ return bm; }
+
+	/**
+	 * @return Загрузчик конфигураций
+	 */
 	public ConfigLoader getConfigLoader(){ return configLoader; }
+
+	/**
+	 * @return Менеджер переменных
+	 */
 	public VarManager getVarManager(){ return varManager; }
+
+	/**
+	 * @return Генератор случайных предметов
+	 */
 	public RandomManager getRandomManager() { return rm; }
+
+	/**
+	 * @return Ссылка на плагин LuckPerms или null если плагин не загружен
+	 */
     public LuckPerms getLP() {
         return lpapi;
     }
     public DiscordBot getDiscordBot() { return discordBot; }
 
+	/**
+	 * @return Логгер записывающий в отдельный файл
+	 */
     public static Logger getLoggerADM() { return loggerADM; }
 
+	/**
+	 * @return Менеджер боковой панели
+	 */
 	public PlayerSidebars getSideBars() { return sideBars; }
 
+	/**
+	 * Перезапуск некоторых элементов
+	 */
 	public void reload(){
     	for (WeakReference<Reloadable> item : reloadables){
     		Objects.requireNonNull(item.get()).reload();
@@ -80,13 +112,15 @@ public class AdditionalMechanics extends JavaPlugin{
 		setAltar();
 	}
 
+	/**
+	 * @param item
+	 */
 	public void addReloadingItem(Reloadable item){
 		reloadables.add(new WeakReference<>(item));
 	}
 
 	@Override
     public void onDisable() {
-    	configLoader.saveYamls();
     	HorseController.getInstace().clear();
     }
     
@@ -114,7 +148,6 @@ public class AdditionalMechanics extends JavaPlugin{
 		rm = new RandomManager(this);
 		varManager = new VarManager(this);
 		
-		
 		CommandManager.CommandRegister();
 		try {
             discordBot = new DiscordBot();
@@ -123,7 +156,7 @@ public class AdditionalMechanics extends JavaPlugin{
 		}
 
 		loadRecipe();
-		//setMoonManager();
+		setMoonManager();
 		setAltar();
 		bm = new BuildManager();
 		getLogger().info("AdditionalMechanics started!");
@@ -132,13 +165,16 @@ public class AdditionalMechanics extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new ScrollListener(), this);
 		getServer().getPluginManager().registerEvents(new TargetListener(), this);
     }
-    
+
+	/**
+	 * Загрузка алтаря
+	 */
     public void setAltar() {
     	if (altar!=null) {
     		altar.disable();
     	}
-    	String world = configLoader.getConfigAltar().getString("world", "wild");
-    	Location loc = configLoader.getConfigAltar().getLocation("location", null);
+    	String world = SettingsLoaderMain.SettingMain.ALTAR_WORLD.getString();
+    	Location loc = configLoader.getMain().getConfig().getLocation("altar.location", null);
         World targetWorld;
         if (Bukkit.getWorld(world)!=null) {
         	targetWorld = Bukkit.getWorld(world);
@@ -149,6 +185,10 @@ public class AdditionalMechanics extends JavaPlugin{
         altar = new Altar(targetWorld, loc);
     }
 
+	/**
+	 * Создание логгера
+	 * логирование происходит отдельно от основного логгера и не отображается в консоли
+	 */
     private void setLogger() {
 		LoggerContext context = new LoggerContext("AdmLoggerContext");
 		ClassLoader classLoader = getClass().getClassLoader();
@@ -166,19 +206,31 @@ public class AdditionalMechanics extends JavaPlugin{
 			context.setConfiguration(xmlConfiguration);
 		loggerADM = context.getLogger("Adm");
 	}
-    
+
+	/**
+	 * Загрузка менеджера ивента "кровавая луна"
+	 */
     public void setMoonManager() {
-    	String worldName = configLoader.getConfig().getString("MoonWorldCheck", "Wild");
-    	World world = Bukkit.getWorld(worldName);
-    	if (world!=null) {
-    		moonManager = new MoonManager(world, this);
-    	}
+    	if(SettingsLoaderMain.SettingMain.MOON_MANAGER.getBool()){
+			String worldName = SettingsLoaderMain.SettingMain.MOON_WORLD_CHECK.getString();
+			World world = Bukkit.getWorld(worldName);
+			if (world!=null) {
+				moonManager = new MoonManager(world, this);
+			}
+		}
+
     }
-    
+
+	/**
+	 * @return Менеджер ивента "кровавая луна"
+	 */
     public MoonManager getMoonManager() {
 		return moonManager;
     }
-    
+
+	/**
+	 * Загрузка рецепта спавнера
+	 */
     public void loadRecipe() {
     	ItemStack spawnerStack = new ItemStack(Material.SPAWNER, 1);
     	NamespacedKey spawner = new NamespacedKey(this, "spawner");

@@ -48,19 +48,21 @@ public class BotListener extends ListenerAdapter {
                     String permission = section.getString("permission");
                     if (role!=null&permission!=null) {
                         rolesToPermissions.put(role, permission);
+                        AdditionalMechanics.getLoggerADM().log(Level.INFO, "[ДискордБот] Загружена привилегия " + permission + " для роли " + role);
                     }
                 }
             }
         }
-        ConfigurationSection permToRole = plugin.getConfig().getConfigurationSection("groupToRole");
-        if (roleToPerm!=null){
-            for (String name : permToRole.getKeys(false)){
-                ConfigurationSection section = permToRole.getConfigurationSection(name);
+        ConfigurationSection groupToRole = plugin.getConfig().getConfigurationSection("groupToRole");
+        if (groupToRole!=null){
+            for (String name : groupToRole.getKeys(false)){
+                ConfigurationSection section = groupToRole.getConfigurationSection(name);
                 if (section != null) {
                     String role = section.getString("role");
                     String group = section.getString("group");
                     if (role!=null&group!=null) {
                         groupToRoles.put(group, role);
+                        AdditionalMechanics.getLoggerADM().log(Level.INFO, "[ДискордБот] Загружена роль " + role + " для группы " + group);
                     }
                 }
             }
@@ -69,9 +71,7 @@ public class BotListener extends ListenerAdapter {
         this.plugin = plugin;
         this.db = new SQLiteDiscordDatabase(AdditionalMechanics.getPlugin());
         plugin.getLogger().info("Finished initializing bot.");
-        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, () -> {
-            refresh();
-        }, 1200, 2400);
+        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, this::refresh, 1200, 2400);
     }
 
     public void link(Player player, String discordId) throws SQLException {
@@ -82,7 +82,7 @@ public class BotListener extends ListenerAdapter {
     public void refresh(){
         try {
             db.forAllLinkedUsers((userInfo) ->
-                    Objects.requireNonNull(bot.getGuildById(this.plugin.getConfig().getString("botInfo.server", "867093500713107457")))
+                    Objects.requireNonNull(bot.getGuildById(this.plugin.getConfig().getString("botInfo.server", "704661748179009556")))
                             .retrieveMemberById(userInfo.discordId).queue(member -> {
                         if (member != null) {
                             Set<String> rolesSet = rolesToPermissions.keySet();
@@ -122,7 +122,7 @@ public class BotListener extends ListenerAdapter {
 
                             member.modifyNickname(Objects
                                     .requireNonNull(Bukkit.getOfflinePlayer(UUID.fromString(uuid))).getName()).queue(null, error -> { });;
-                            AdditionalMechanics.getLoggerADM().log(Level.INFO, "Пользователь ");
+                            AdditionalMechanics.getLoggerADM().log(Level.INFO, "Пользователь обновлён");
                         }
                     }, error -> { }));
         } catch (SQLException e) {
@@ -130,7 +130,7 @@ public class BotListener extends ListenerAdapter {
                     "Please check the stack trace below and contact the developer.");
             e.printStackTrace();
         } catch (PermissionException e) {
-            plugin.getLogger().warning("Бот не имеет прав изменять данные этого пользователя");
+            AdditionalMechanics.getLoggerADM().log(Level.INFO,"Бот не имеет прав изменять данные этого пользователя");
         }
     }
 
@@ -230,6 +230,9 @@ public class BotListener extends ListenerAdapter {
                         channel -> channel.sendMessage("Подтвердите действие в майнкрафте")
                                 .queue(null, err -> {
                                 }));
+                JDAUtils.reactAndDelete(AdditionalMechanics.getPlugin().
+                        getConfig().getString("react.onSuccess"), event.getMessage(), AdditionalMechanics.
+                        getPlugin().getConfig());
             }
             else{
                 event.getAuthor().openPrivateChannel().queue(
