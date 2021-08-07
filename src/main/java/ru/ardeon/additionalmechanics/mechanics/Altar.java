@@ -17,7 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.BoundingBox;
 
-import ru.ardeon.additionalmechanics.configs.SettingsLoaderMain;
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderMain;
 import ru.ardeon.additionalmechanics.mechanics.moon.MoonManager;
 
 public class Altar implements Reloadable {

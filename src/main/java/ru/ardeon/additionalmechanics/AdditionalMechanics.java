@@ -12,7 +12,7 @@ import java.util.logging.Level;
 
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.xml.XmlConfiguration;
-import ru.ardeon.additionalmechanics.configs.SettingsLoaderMain;
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderMain;
 import ru.ardeon.additionalmechanics.util.discord.DiscordBot;
 import ru.ardeon.additionalmechanics.util.sidebar.PlayerSidebars;
 import org.apache.logging.log4j.Logger;
@@ -132,6 +132,7 @@ public class AdditionalMechanics extends JavaPlugin{
 		loggerADM.warn("start logger");
 		p=this;
 		configLoader = new ConfigLoader();
+		addReloadingItem(configLoader);
 		try {
 			lpapi = LuckPermsProvider.get();
 		}

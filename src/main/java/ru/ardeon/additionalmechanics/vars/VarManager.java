@@ -4,7 +4,7 @@ import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import ru.ardeon.additionalmechanics.configs.SettingsLoaderVars;
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderVars;
 import ru.ardeon.additionalmechanics.util.sql.SQLite;
 
 public class VarManager {

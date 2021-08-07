@@ -1,12 +1,16 @@
 package ru.ardeon.additionalmechanics.configs;
 
 import ru.ardeon.additionalmechanics.Reloadable;
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderMain;
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderPortals;
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderUseableItems;
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderVars;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigLoader implements Reloadable {
-	private final Configuration main, vars, portals;
+	private final Configuration main, vars, portals, items;
     private final List<Configuration> all = new ArrayList<Configuration>();
 
     public Configuration getMain() {
@@ -28,6 +32,8 @@ public class ConfigLoader implements Reloadable {
         all.add(vars);
         portals = new Configuration(new SettingsLoaderPortals());
         all.add(portals);
+        items = new Configuration(new SettingsLoaderUseableItems());
+        all.add(items);
     }
 
 

@@ -1,14 +1,16 @@
-package ru.ardeon.additionalmechanics.configs;
+package ru.ardeon.additionalmechanics.configs.settings;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import ru.ardeon.additionalmechanics.configs.Configuration;
+import ru.ardeon.additionalmechanics.configs.SettingsLoader;
 
-public class SettingsLoaderMain implements SettingsLoader{
-    public static final String fileName = "config.yml";
+public class SettingsLoaderVars implements SettingsLoader {
+    public static final String fileName = "vars.yml";
     private Configuration configuration;
 
     @Override
     public void loadAndSetDefaultIfNotExists(FileConfiguration config) {
-        for(SettingMain setting : SettingMain.values()){
+        for(SettingsLoaderVars.SettingVars setting : SettingsLoaderVars.SettingVars.values()){
             Object object = config.get(setting.path);
             if (object!=null){
                 setting.value = object;
@@ -26,7 +28,7 @@ public class SettingsLoaderMain implements SettingsLoader{
 
     @Override
     public void save(FileConfiguration config) {
-        for(SettingMain setting : SettingMain.values()){
+        for(SettingsLoaderVars.SettingVars setting : SettingsLoaderVars.SettingVars.values()){
             config.set(setting.path, setting.value);
         }
     }
@@ -36,24 +38,15 @@ public class SettingsLoaderMain implements SettingsLoader{
         this.configuration = configuration;
     }
 
-    public enum SettingMain {
-        MOON_WORLD_CHECK("Moon.WorldCheck", "Wild"),
-        MOON_MANAGER("Moon.Enable", false),
-        //Altar
-        ALTAR_ENABLE("altar.enable",true),
-        ALTAR_DISCHARGED_TEXT("altar.discharged-text","Заряд алтаря - [§cРазряжен§f]"),
-        ALTAR_CHARGE_TEXT("altar.charge-text","Заряд алтаря"),
-        ALTAR_MOON_TITLE_TEXT("altar.moon-title-text","Незеритовая луна"),
-        ALTAR_MOON_SUBTITLE_TEXT("altar.moon-subtitle-text","перемотка времени невозможна"),
-        ALTAR_BROADCAST_TEXT("altar.broadcast-text","§7Кто-то пришёл к алтарю и запустил ход времени"),
-        ALTAR_DISCHARGED_MASSAGE("altar.discharged-massage","§3Алтарь разряжен. §7приходите позже"),
-        ALTAR_WORLD("altar.world","Wild");
-
+    public enum SettingVars{
+        DONATE_CURRENT("donate.current", "0"),
+        DONATE_NEED("donate.need", "2000"),
+        BD_NAME("SQLite.Filename", "vars");
 
         private final String path;
         private Object value;
 
-        SettingMain(String path, Object value) {
+        SettingVars(String path, Object value) {
             this.path = path;
             this.value = value;
         }
@@ -68,6 +61,15 @@ public class SettingsLoaderMain implements SettingsLoader{
 
         public String getString() {
             return value.toString();
+        }
+
+        public int getInt() {
+            try {
+                return (int) value;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
         }
     }
 }

@@ -1,8 +1,10 @@
-package ru.ardeon.additionalmechanics.configs;
+package ru.ardeon.additionalmechanics.configs.settings;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import ru.ardeon.additionalmechanics.configs.Configuration;
+import ru.ardeon.additionalmechanics.configs.SettingsLoader;
 
-public class SettingsLoaderPortals implements SettingsLoader{
+public class SettingsLoaderPortals implements SettingsLoader {
     public static final String fileName = "portals.yml";
     private Configuration configuration;
 

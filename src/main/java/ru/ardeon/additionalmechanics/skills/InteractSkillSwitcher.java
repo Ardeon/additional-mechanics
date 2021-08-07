@@ -2,19 +2,11 @@ package ru.ardeon.additionalmechanics.skills;
 
 import java.util.HashMap;
 
-import ru.ardeon.additionalmechanics.skills.interact.AdventurerInteractSkills;
+import ru.ardeon.additionalmechanics.skills.interact.*;
 import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
-import ru.ardeon.additionalmechanics.skills.interact.Combat;
-import ru.ardeon.additionalmechanics.skills.interact.Heals;
-import ru.ardeon.additionalmechanics.skills.interact.ItemToPermission;
-import ru.ardeon.additionalmechanics.skills.interact.Pushes;
-import ru.ardeon.additionalmechanics.skills.interact.ScanSkills;
-import ru.ardeon.additionalmechanics.skills.interact.Teleports;
-import ru.ardeon.additionalmechanics.skills.interact.Totems;
 
 public class InteractSkillSwitcher
 {
@@ -70,6 +62,9 @@ public class InteractSkillSwitcher
 		
 		//adventurer
 		addSkill("horse", AdventurerInteractSkills.horse);
+
+		//new
+		addSkill("arenaSnowball", NewArena.snowball);
 	}
 	
 	public void SkillChoose(PlayerInteractEvent e)

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
-import ru.ardeon.additionalmechanics.configs.SettingsLoaderVars;
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderVars;
 
 
 public class SQLite extends Database{

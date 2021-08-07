@@ -42,5 +42,6 @@ public class CommandManager {
 		t.getServer().getPluginCommand("portalmenu").setExecutor(new PortalMenuCmd());
 
         t.getServer().getPluginCommand("discordconfirm").setExecutor(new DiscordConfirmCmd());
+
 	}
 }
