@@ -2,6 +2,9 @@ package ru.ardeon.additionalmechanics.skills.interact;
 
 import java.util.List;
 
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderUseableItems;
+import ru.ardeon.additionalmechanics.mechanics.worldeffects.effects.ArcLight;
+import ru.ardeon.additionalmechanics.mechanics.worldeffects.effects.SnowWall;
 import ru.ardeon.additionalmechanics.myEntity.Bait;
 import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
@@ -30,22 +33,17 @@ public class Combat {
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.RED_DYE))) 		
-			{
-				//power 5 cd 7
-				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(4, 1);
-				int cd = (int) (power * 1.5);
-				player.setCooldown(Material.RED_DYE, 1200 - cd * 60);
+			Material material = SettingsLoaderUseableItems.SettingItems.AGRO_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material))) {
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.AGRO_COOLDOWN.getInt());
 				AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(player.getLocation(), EntityType.AREA_EFFECT_CLOUD);
 				cloud.setDuration(1);
-				cloud.setRadius(2+power);
+				cloud.setRadius(3);
 				cloud.setColor(Color.RED);
-				List<Entity> mobs = player.getNearbyEntities(10, 2 + power, 10);
+				List<Entity> mobs = player.getNearbyEntities(10, 3, 10);
 				int counter=0;
-				for (Entity m: mobs)
-				{
-					if (m instanceof Mob)
-					{
+				for (Entity m: mobs) {
+					if (m instanceof Mob) {
 						Mob mob = (Mob) m;
 						mob.setTarget(player);
 						counter++;
@@ -55,74 +53,56 @@ public class Combat {
 				counter/=4;
 				if (counter>4)
 					counter = 4;
-				PotionEffect ef = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300 + power * 50, counter);
+				PotionEffect ef = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 400, counter);
 				ef.apply(player);
 				world.playSound(player.getLocation(), Sound.ENTITY_SLIME_JUMP, 2, 0.7f);
 				world.playSound(player.getLocation(), Sound.BLOCK_NETHER_WART_BREAK, 2, 1);
+				ItemStack item = e.getItem();
+				item.setAmount(item.getAmount()-1);
 			}
 		}
 	};
-	public static InteractSkill damagingSnowball = new InteractSkill() {
-		@Override
-		public void execute(PlayerInteractEvent e) {
-			Player player = e.getPlayer();
-			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.STICK))) 
-			{
-				//cd 7
-				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(5, 1);
-				Class<Snowball> ball = Snowball.class;
-				Snowball r = e.getPlayer().launchProjectile(ball);
-				r.setShooter(e.getPlayer());
-				r.addScoreboardTag("snowball");
-				player.setCooldown(Material.STICK, 40 - cd * 3);
-				world.playSound(player.getLocation(), Sound.ENTITY_SNOWBALL_THROW, 2, 2);
-				world.playSound(player.getLocation(), Sound.ENTITY_RABBIT_AMBIENT, 2, 0.5f);
-			}
-		}
-		
-	};
+
 	public static InteractSkill explosion = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.FIREWORK_STAR))) 
-			{
-				//power 3 cd 7
-				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(4, 2);
-				int cd = power * 2;
-				player.setCooldown(Material.FIREWORK_STAR, 800 - cd * 40);
+			Material material = SettingsLoaderUseableItems.SettingItems.EXPLOSION_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material))) {
+				int power = SettingsLoaderUseableItems.SettingItems.EXPLOSION_POWER.getInt();
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.EXPLOSION_COOLDOWN.getInt());
 				world.createExplosion(player.getLocation(), 2 + power, false, false, player);
+				ItemStack item = e.getItem();
+				item.setAmount(item.getAmount()-1);
 			}
 		}
-		
+
 	};
 	public static InteractSkill fireballWithEffect = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.QUARTZ))) 
+			Material material = SettingsLoaderUseableItems.SettingItems.FIREBALL_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
 			{
-				//cd 7
-				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(6, 1);
 				Class<SmallFireball> ball = SmallFireball.class;
 				SmallFireball r = e.getPlayer().launchProjectile(ball);
 				r.setShooter(e.getPlayer());
 				r.addScoreboardTag("fireball");
-				player.setCooldown(Material.QUARTZ, 40 - cd * 3);
+				player.setCooldown(material, 40);
 				world.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 2, 2);
 			}
 		}
-		
+
 	};
 	public static InteractSkill rage = new InteractSkill() {
 		@Override
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.BLACK_DYE))) 
+			if (!(player.hasCooldown(Material.BLACK_DYE)))
 			{
 				//7
 				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(2, 2);
@@ -142,6 +122,8 @@ public class Combat {
 				world.playSound(player.getLocation(), Sound.ENTITY_PILLAGER_HURT, 2, 1.2f);
 				world.playSound(player.getLocation(), Sound.ENTITY_PLAYER_HURT_ON_FIRE, 2, 1.2f);
 				world.playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 2, 1.2f);
+				ItemStack item = e.getItem();
+				item.setAmount(item.getAmount()-1);
 			}
 		}
 	};
@@ -150,11 +132,10 @@ public class Combat {
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.PLAYER_HEAD))) 
-			{
-				//cd 7
-				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(3, 2);
-				player.setCooldown(Material.PLAYER_HEAD, 1600 - cd * 120);
+			Material material;
+			material = SettingsLoaderUseableItems.SettingItems.SCARECROW_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material))) {
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.SCARECROW_COOLDOWN.getInt());
 				world.playSound(player.getLocation(), Sound.ENTITY_EVOKER_AMBIENT, 2, 1);
 				world.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 2, 1.2f);
 				world.playSound(player.getLocation(), Sound.BLOCK_STONE_PLACE, 2, 1.2f);
@@ -166,10 +147,12 @@ public class Combat {
 				Bait b = new Bait(player,(ArmorStand) a);
 				b.agrostart();
 				e.setCancelled(true);
+				ItemStack item = e.getItem();
+				item.setAmount(item.getAmount()-1);
 			}
 		}
-		
-		public void equipstand(ArmorStand la) 
+
+		private void equipstand(ArmorStand la)
 		{
 			EntityEquipment eq = la.getEquipment();
 			ItemStack boots = new ItemStack(Material.LEATHER_BOOTS, 1);
@@ -188,10 +171,11 @@ public class Combat {
 			Player player = e.getPlayer();
 			ItemStack item = e.getItem();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.BROWN_DYE))) 		
+			Material material;
+			material = SettingsLoaderUseableItems.SettingItems.SOUL_AGRO_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
 			{
-				//for delete
-				player.setCooldown(Material.BROWN_DYE, 400);
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.SOUL_AGRO_COOLDOWN.getInt());
 				AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(player.getLocation(), EntityType.AREA_EFFECT_CLOUD);
 				cloud.setDuration(1);
 				cloud.setRadius(5);
@@ -211,6 +195,62 @@ public class Combat {
 				}
 				world.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 2, 0.7f);
 				item.setAmount(item.getAmount()-1);
+			}
+		}
+	};
+	public static InteractSkill snowball = new InteractSkill() {
+		@Override
+		public void execute(PlayerInteractEvent e) {
+			Player player = e.getPlayer();
+			World world = player.getWorld();
+			Material material;
+			material = SettingsLoaderUseableItems.SettingItems.SNOWBALL_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
+			{
+				int cooldown = SettingsLoaderUseableItems.SettingItems.SNOWBALL_COOLDOWN.getInt();
+				Class<Snowball> ball = Snowball.class;
+				Snowball projectile = e.getPlayer().launchProjectile(ball);
+				projectile.setShooter(e.getPlayer());
+				projectile.addScoreboardTag("snowball");
+				player.setCooldown(material, cooldown);
+				world.playSound(player.getLocation(), Sound.ENTITY_SNOWBALL_THROW, 2, 2);
+				world.playSound(player.getLocation(), Sound.ENTITY_RABBIT_AMBIENT, 2, 0.5f);
+			}
+		}
+	};
+
+	public static InteractSkill snowWall = new InteractSkill() {
+		@Override
+		public void execute(PlayerInteractEvent e) {
+			Player player = e.getPlayer();
+			World world = player.getWorld();
+			Material material;
+			material = SettingsLoaderUseableItems.SettingItems.SNOW_WALL_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
+			{
+				new SnowWall(player);
+				int cooldown = SettingsLoaderUseableItems.SettingItems.SNOW_WALL_COOLDOWN.getInt();
+				player.setCooldown(material, cooldown);
+				world.playSound(player.getLocation(), Sound.ENTITY_SNOWBALL_THROW, 2, 2);
+				world.playSound(player.getLocation(), Sound.ENTITY_RABBIT_AMBIENT, 2, 0.5f);
+			}
+		}
+	};
+
+	public static InteractSkill arcLight = new InteractSkill() {
+		@Override
+		public void execute(PlayerInteractEvent e) {
+			Player player = e.getPlayer();
+			World world = player.getWorld();
+			Material material;
+			material = SettingsLoaderUseableItems.SettingItems.ARC_LIGHT_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
+			{
+				int cooldown = SettingsLoaderUseableItems.SettingItems.ARC_LIGHT_COOLDOWN.getInt();
+				new ArcLight(player);
+				player.setCooldown(material, cooldown);
+				world.playSound(player.getLocation(), Sound.ENTITY_SNOWBALL_THROW, 2, 2);
+				world.playSound(player.getLocation(), Sound.ENTITY_RABBIT_AMBIENT, 2, 0.5f);
 			}
 		}
 	};

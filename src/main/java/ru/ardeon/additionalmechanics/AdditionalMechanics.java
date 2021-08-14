@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.xml.XmlConfiguration;
 import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderMain;
+import ru.ardeon.additionalmechanics.integrations.mobarena.MobArenaIntegration;
+import ru.ardeon.additionalmechanics.integrations.mythicmobs.MythicMobIntegration;
 import ru.ardeon.additionalmechanics.util.discord.DiscordBot;
 import ru.ardeon.additionalmechanics.util.sidebar.PlayerSidebars;
 import org.apache.logging.log4j.Logger;
@@ -58,6 +60,8 @@ public class AdditionalMechanics extends JavaPlugin{
     private MoonManager moonManager;
 	private PlayerSidebars sideBars;
 	private DiscordBot discordBot;
+	private MythicMobIntegration mythicMobIntegration;
+	private MobArenaIntegration mobArenaIntegration;
     private final List<WeakReference<Reloadable>> reloadables = new ArrayList<>();
 	private static Logger loggerADM = LogManager.getLogger("Adm");
 
@@ -148,11 +152,20 @@ public class AdditionalMechanics extends JavaPlugin{
 		
 		rm = new RandomManager(this);
 		varManager = new VarManager(this);
-		
+		if (!getServer().getPluginManager().isPluginEnabled("MythicMobs"))
+			mythicMobIntegration = new MythicMobIntegration();
+		else
+			loggerADM.warn("плагин MythicMobs не найден");
+
+		try {
+			mobArenaIntegration = new MobArenaIntegration();
+		} catch (NullPointerException e) {
+			loggerADM.warn("Моб арена не найдена");
+		}
 		CommandManager.CommandRegister();
 		try {
             discordBot = new DiscordBot();
-		} catch (SQLException | IOException throwables) {
+		} catch (Exception throwables) {
 			throwables.printStackTrace();
 		}
 

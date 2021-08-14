@@ -17,14 +17,15 @@ public class DiscordBot {
     public static BotListener getListener() { return listener; }
 
     public DiscordBot() throws SQLException, IOException {
-        listener = new BotListener(AdditionalMechanics.getPlugin());
         startBot();
     }
 
-    private void startBot() {
+    private void startBot() throws SQLException, IOException {
         AdditionalMechanics plugin = AdditionalMechanics.getPlugin();
         if (plugin.getConfig().getString("botInfo.token")==null)
             return;
+        if (listener==null)
+            listener = new BotListener(AdditionalMechanics.getPlugin());
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
                 plugin.getLogger().info("Initializing bot");

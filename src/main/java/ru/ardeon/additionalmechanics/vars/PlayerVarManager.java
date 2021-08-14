@@ -75,6 +75,8 @@ public class PlayerVarManager {
 	public void refreshTop(){
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 		Objective obj = scoreboard.getObjective("bac_advancements");
+		if (obj==null)
+			return;
 		Set<String> ent = scoreboard.getEntries();
 		ArrayList<PlayerAchievement> playerAchievementTop = new ArrayList<>();
 		for(String s : ent) {

@@ -1,5 +1,6 @@
 package ru.ardeon.additionalmechanics.mainCommands;
 
+import org.bukkit.command.PluginCommand;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.mechanics.builds.RegisterBuildCommand;
 import ru.ardeon.additionalmechanics.mechanics.builds.TestBuildCommand;
@@ -15,7 +16,8 @@ import ru.ardeon.additionalmechanics.randomchest.Fakeinv;
 public class CommandManager {
 	public static void CommandRegister() {
 		AdditionalMechanics t = AdditionalMechanics.getPlugin();
-        t.getServer().getPluginCommand("adm").setExecutor(new ADMCommand());
+        PluginCommand mainCommand = t.getServer().getPluginCommand("adm");
+        mainCommand.setExecutor(new ADMCommand(mainCommand));
         t.getServer().getPluginCommand("altar").setExecutor(new AltarCommand());
         t.getServer().getPluginCommand("stoptimer").setExecutor(new StopTimerCommand());
         t.getServer().getPluginCommand("gr").setExecutor(new GradientCommand());

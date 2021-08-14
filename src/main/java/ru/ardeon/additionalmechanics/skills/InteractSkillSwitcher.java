@@ -32,13 +32,15 @@ public class InteractSkillSwitcher
 	
 	public void addDefaultSkills() {
 		//Combat
-		addSkill("agro", Combat.agro);
-		addSkill("damagingSnowball", Combat.damagingSnowball);
-		addSkill("explosion", Combat.explosion);
-		addSkill("fireballWithEffect", Combat.fireballWithEffect);
-		addSkill("rage", Combat.rage);
-		addSkill("scarecrow", Combat.scarecrow);
+		addSkill("agro", Combat.agro);//
+		addSkill("explosion", Combat.explosion);//
+		addSkill("fireballWithEffect", Combat.fireballWithEffect);//
+		addSkill("rage", Combat.rage);//
+		addSkill("scarecrow", Combat.scarecrow);//
 		addSkill("soulAgro", Combat.soulAgro);
+		addSkill("arenaSnowball", Combat.snowball);//new
+		addSkill("arcLight", Combat.arcLight);//
+		addSkill("snowWall", Combat.snowWall);//
 		//Heals
 		addSkill("holy", Heals.holy);
 		addSkill("honey", Heals.honey);
@@ -63,8 +65,8 @@ public class InteractSkillSwitcher
 		//adventurer
 		addSkill("horse", AdventurerInteractSkills.horse);
 
-		//new
-		addSkill("arenaSnowball", NewArena.snowball);
+
+
 	}
 	
 	public void SkillChoose(PlayerInteractEvent e)

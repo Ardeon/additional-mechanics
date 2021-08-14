@@ -1,5 +1,6 @@
 package ru.ardeon.additionalmechanics.skills.projectilehit;
 
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderUseableItems;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 import org.bukkit.Color;
 import org.bukkit.Particle;
@@ -61,21 +62,27 @@ public class ProjectileHitSkills {
 			Projectile projectile = e.getEntity();
 			ProjectileSource shooter = projectile.getShooter();
 			World w = projectile.getWorld();
-			PotionEffect ef = new PotionEffect(PotionEffectType.SLOW, 120, 2);
+			Entity target = e.getHitEntity();
+			if (target instanceof LivingEntity) {
+				((LivingEntity)target).damage(SettingsLoaderUseableItems
+						.SettingItems.SNOWBALL_DAMAGE.getInt(), (Entity) shooter);
+			}
+			e.setCancelled(true);
+			//PotionEffect ef = new PotionEffect(PotionEffectType.SLOW, 120, 2);
 			w.playSound(projectile.getLocation(), Sound.ENTITY_SNOW_GOLEM_HURT, 1, 2);
 			w.spawnParticle(Particle.SNOW_SHOVEL, projectile.getLocation(), 7);
-			AreaEffectCloud cloud = (AreaEffectCloud) e.getEntity().getWorld().spawnEntity(projectile.getLocation(), EntityType.AREA_EFFECT_CLOUD);
-			cloud.setDuration(1);
-			cloud.setRadius(3);
-			cloud.setColor(Color.WHITE);
-			for (Entity t: projectile.getNearbyEntities(3, 3, 3)) {
-				if (t instanceof LivingEntity && !(t instanceof Player)) {
-					LivingEntity nt = (LivingEntity) t;
-					ef.apply(nt);
-					nt.damage(4, (Entity) shooter);
-					w.spawnParticle(Particle.SNOW_SHOVEL, nt.getEyeLocation(), 7);
-				}
-			}
+			//AreaEffectCloud cloud = (AreaEffectCloud) e.getEntity().getWorld().spawnEntity(projectile.getLocation(), EntityType.AREA_EFFECT_CLOUD);
+			//cloud.setDuration(1);
+			//cloud.setRadius(3);
+			//cloud.setColor(Color.WHITE);
+			//for (Entity t: projectile.getNearbyEntities(3, 3, 3)) {
+			//	if (t instanceof LivingEntity && !(t instanceof Player)) {
+			//		LivingEntity nt = (LivingEntity) t;
+			//		ef.apply(nt);
+			//		nt.damage(4, (Entity) shooter);
+			//		w.spawnParticle(Particle.SNOW_SHOVEL, nt.getEyeLocation(), 7);
+			//	}
+			//}
 			
 		}
 	};

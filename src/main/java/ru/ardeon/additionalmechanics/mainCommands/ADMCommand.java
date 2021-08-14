@@ -2,19 +2,27 @@ package ru.ardeon.additionalmechanics.mainCommands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderUseableItems;
 import ru.ardeon.additionalmechanics.util.ItemUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class ADMCommand implements CommandExecutor {
+public class ADMCommand implements CommandExecutor, TabCompleter {
+	private final List<String> ARG1 = Arrays.asList("reload","item");
+
+	public ADMCommand(PluginCommand command) {
+		command.setTabCompleter(this);
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) 
@@ -53,4 +61,16 @@ public class ADMCommand implements CommandExecutor {
 		return false;
 	}
 
+	@Nullable
+	@Override
+	public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+		if (args.length==1){
+			return ARG1;
+		}
+		if (args.length==2 && args[0].equalsIgnoreCase("item")){
+			return new ArrayList<>(SettingsLoaderUseableItems.SettingItems.getItems());
+		}
+		//commandSender.sendMessage(args.length+"");
+		return null;
+	}
 }

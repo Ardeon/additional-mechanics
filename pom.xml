@@ -10,13 +10,17 @@
 
     <repositories>
         <repository>
+            <id>nexus</id>
+            <name>Lumine Releases</name>
+            <url>https://mvn.lumine.io/repository/maven-public/</url>
+        </repository>
+        <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>nexus</id>
-            <name>Lumine Releases</name>
-            <url>https://mvn.lumine.io/repository/maven-public/</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -32,6 +36,11 @@
             <artifactId>MythicMobs</artifactId>
             <version>4.9.1</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.garbagemule</groupId>
+            <artifactId>MobArena</artifactId>
+            <version>0.106</version>
         </dependency>
         <dependency>
             <groupId>net.luckperms</groupId>

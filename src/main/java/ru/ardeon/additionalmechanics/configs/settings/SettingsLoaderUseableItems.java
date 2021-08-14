@@ -52,10 +52,51 @@ public class SettingsLoaderUseableItems implements SettingsLoader {
         SNOWBALL_COOLDOWN("items.snowball.cooldown", 20),
         SNOWBALL_SKILL_NAME("items.snowball.skillName", "arenaSnowball"),
         SNOWBALL_MODEL_DATA("items.snowball.modelData", 500),
-        SNOWBALL_DAMAGE5("items.snowball.damage", 2),
-        SNOWBALL_DAMAGE8("items.snowball.damage", 2),
-        SNOWBALL_DAMAGE9("items.snowball.damage", 2),
-        SNOWBALL_DAMAGE54("items.snowball.damage", 2)
+
+        SNOW_WALL_MATERIAL("items.snowWall.material", "stick"),
+        SNOW_WALL_COOLDOWN("items.snowWall.cooldown", 800),
+        SNOW_WALL_SKILL_NAME("items.snowWall.skillName", "snowWall"),
+        SNOW_WALL_MODEL_DATA("items.snowWall.modelData", 501),
+
+        AGRO_MATERIAL("items.agro.material", "RED_DYE"),
+        AGRO_COOLDOWN("items.agro.cooldown", 600),
+        AGRO_SKILL_NAME("items.agro.skillName", "agro"),
+        AGRO_MODEL_DATA("items.agro.modelData", 502),
+
+        EXPLOSION_MATERIAL("items.explosion.material", "FIREWORK_STAR"),
+        EXPLOSION_COOLDOWN("items.explosion.cooldown", 700),
+        EXPLOSION_SKILL_NAME("items.explosion.skillName", "explosion"),
+        EXPLOSION_MODEL_DATA("items.explosion.modelData", 503),
+        EXPLOSION_POWER("items.explosion.power", 2),
+
+        ARC_LIGHT_MATERIAL("items.arcLight.material", "stick"),
+        ARC_LIGHT_COOLDOWN("items.arcLight.cooldown", 30),
+        ARC_LIGHT_SKILL_NAME("items.arcLight.skillName", "arcLight"),
+        ARC_LIGHT_MODEL_DATA("items.arcLight.modelData", 504),
+        ARC_LIGHT_DAMAGE("items.arcLight.damage", 5.0d),
+        ARC_LIGHT_BOUNCE("items.arcLight.bounce", 5),
+        ARC_LIGHT_LENGTH("items.arcLight.length", 6.0d),
+        ARC_LIGHT_RADIUS("items.arcLight.radius", 4.0d),
+
+        FIREBALL_MATERIAL("items.fireball.material", "QUARTZ"),
+        FIREBALL_COOLDOWN("items.fireball.cooldown", 40),
+        FIREBALL_SKILL_NAME("items.fireball.skillName", "fireballWithEffect"),
+        FIREBALL_MODEL_DATA("items.fireball.modelData", 505),
+
+        RAGE_MATERIAL("items.rage.material", "BLACK_DYE"),
+        RAGE_COOLDOWN("items.rage.cooldown", 400),
+        RAGE_SKILL_NAME("items.rage.skillName", "rage"),
+        RAGE_MODEL_DATA("items.rage.modelData", 506),
+
+        SOUL_AGRO_MATERIAL("items.soulAgro.material", "BROWN_DYE"),
+        SOUL_AGRO_COOLDOWN("items.soulAgro.cooldown", 400),
+        SOUL_AGRO_SKILL_NAME("items.soulAgro.skillName", "soulAgro"),
+        SOUL_AGRO_MODEL_DATA("items.soulAgro.modelData", 507),
+
+        SCARECROW_MATERIAL("items.scarecrow.material", "PLAYER_HEAD"),
+        SCARECROW_COOLDOWN("items.scarecrow.cooldown", 400),
+        SCARECROW_SKILL_NAME("items.scarecrow.skillName", "scarecrow"),
+        SCARECROW_MODEL_DATA("items.scarecrow.modelData", 508)
         ;
 
         private final String path;
@@ -66,9 +107,28 @@ public class SettingsLoaderUseableItems implements SettingsLoader {
             SettingItems.items.clear();
             SettingItems.items.put("snowball", new SettingItems
                     .UseableItem(SettingItems.SNOWBALL_MATERIAL, SettingItems.SNOWBALL_SKILL_NAME, SettingItems.SNOWBALL_MODEL_DATA));
+            SettingItems.items.put("snowWall", new SettingItems
+                    .UseableItem(SettingItems.SNOW_WALL_MATERIAL, SettingItems.SNOW_WALL_SKILL_NAME, SettingItems.SNOW_WALL_MODEL_DATA));
+            SettingItems.items.put("arcLight", new SettingItems
+                    .UseableItem(SettingItems.ARC_LIGHT_MATERIAL, SettingItems.ARC_LIGHT_SKILL_NAME, SettingItems.ARC_LIGHT_MODEL_DATA));
+            SettingItems.items.put("agro", new SettingItems
+                    .UseableItem(SettingItems.AGRO_MATERIAL, SettingItems.AGRO_SKILL_NAME, SettingItems.AGRO_MODEL_DATA));
+            SettingItems.items.put("explosion", new SettingItems
+                    .UseableItem(SettingItems.EXPLOSION_MATERIAL, SettingItems.EXPLOSION_SKILL_NAME, SettingItems.EXPLOSION_MODEL_DATA));
+            SettingItems.items.put("fireballWithEffect", new SettingItems
+                    .UseableItem(SettingItems.FIREBALL_MATERIAL, SettingItems.FIREBALL_SKILL_NAME, SettingItems.FIREBALL_MODEL_DATA));
+            SettingItems.items.put("rage", new SettingItems
+                    .UseableItem(SettingItems.RAGE_MATERIAL, SettingItems.RAGE_SKILL_NAME, SettingItems.RAGE_MODEL_DATA));
+            SettingItems.items.put("scarecrow", new SettingItems
+                    .UseableItem(SettingItems.SCARECROW_MATERIAL, SettingItems.SCARECROW_SKILL_NAME, SettingItems.SCARECROW_MODEL_DATA));
+            SettingItems.items.put("soulAgro", new SettingItems
+                    .UseableItem(SettingItems.SOUL_AGRO_MATERIAL, SettingItems.SOUL_AGRO_SKILL_NAME, SettingItems.SOUL_AGRO_MODEL_DATA));
         }
 
         public static Set<String> getItems() {
+            if (items.isEmpty()){
+                updateItems();
+            }
             return items.keySet();
         }
 
@@ -123,6 +183,15 @@ public class SettingsLoaderUseableItems implements SettingsLoader {
         public int getInt() {
             try {
                 return (int) value;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }
+
+        public double getDouble() {
+            try {
+                return (double) value;
             } catch (Exception e) {
                 e.printStackTrace();
             }
