@@ -2,6 +2,7 @@ package ru.ardeon.additionalmechanics.skills.interact;
 
 import java.util.List;
 
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderUseableItems;
 import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 import org.bukkit.Color;
@@ -27,10 +28,9 @@ public class Heals {
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.BOOK)))
+			Material material = SettingsLoaderUseableItems.SettingItems.HOLY_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
 			{
-				//cd 7
-				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(5, 2);
 				List<Entity> h;
 				World w = player.getWorld();
 				h = player.getNearbyEntities(4, 4, 4);
@@ -39,9 +39,9 @@ public class Heals {
 				{
 					if (ent instanceof Player)
 					{
-						Player targetplayer = (Player) ent;
-						ef.apply(targetplayer);
-						w.spawnParticle(Particle.HEART, targetplayer.getEyeLocation(), 12);
+						Player targetPlayer = (Player) ent;
+						ef.apply(targetPlayer);
+						w.spawnParticle(Particle.HEART, targetPlayer.getEyeLocation(), 12);
 					}
 					if (ent instanceof Zombie||ent instanceof Skeleton)
 					{
@@ -52,7 +52,7 @@ public class Heals {
 				}
 				ef = new PotionEffect(PotionEffectType.REGENERATION, 10, 4);
 				ef.apply(player);
-				player.setCooldown(Material.BOOK, 80 - cd * 7);
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.HOLY_COOLDOWN.getInt());
 				AreaEffectCloud cloud = (AreaEffectCloud) world.spawnEntity(player.getLocation(), EntityType.AREA_EFFECT_CLOUD);
 				cloud.setDuration(1);
 				cloud.setRadius(5);
@@ -67,11 +67,10 @@ public class Heals {
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.HONEYCOMB))) 
+			Material material = SettingsLoaderUseableItems.SettingItems.HONEY_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
 			{
-				//cd 7
-				int cd = 0;
-				player.setCooldown(Material.HONEYCOMB, 2000 - cd * 100);
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.HONEY_COOLDOWN.getInt());
 				world.playSound(player.getLocation(), Sound.ENTITY_PLAYER_HURT_SWEET_BERRY_BUSH, 1, 1.2f);
 				world.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1.2f);
 				world.playSound(player.getLocation(), Sound.ENTITY_GENERIC_DRINK, 1, 1.2f);
@@ -87,9 +86,10 @@ public class Heals {
 			Player player = e.getPlayer();
 			ItemStack item = e.getItem();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.SCUTE))) 
+			Material material = SettingsLoaderUseableItems.SettingItems.FIRST_AID_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
 			{
-				player.setCooldown(Material.SCUTE, 50);
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.FIRST_AID_COOLDOWN.getInt());
 				world.playSound(player.getLocation(), Sound.BLOCK_HONEY_BLOCK_BREAK, 1, 1.2f);
 				world.playSound(player.getLocation(), Sound.BLOCK_HONEY_BLOCK_BREAK, 1, 1.2f);
 				world.playSound(player.getLocation(), Sound.BLOCK_HONEY_BLOCK_BREAK, 1, 1.2f);

@@ -1,8 +1,13 @@
 package ru.ardeon.additionalmechanics.skills.interact;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 
+import com.garbagemule.MobArena.framework.Arena;
+import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderUseableItems;
+import ru.ardeon.additionalmechanics.integrations.mobarena.MobArenaIntegration;
 import ru.ardeon.additionalmechanics.mechanics.worldeffects.effects.ArcLight;
 import ru.ardeon.additionalmechanics.mechanics.worldeffects.effects.SnowWall;
 import ru.ardeon.additionalmechanics.myEntity.Bait;
@@ -33,6 +38,7 @@ public class Combat {
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
+
 			Material material = SettingsLoaderUseableItems.SettingItems.AGRO_MATERIAL.getMaterial();
 			if (!(player.hasCooldown(material))) {
 				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.AGRO_COOLDOWN.getInt());
@@ -40,15 +46,21 @@ public class Combat {
 				cloud.setDuration(1);
 				cloud.setRadius(3);
 				cloud.setColor(Color.RED);
-				List<Entity> mobs = player.getNearbyEntities(10, 3, 10);
+				Predicate<Entity> entityPredicate = (entity) -> entity instanceof Mob;
+				MobArenaIntegration mobArenaIntegration = AdditionalMechanics.getPlugin().getMobArenaIntegration();
+				if (mobArenaIntegration!=null){
+					Arena arena = mobArenaIntegration.getArenaAtLocation(player.getLocation());
+					if (arena!=null) {
+						entityPredicate = (entity) -> (entity instanceof Mob && !mobArenaIntegration.isPet(arena, entity));
+					}
+				}
+				Collection<Entity> mobs = world.getNearbyEntities(player.getLocation(), 10, 3, 10, entityPredicate);
 				int counter=0;
 				for (Entity m: mobs) {
-					if (m instanceof Mob) {
-						Mob mob = (Mob) m;
-						mob.setTarget(player);
-						counter++;
-						world.spawnParticle(Particle.VILLAGER_ANGRY, mob.getEyeLocation(), 2);
-					}
+					Mob mob = (Mob) m;
+					mob.setTarget(player);
+					counter++;
+					world.spawnParticle(Particle.VILLAGER_ANGRY, mob.getEyeLocation(), 2);
 				}
 				counter/=4;
 				if (counter>4)
@@ -87,10 +99,14 @@ public class Combat {
 			Material material = SettingsLoaderUseableItems.SettingItems.FIREBALL_MATERIAL.getMaterial();
 			if (!(player.hasCooldown(material)))
 			{
-				Class<SmallFireball> ball = SmallFireball.class;
-				SmallFireball r = e.getPlayer().launchProjectile(ball);
-				r.setShooter(e.getPlayer());
-				r.addScoreboardTag("fireball");
+				Class<Snowball> ball = Snowball.class;
+				Snowball projectile = e.getPlayer().launchProjectile(ball);
+				projectile.setGravity(false);
+				ItemStack item = new ItemStack(Material.FIRE_CHARGE);
+				projectile.setItem(item);
+				projectile.setVisualFire(true);
+				projectile.setShooter(e.getPlayer());
+				projectile.addScoreboardTag("fireball");
 				player.setCooldown(material, 40);
 				world.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 2, 2);
 			}
@@ -180,18 +196,23 @@ public class Combat {
 				cloud.setDuration(1);
 				cloud.setRadius(5);
 				cloud.setColor(Color.OLIVE);
-				List<Entity> mobs = player.getNearbyEntities(10, 4, 10);
+				Predicate<Entity> entityPredicate = (entity) -> entity instanceof Mob;
+				MobArenaIntegration mobArenaIntegration = AdditionalMechanics.getPlugin().getMobArenaIntegration();
+				if (mobArenaIntegration!=null){
+					Arena arena = mobArenaIntegration.getArenaAtLocation(player.getLocation());
+					if (arena!=null) {
+						entityPredicate = (entity) -> (entity instanceof Mob && !mobArenaIntegration.isPet(arena, entity));
+					}
+				}
+				Collection<Entity> mobs = world.getNearbyEntities(player.getLocation(),10, 4, 10, entityPredicate);
 				PotionEffect wea = new PotionEffect(PotionEffectType.WEAKNESS, 800, 0);
 				for (Entity m: mobs)
 				{
-					if (m instanceof Mob)
-					{
-						Mob mob = (Mob) m;
-						mob.setTarget(player);
+					Mob mob = (Mob) m;
+					mob.setTarget(player);
 
-						world.spawnParticle(Particle.VILLAGER_ANGRY, mob.getEyeLocation(), 2);
-						wea.apply(mob);
-					}
+					world.spawnParticle(Particle.VILLAGER_ANGRY, mob.getEyeLocation(), 2);
+					wea.apply(mob);
 				}
 				world.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 2, 0.7f);
 				item.setAmount(item.getAmount()-1);

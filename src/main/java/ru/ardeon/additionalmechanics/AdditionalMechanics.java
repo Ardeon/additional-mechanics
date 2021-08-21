@@ -106,6 +106,13 @@ public class AdditionalMechanics extends JavaPlugin{
 	 */
 	public PlayerSidebars getSideBars() { return sideBars; }
 
+	public MobArenaIntegration getMobArenaIntegration() {
+		return mobArenaIntegration;
+	}
+
+	public MythicMobIntegration getMythicMobIntegration() {
+		return mythicMobIntegration;
+	}
 	/**
 	 * Перезапуск некоторых элементов
 	 */
@@ -152,13 +159,11 @@ public class AdditionalMechanics extends JavaPlugin{
 		
 		rm = new RandomManager(this);
 		varManager = new VarManager(this);
-		if (!getServer().getPluginManager().isPluginEnabled("MythicMobs"))
-			mythicMobIntegration = new MythicMobIntegration();
-		else
-			loggerADM.warn("плагин MythicMobs не найден");
+		mythicMobIntegration = MythicMobIntegration.getInstance();
+
 
 		try {
-			mobArenaIntegration = new MobArenaIntegration();
+			mobArenaIntegration = MobArenaIntegration.getInstance();
 		} catch (NullPointerException e) {
 			loggerADM.warn("Моб арена не найдена");
 		}
@@ -258,7 +263,7 @@ public class AdditionalMechanics extends JavaPlugin{
         if (Bukkit.getRecipe(spawner)!=null)
         	Bukkit.addRecipe(recipe);
     }
-    
+
 
 
 }

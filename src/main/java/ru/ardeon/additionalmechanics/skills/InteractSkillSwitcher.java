@@ -41,13 +41,15 @@ public class InteractSkillSwitcher
 		addSkill("arenaSnowball", Combat.snowball);//new
 		addSkill("arcLight", Combat.arcLight);//
 		addSkill("snowWall", Combat.snowWall);//
+		//
+		addSkill("summon", SummonSkills.wolfSummon);//
 		//Heals
-		addSkill("holy", Heals.holy);
-		addSkill("honey", Heals.honey);
-		addSkill("firstAid", Heals.firstAid);
+		addSkill("holy", Heals.holy);//
+		addSkill("honey", Heals.honey);//
+		addSkill("firstAid", Heals.firstAid);//
 		//Pushes
-		addSkill("forceJump", Pushes.forceJump);
-		addSkill("hook", Pushes.hook);
+		addSkill("forceJump", Pushes.forceJump);//
+		addSkill("hook", Pushes.hook);//
 		//teleports
 		addSkill("blink", Teleports.blink);
 		//totems

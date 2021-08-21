@@ -1,5 +1,6 @@
 package ru.ardeon.additionalmechanics.mechanics.worldeffects.effects;
 
+import com.garbagemule.MobArena.framework.Arena;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -13,24 +14,39 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
+import ru.ardeon.additionalmechanics.integrations.mobarena.MobArenaIntegration;
 import ru.ardeon.additionalmechanics.mechanics.worldeffects.WorldEffectManager;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.function.Predicate;
 
 public class SnowWall implements WorldEffect{
 
+    private Arena arena;
+    private final MobArenaIntegration mobArenaIntegration;
     private final BukkitTask task;
     private final Player player;
     private final World world;
     private final BoundingBox[] box = new BoundingBox[5];
     private int lifeTime = 0;
-    PotionEffect potionEffect = new PotionEffect(PotionEffectType.SLOW, 30, 4);
+    private final PotionEffect potionEffect = new PotionEffect(PotionEffectType.SLOW, 30, 4);
+    private Predicate<Entity> entityPredicate;
 
     public SnowWall(Player player) {
         task = Bukkit.getServer().getScheduler().runTaskTimer(AdditionalMechanics.getPlugin(),this::tick,0,6);
         this.player = player;
         world = player.getWorld();
+        entityPredicate = (entity) -> (entity instanceof LivingEntity && !(entity instanceof Player));
+        mobArenaIntegration = AdditionalMechanics.getPlugin().getMobArenaIntegration();
+        if (mobArenaIntegration!=null){
+            arena = mobArenaIntegration.getArenaAtLocation(player.getLocation());
+            if (arena!=null) {
+                entityPredicate = (entity) -> (entity instanceof LivingEntity
+                        && !(entity instanceof Player)
+                        && !mobArenaIntegration.isPet(arena, entity));
+            }
+        }
         float yaw = player.getEyeLocation().getYaw();
         Location location = player.getEyeLocation().clone();
         location.setYaw(yaw);
@@ -67,8 +83,7 @@ public class SnowWall implements WorldEffect{
         }
         Collection<Entity> overlapping = new HashSet<>();
         for (BoundingBox boundingBox : box){
-            overlapping.addAll(world.getNearbyEntities(boundingBox,
-                    (entity) -> !(entity instanceof Player)&&(entity instanceof LivingEntity)));
+            overlapping.addAll(world.getNearbyEntities(boundingBox, entityPredicate));
             world.spawnParticle(Particle.SNOW_SHOVEL, boundingBox.getCenter().toLocation(world), 20, 0.3, 0.8,0.3);
         }
         if (player!=null){

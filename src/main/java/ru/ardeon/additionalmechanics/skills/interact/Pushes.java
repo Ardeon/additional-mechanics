@@ -1,5 +1,6 @@
 package ru.ardeon.additionalmechanics.skills.interact;
 
+import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderUseableItems;
 import ru.ardeon.additionalmechanics.skills.template.InteractSkill;
 import ru.ardeon.additionalmechanics.vars.PlayerVarManager;
 import org.bukkit.Material;
@@ -17,12 +18,12 @@ public class Pushes {
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.FEATHER))) 
+			Material material = SettingsLoaderUseableItems.SettingItems.FORCE_JUMP_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
 			{
-				int power = PlayerVarManager.getInstance().getData(player).arenaData.getPower(3, 1);
 				world.spawnParticle(Particle.CLOUD, player.getLocation(), 7);
-				player.setCooldown(Material.FEATHER, 40);
-				Vector j = player.getLocation().getDirection().normalize().multiply(1.5 + 0.2 * power);
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.FORCE_JUMP_COOLDOWN.getInt());
+				Vector j = player.getLocation().getDirection().normalize().multiply(1.9);
 				j.setY(0.4);
 				player.setVelocity(j);
 				world.playSound(player.getLocation(), Sound.ENTITY_PARROT_FLY, 2, 1);
@@ -35,11 +36,11 @@ public class Pushes {
 		public void execute(PlayerInteractEvent e) {
 			Player player = e.getPlayer();
 			World world = player.getWorld();
-			if (!(player.hasCooldown(Material.TRIPWIRE_HOOK))) 
+			Material material = SettingsLoaderUseableItems.SettingItems.HOOK_MATERIAL.getMaterial();
+			if (!(player.hasCooldown(material)))
 			{
-				//cd 7
-				int cd = PlayerVarManager.getInstance().getData(player).arenaData.getPower(2, 1);
-				player.setCooldown(Material.TRIPWIRE_HOOK, 100 - cd * 5);
+
+				player.setCooldown(material, SettingsLoaderUseableItems.SettingItems.HOOK_COOLDOWN.getInt());
 				world.spawnParticle(Particle.END_ROD, player.getEyeLocation(), 10);
 				Arrow ar = player.launchProjectile(Arrow.class);
 				ar.addScoreboardTag("hook");

@@ -96,7 +96,41 @@ public class SettingsLoaderUseableItems implements SettingsLoader {
         SCARECROW_MATERIAL("items.scarecrow.material", "PLAYER_HEAD"),
         SCARECROW_COOLDOWN("items.scarecrow.cooldown", 400),
         SCARECROW_SKILL_NAME("items.scarecrow.skillName", "scarecrow"),
-        SCARECROW_MODEL_DATA("items.scarecrow.modelData", 508)
+        SCARECROW_MODEL_DATA("items.scarecrow.modelData", 508),
+        //
+
+        HOLY_MATERIAL("items.holy.material", "BOOK"),
+        HOLY_COOLDOWN("items.holy.cooldown", 60),
+        HOLY_SKILL_NAME("items.holy.skillName", "holy"),
+        HOLY_MODEL_DATA("items.holy.modelData", 510),
+
+        HONEY_MATERIAL("items.honey.material", "HONEYCOMB"),
+        HONEY_COOLDOWN("items.honey.cooldown", 1000),
+        HONEY_SKILL_NAME("items.honey.skillName", "honey"),
+        HONEY_MODEL_DATA("items.honey.modelData", 511),
+
+        FIRST_AID_MATERIAL("items.holy.material", "SCUTE"),
+        FIRST_AID_COOLDOWN("items.holy.cooldown", 50),
+        FIRST_AID_SKILL_NAME("items.holy.skillName", "firstAid"),
+        FIRST_AID_MODEL_DATA("items.holy.modelData", 512),
+        //
+
+        SUMMON_WOLF_MATERIAL("items.summonWolf.material", "BONE"),
+        SUMMON_WOLF_COOLDOWN("items.summonWolf.cooldown", 40),
+        SUMMON_WOLF_SKILL_NAME("items.summonWolf.skillName", "summon"),
+        SUMMON_WOLF_MODEL_DATA("items.summonWolf.modelData", 509),
+        //
+
+        FORCE_JUMP_MATERIAL("items.forceJump.material", "FEATHER"),
+        FORCE_JUMP_COOLDOWN("items.forceJump.cooldown", 40),
+        FORCE_JUMP_SKILL_NAME("items.forceJump.skillName", "forceJump"),
+        FORCE_JUMP_MODEL_DATA("items.forceJump.modelData", 509),
+
+        HOOK_MATERIAL("items.hook.material", "TRIPWIRE_HOOK"),
+        HOOK_COOLDOWN("items.hook.cooldown", 90),
+        HOOK_SKILL_NAME("items.hook.skillName", "hook"),
+        HOOK_MODEL_DATA("items.hook.modelData", 509),
+        //
         ;
 
         private final String path;
@@ -123,6 +157,21 @@ public class SettingsLoaderUseableItems implements SettingsLoader {
                     .UseableItem(SettingItems.SCARECROW_MATERIAL, SettingItems.SCARECROW_SKILL_NAME, SettingItems.SCARECROW_MODEL_DATA));
             SettingItems.items.put("soulAgro", new SettingItems
                     .UseableItem(SettingItems.SOUL_AGRO_MATERIAL, SettingItems.SOUL_AGRO_SKILL_NAME, SettingItems.SOUL_AGRO_MODEL_DATA));
+            //
+            SettingItems.items.put("holy", new SettingItems
+                    .UseableItem(SettingItems.HOLY_MATERIAL, SettingItems.HOLY_SKILL_NAME, SettingItems.HOLY_MODEL_DATA));
+            SettingItems.items.put("honey", new SettingItems
+                    .UseableItem(SettingItems.HONEY_MATERIAL, SettingItems.HONEY_SKILL_NAME, SettingItems.HONEY_MODEL_DATA));
+            SettingItems.items.put("firstAid", new SettingItems
+                    .UseableItem(SettingItems.FIRST_AID_MATERIAL, SettingItems.FIRST_AID_SKILL_NAME, SettingItems.FIRST_AID_MODEL_DATA));
+            //
+            SettingItems.items.put("summon", new SettingItems
+                    .UseableItem(SettingItems.SUMMON_WOLF_MATERIAL, SettingItems.SUMMON_WOLF_SKILL_NAME, SettingItems.SUMMON_WOLF_MODEL_DATA));
+            //
+            SettingItems.items.put("forceJump", new SettingItems
+                    .UseableItem(SettingItems.FORCE_JUMP_MATERIAL, SettingItems.FORCE_JUMP_SKILL_NAME, SettingItems.FORCE_JUMP_MODEL_DATA));
+            SettingItems.items.put("hook", new SettingItems
+                    .UseableItem(SettingItems.HOOK_MATERIAL, SettingItems.HOOK_SKILL_NAME, SettingItems.HOOK_MODEL_DATA));
         }
 
         public static Set<String> getItems() {

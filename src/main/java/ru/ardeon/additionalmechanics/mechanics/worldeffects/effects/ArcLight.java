@@ -1,24 +1,24 @@
 package ru.ardeon.additionalmechanics.mechanics.worldeffects.effects;
 
+import com.garbagemule.MobArena.framework.Arena;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 import ru.ardeon.additionalmechanics.AdditionalMechanics;
 import ru.ardeon.additionalmechanics.configs.settings.SettingsLoaderUseableItems;
+import ru.ardeon.additionalmechanics.integrations.mobarena.MobArenaIntegration;
 import ru.ardeon.additionalmechanics.mechanics.worldeffects.WorldEffectManager;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class ArcLight implements WorldEffect{
     private final int MAX_BOUNCE = SettingsLoaderUseableItems.SettingItems.ARC_LIGHT_BOUNCE.getInt();
@@ -30,13 +30,25 @@ public class ArcLight implements WorldEffect{
     private final Set<LivingEntity> affected = new HashSet<>();
     private Player owner = null;
     private Location lastLocation = null;
+    private Arena arena;
+    private MobArenaIntegration mobArenaIntegration = null;
 
     public ArcLight(Player player){
         owner = player;
+        Predicate<Entity> entityPredicate = (entity) -> (entity instanceof LivingEntity && !(entity instanceof Player));
+        mobArenaIntegration = AdditionalMechanics.getPlugin().getMobArenaIntegration();
+        if (mobArenaIntegration!=null){
+            arena = mobArenaIntegration.getArenaAtLocation(player.getLocation());
+            if (arena!=null) {
+                entityPredicate = (entity) -> (entity instanceof LivingEntity
+                        && !(entity instanceof Player)
+                        && !mobArenaIntegration.isPet(arena, entity));
+            }
+        }
         RayTraceResult rayTraceResult = owner.getWorld().rayTraceEntities(owner.getEyeLocation(),
                 owner.getEyeLocation().getDirection(),
                 LENGTH,
-                (entity) -> (entity instanceof LivingEntity && !(entity instanceof Player)));
+                entityPredicate);
         if (rayTraceResult!=null){
             LivingEntity livingEntity = (LivingEntity) rayTraceResult.getHitEntity();
             affect(livingEntity);
@@ -101,10 +113,17 @@ public class ArcLight implements WorldEffect{
     private void tick(){
         if (bounce < MAX_BOUNCE) {
             bounce++;
+            Predicate<Entity> entityPredicate = (entity) -> !(entity instanceof Player)
+                    &&(entity instanceof LivingEntity)
+                    &&!(affected.contains(entity));
+            if (mobArenaIntegration!=null && arena!=null){
+                entityPredicate = (entity) -> !(entity instanceof Player)
+                        && (entity instanceof LivingEntity)
+                        && !(affected.contains(entity))
+                        && !mobArenaIntegration.isPet(arena, entity);
+            }
             Collection<Entity> entities = lastLocation.getWorld().getNearbyEntities(lastLocation,
-                    RADIUS, RADIUS, RADIUS, (entity) -> !(entity instanceof Player)
-                            &&(entity instanceof LivingEntity)
-                            &&!(affected.contains(entity)));
+                    RADIUS, RADIUS, RADIUS, entityPredicate);
             Optional<Entity> optional = entities.stream().findAny();
             if (optional.isPresent()){
                 LivingEntity target = (LivingEntity) optional.get();
